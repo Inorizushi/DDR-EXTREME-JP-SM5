@@ -1,0 +1,1 @@
+return Def.ActorFrame{ Def.Actor{ OnCommand=cmd(linear,0.3) } }

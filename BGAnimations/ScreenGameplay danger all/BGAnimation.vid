@@ -1,0 +1,6 @@
+// Danger "Video" ini file
+
+[Layer1]
+File=Danger.avi
+Type=0
+Command=zoomtowidth,640;zoomtoheight,480
