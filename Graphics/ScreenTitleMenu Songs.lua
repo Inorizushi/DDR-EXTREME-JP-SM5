@@ -1,5 +1,5 @@
 -- Title Menu song info
-return LoadFont("Common normal")..{
+return LoadFont("title")..{
 	BeginCommand=function(self)
 		self:settext(
 			string.format(

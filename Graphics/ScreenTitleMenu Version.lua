@@ -1,2 +1,2 @@
 -- Title Menu version info
-return LoadFont("Common normal")..{ Text=string.format("%s %s",ProductID(),ProductVersion()) }
+return LoadFont("title")..{ Text=string.format("%s %s",ProductID(),ProductVersion()) }
