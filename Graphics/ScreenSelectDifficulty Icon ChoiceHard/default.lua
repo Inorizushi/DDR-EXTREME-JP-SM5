@@ -4,7 +4,7 @@ return Def.ActorFrame{
 		OnCommand=cmd(cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
 		GainFocusCommand=cmd(diffusealpha,1);
 		LoseFocusCommand=cmd(diffusealpha,0);
-		OffCommand=cmd(linear,0.396;cropright,0.936;linear,0.264;cropbottom,1);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.268;cropbottom,1);
 	};
 	LoadActor("bar")..{
 		InitCommand=cmd(x,-228);
