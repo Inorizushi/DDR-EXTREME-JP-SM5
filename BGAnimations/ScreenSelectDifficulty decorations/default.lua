@@ -30,6 +30,7 @@ t[#t+1] = Def.ActorFrame {
 		OffCommand=cmd(sleep,0.66;linear,0.198;addx,-204;sleep,0.198;diffusealpha,0);
 	};
 	LoadActor( "p1" )..{
+<<<<<<< HEAD
 		BeginCommand=cmd(playcommand,"IsP1Present");
 		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
 		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
@@ -48,6 +49,10 @@ t[#t+1] = Def.ActorFrame {
 				self:visible(false)
 			end
 		end;
+=======
+		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
+		OffCommand=cmd(sleep,0.566;linear,0.267;zoomy,0);
+>>>>>>> origin/master
 	};
 	
 }
@@ -55,8 +60,13 @@ t[#t+1] = Def.ActorFrame {
 
 t[#t+1] = Def.ActorFrame {
 
+<<<<<<< HEAD
 	LoadActor( "null" )..{
 		OnCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+=======
+	LoadActor( "null_p1" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X-155;y,SCREEN_CENTER_Y-16;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+>>>>>>> origin/master
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 	};
 	
@@ -67,12 +77,21 @@ t[#t+1] = Def.ActorFrame {
 	
 }
 	
+<<<<<<< HEAD
 --2P--
 t[#t+1] = Def.ActorFrame {
 
 	LoadActor( "null" )..{
 		OnCommand=cmd(x,SCREEN_CENTER_X+156;y,SCREEN_CENTER_Y-14;rotationy,-180;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
+=======
+
+t[#t+1] = Def.ActorFrame {
+
+	LoadActor( "null_p2" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X+155;y,SCREEN_CENTER_Y-16;cropleft,1;sleep,0.264;sleep,0.132;cropleft,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropleft,0.936;linear,0.396;cropleft,0);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropleft,0.936;sleep,0.016;linear,0.267;cropbottom,1);
+>>>>>>> origin/master
 	};
 	
 	LoadActor( "innull" )..{
