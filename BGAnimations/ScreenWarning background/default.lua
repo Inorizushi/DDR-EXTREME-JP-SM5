@@ -1,3 +1,5 @@
 return Def.ActorFrame{
-	LoadActor("warning")..{ InitCommand=cmd(Center) }
+	LoadActor("warning")..{
+		InitCommand=cmd(Center);
+	};
 }

@@ -29,41 +29,57 @@ t[#t+1] = Def.ActorFrame {
 		OnCommand=cmd(x,SCREEN_LEFT+238;y,SCREEN_TOP+57;addx,-204;diffusealpha,0;sleep,0.264;diffusealpha,1;sleep,0.198;linear,0.198;addx,204);
 		OffCommand=cmd(sleep,0.66;linear,0.198;addx,-204;sleep,0.198;diffusealpha,0);
 	};
+	LoadActor( "p1" )..{
+		BeginCommand=cmd(playcommand,"IsP1Present");
+		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
+		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
+		IsP1PresentCommand=function(self,param)
+			if GAMESTATE:IsPlayerEnabled(0) == false then
+				self:visible(false)
+			end
+		end;
+	};
+	LoadActor( "p2" )..{
+		BeginCommand=cmd(playcommand,"IsP2Present");
+		OnCommand=cmd(x,SCREEN_CENTER_X+34;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
+		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
+		IsP2PresentCommand=function(self,param)
+			if GAMESTATE:IsPlayerEnabled(1) == false then
+				self:visible(false)
+			end
+		end;
+	};
 	
 }
 
-if GAMESTATE:IsPlayerEnabled(0) == false then
 
 t[#t+1] = Def.ActorFrame {
 
-	LoadActor( "null_p1" )..{
-		OnCommand=cmd(x,SCREEN_CENTER_X-155;y,SCREEN_CENTER_Y-16;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
-		OffCommand=cmd(linear,0.396;cropright,0.936;linear,0.264;cropbottom,1);
+	LoadActor( "null" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 	};
 	
-	LoadActor( "null2_p1" )..{
+	LoadActor( "innull" )..{
 		OnCommand=cmd(x,SCREEN_CENTER_X-275;y,SCREEN_CENTER_Y+5;horizalign,left;addx,-240;cropleft,1;sleep,0.264;sleep,0.132;sleep,0.264;linear,0.396;addx,240;cropleft,0);
-		OffCommand=cmd(horizalign,left;sleep,0.207;linear,0.396;addx,-240;cropleft,1);
-	};
-};
-
-end
-
-if GAMESTATE:IsPlayerEnabled(1) == false then
-
-t[#t+1] = Def.ActorFrame {
-
-	LoadActor( "null_p2" )..{
-		OnCommand=cmd(x,SCREEN_CENTER_X+155;y,SCREEN_CENTER_Y-16;cropleft,1;sleep,0.264;sleep,0.132;cropleft,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropleft,0.936;linear,0.396;cropleft,0);
-		OffCommand=cmd(sleep,0.207;linear,0.396;cropleft,0.936;linear,0.264;cropbottom,1);
+		OffCommand=cmd(horizalign,left;sleep,1;sleep,0.236;linear,0.341;cropleft,1;addx,-240);
 	};
 	
-	LoadActor( "null2_p2" )..{
-		OnCommand=cmd(x,SCREEN_CENTER_X+276;y,SCREEN_CENTER_Y+5;horizalign,right;addx,240;cropright,1;sleep,0.264;sleep,0.132;sleep,0.264;linear,0.396;addx,-240;cropright,0);
-		OffCommand=cmd(horizalign,right;sleep,0.207;linear,0.396;addx,240;cropright,1);
+}
+	
+--2P--
+t[#t+1] = Def.ActorFrame {
+
+	LoadActor( "null" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X+156;y,SCREEN_CENTER_Y-14;rotationy,-180;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 	};
+	
+	LoadActor( "innull" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X+276;y,SCREEN_CENTER_Y+5;horizalign,right;addx,240;cropright,1;sleep,0.264;sleep,0.132;sleep,0.264;linear,0.396;addx,-240;cropright,0);
+		OffCommand=cmd(horizalign,right;sleep,1;sleep,0.236;linear,0.341;cropright,1;addx,240);
+	};
+	
+}
 
-};
-
-end
 return t

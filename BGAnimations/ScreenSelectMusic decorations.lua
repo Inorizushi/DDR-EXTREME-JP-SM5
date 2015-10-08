@@ -110,9 +110,15 @@ t[#t+1] = LoadActor("help")..{
 }
 
 t[#t+1] = LoadActor("GrooveRadar base")..{ 
-	InitCommand=cmd(x,SCREEN_LEFT+152;y,SCREEN_CENTER_Y+90;);
+	InitCommand=cmd(x,SCREEN_CENTER_X-168;y,SCREEN_CENTER_Y+90;);
+	BeginCommand=cmd(playcommand,"CheckCourseMode");
 	OnCommand=cmd(zoom,0;rotationz,-360;sleep,0.3;decelerate,0.4;rotationz,0;zoom,1);
-	OffCommand=cmd(sleep,0.4;accelerate,0.383;zoom,0;rotationz,-360)
+	OffCommand=cmd(sleep,0.4;accelerate,0.383;zoom,0;rotationz,-360);
+	CheckCourseModeCommand=function(self,param)
+			if GAMESTATE:IsCourseMode() == true then
+				self:visible(false)
+			end
+		end;
 }
 
 t[#t+1] = LoadActor("slash")..{

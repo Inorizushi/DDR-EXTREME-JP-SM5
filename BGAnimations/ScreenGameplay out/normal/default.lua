@@ -1,5 +1,11 @@
 local travelDist = SCREEN_WIDTH*1.5;
 
+local clearMessageNormal = LoadActor("cleared")..{
+	InitCommand=cmd(zoom,1;x,SCREEN_CENTER_X+9;y,SCREEN_CENTER_Y-6);
+	OnCommand=cmd(diffusealpha,0;sleep,1.05;diffusealpha,1;sleep,0.4;sleep,1.5;linear,0.333;diffusealpha,0);
+};
+	
+
 local LeftToRight = Def.ActorFrame{
 	LoadActor("LeftToRight");
 	Def.Quad{
@@ -83,11 +89,14 @@ local t = Def.ActorFrame{
 		InitCommand=cmd(x,SCREEN_RIGHT+64;y,SCREEN_CENTER_Y+224);
 		OnCommand=cmd(linear,1.3;addx,-SCREEN_WIDTH*1.7);
 	};
-};
-
-local clearMessageNormal = LoadActor("cleared")..{
-	InitCommand=cmd(Center;diffusealpha,0;cropbottom,1;);
-	OnCommand=cmd(sleep,1;linear,0.8;diffusealpha,1;cropbottom,0;sleep,2.0;linear,0.5;diffusealpha,0);
+	LoadActor("../_black")..{
+		InitCommand=cmd(diffusealpha,0;zoomtowidth,488;zoomtoheight,122;x,SCREEN_CENTER_X+9;y,SCREEN_CENTER_Y-6;);
+		OnCommand=cmd(sleep,1.05;diffusealpha,1;linear,0.4;addy,177;sleep,0;diffusealpha,0);
+	};
+	LoadActor("../_black")..{
+		InitCommand=cmd(diffusealpha,0;zoomtowidth,488;zoomtoheight,122;x,SCREEN_CENTER_X+9;y,SCREEN_CENTER_Y-97;);
+		OnCommand=cmd(sleep,1.05;diffusealpha,1;diffusetopedge,1,1,1,0;linear,0.4;addy,177;sleep,0;diffusealpha,0);
+	};
 };
 
 if GAMESTATE:GetPlayMode() == 'PlayMode_Rave' then

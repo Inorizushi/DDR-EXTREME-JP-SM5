@@ -1,0 +1,101 @@
+---
+COLOR:#00FF4A
+ex01/GRADUATION~SOREZORE NO ASHITA~
+ex01/1998
+ex01/LA COPA DE LA VIDA
+ex01/LOVE LOVE SHINE/
+ex01/WE ARE THE CHAMPIONS (Factory Team Remix)
+ex01/WE WILL ROCK YOU
+ex01/I DO I DO I DO
+ex01/HYPER EUROBEAT
+ex01/MEMORIES
+ex01/VANITY ANGEL
+ex01/CRASH!
+ex01/SENORITA(Speedy Mix)
+ex01/SPEED OVER BEETHOVEN
+ex01/IRRESISTIBLEMENT
+ex01/BURNIN' THE FLOOR (MOMO MIX)
+ex01/CARTOON HEROES (Speedy Mix)
+ex01/TEARS
+ex01/bag
+
+---
+COLOR:#00C6FF
+ex14/LET'S GET DOWN/
+ex19/TELEPHONE OPERATOR (Club MIX)/
+ex14/BUTTERFLY/
+ex15/EL RITMO TROPICAL/
+ex16/DAM DARIRAM/
+ex17/SYNCHRONIZED LOVE (Red Monster Hyper Mix)/
+ex14/LITTLE BITCH/
+ex17/SAINT GOES MARCHING (REMIX)/
+ex15/IF YOU WERE HERE/
+RHYTHM AND POLICE (K.O.G G3 Mix)/
+ex15/GET UP'N MOVE/
+ex15/I believe in miracles/
+ex16/CAPTAIN JACK (GRANDALE REMIX)/
+
+---
+COLOR:#FFFF00
+ex12/HOLD ON ME/
+ex06/Happy Wedding/
+ex05/Miracle Moon ~L.E.D.LIGHT STYLE MIX~/
+ex08/White Lovers/
+ex05/air/
+ex09/I'm gonna get you!/
+ex10/JANEJANA/
+ex08/LOVE LOVE SUGAR/
+ex09/Mikeneko Rock/
+ex11/Pink Rose/
+ex10/STAY (Organic house Version)/
+ex09/Destiny lovers/
+ex06/AOI SHOUDOU(for EXTREME)/
+ex07/feeling of love/
+ex10/KISS ME ALL NIGHT LONG/
+ex06/Last Message/
+ex10/MOBO MOGA/
+ex13/Gamelan de Couple/
+ex13/LA BAMBA/
+ex06/Colors(for EXTREME)/
+ex10/KISS KISS KISS/
+ex08/MAHOU NO TOBIRA (SUPEESU MAKO NO TEEMU)/
+ex05/BE LOVIN/
+ex06/L'amour et la liberte (DDR ver.)/
+ex11/Frozen Ray (for EXTREME)/
+ex09/JET WORLD/
+ex08/Daikenkai/
+ex06/V(for EXTREME)/
+ex10/Heaven is a '57 metallic gray (gimmix)/
+ex07/TwinBee ~Generation X~/
+ex05/321 STARS/
+ex06/A/
+ex06/stoic(EXTREME version)/
+ex06/sync(EXTREME version)/
+ex09/Across the nightmare/
+ex06/Xenon/
+ex09/The Least 100sec/
+ex06/Sakura/
+
+---
+COLOR:#E700FF
+ex04/CUTIE CHASER (Morning Mix)/
+ex04/DROP THE BOMB (System S.F. Mix)/
+ex02/SKY HIGH [solo]/
+ex04/DYNAMITE RAVE (Down Bird SOTA Mix)/
+ex04/Do It Right (Harmonized 2Step Mix)/
+ex04/Look To The Sky (True Color Mix)/
+ex04/So In Love/
+ex04/Kind Lady/
+ex04/AM-3P (303 BASSMIX)/
+
+---
+COLOR:#EA52AA
+New Songs
+
+---
+COLOR:FF0000
+ex01/Dance Dance Revolution/
+ex01/TRIP MACHINE survivor/
+ex01/PARANOiA survivor
+ex01/PARANOiA survivor MAX/
+ex01/The legend of MAX/

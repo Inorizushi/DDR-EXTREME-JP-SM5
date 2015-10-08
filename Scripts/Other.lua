@@ -4,28 +4,28 @@ function TextBannerAfterSet(self,param)
 	local Artist=self:GetChild("Artist")
 
 	if Subtitle:GetText() == "" then
-		Title:maxwidth(180)
-		Title:y(-8)
+		Title:maxwidth(192)
+		Title:y(-7)
 		Title:zoom(1)
 
 		Subtitle:visible(false)
 
-		Artist:maxwidth(266)
-		Artist:y(8)
-		Artist:zoom(0.6)
+		Artist:maxwidth(349)
+		Artist:y(9)
+		Artist:zoom(0.55)
 	else
-		Title:maxwidth(180)
-		Title:zoom(1)
+		Title:maxwidth(274)
+		Title:zoom(0.7)
 		Title:y(-10)
 
 		-- subtitle below title
-		Subtitle:visible(false)
-		Subtitle:zoom(0.5)
-		Subtitle:maxwidth(360)
+		Subtitle:visible(true)
+		Subtitle:zoom(0.7)
+		Subtitle:maxwidth(274)
 
-		Artist:maxwidth(266)
-		Artist:y(10)
-		Artist:zoom(0.6)
+		Artist:maxwidth(349)
+		Artist:y(9)
+		Artist:zoom(0.55)
 	end
 
 	-- special easter eggs!

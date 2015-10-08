@@ -34,7 +34,7 @@ return Def.ActorFrame{
 		end;
 
 		Display=Def.ActorFrame{
-			InitCommand=cmd(setsize,270,44);
+			InitCommand=cmd(setsize,262,38);
 			LoadActor(THEME:GetPathG("CourseEntryDisplay","bar"));
 
 			-- entry number
@@ -47,7 +47,7 @@ return Def.ActorFrame{
 
 			-- textbanner
 			Def.TextBanner{
-				InitCommand=cmd(x,-89;y,4;zoom,0.8;Load,"TextBanner";SetFromString,"","","","","","");
+				InitCommand=cmd(x,-89;y,4;zoom,0.8;draworder,99;Load,"TextBanner";SetFromString,"","","","","","");
 				SetSongCommand=function(self,param)
 					if not param.Song or param.Secret then
 						-- set fake ("??????????" with no artist)

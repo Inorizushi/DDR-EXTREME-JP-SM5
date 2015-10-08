@@ -13,8 +13,10 @@ t[#t+1] =  Def.ActorFrame {
 		OnCommand=cmd(draworder,99;x,SCREEN_RIGHT-103;y,SCREEN_CENTER_Y-220;addx,-640;sleep,0.264;linear,0.33;addx,640;linear,0;diffusealpha,1);
 	};
 	LoadActor("_black")..{
-		OnCommand=cmd(Center;FullScreen;diffusealpha,1;linear,0.266;diffusealpha,0)
-}
+		OnCommand=cmd(Center;FullScreen;diffusealpha,1;linear,0.266;diffusealpha,0);
+	};
+};
+
 t[#t+1] = LoadActor("help")..{ 
 	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_BOTTOM-33.5;);
 	OnCommand=cmd(draworder,199;shadowlength,0;diffuseblink;linear,0.5);

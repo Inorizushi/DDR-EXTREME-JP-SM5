@@ -1,48 +1,40 @@
 return Def.ActorFrame{
 	LoadActor("../_black")..{
-	InitCommand=cmd(Center) 
+	InitCommand=cmd(Center,FullScreen) 
 	};
 	LoadActor("singlea")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,0.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("singleb")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,5.875;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,6.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("singlec")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,11.75;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,12.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("singled")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,17.625;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,18.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("doublea")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,23.5;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,24.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("doubleb")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,29.375;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,30.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("doublec")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,35.25;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,36.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("doubled")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,41.125;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
-	};
-	LoadActor("_singlecourse")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,47.2;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
+		InitCommand=cmd(x,SCREEN_RIGHT;y,SCREEN_TOP+43);
+		OnCommand=cmd(horizalign,left;sleep,42.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
 	};
 	LoadActor("bg")..{
 		InitCommand=cmd(Center);
-	};
-	LoadActor("_doublecourse")..{
-		InitCommand=cmd(x,SCREEN_RIGHT-122;y,SCREEN_TOP+43);
-		OnCommand=cmd(horizalign,left;sleep,0.2;sleep,52.875;sleep,0.594;linear,0.217;addx,-330;linear,0.067;zoomx,0.95;sleep,0.016;linear,0.133;zoomx,1.04;sleep,0.016;linear,0.067;zoomx,1;sleep,4.529;decelerate,0.066;addy,-4;sleep,0.067;accelerate,0.4;addy,70);
 	};
 }
