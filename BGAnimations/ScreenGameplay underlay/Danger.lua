@@ -25,7 +25,7 @@ return Def.ActorFrame {
 			};
 			LoadActor("_danger")..{
 				InitCommand=cmd(visible,false;Center;zoomto,640,480);
-				ShowCommand=cmd(visible,true;diffuseshift;effectcolor1,color("1,1,1,1");effectcolor2,color("1,1,1,0")effectclock,"music";);
+				ShowCommand=cmd(visible,true;diffuseshift;effectcolor1,color("0,0,0,1");effectcolor2,color("0,0,0,0")effectclock,"music";);
 				HideCommand=cmd(visible,false);
 			};
 		};
