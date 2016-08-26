@@ -14,10 +14,12 @@ t[#t+1] = LoadActor("explanation")..{
 t[#t+1] = Def.ActorFrame {
 	InitCommand=cmd(sleep,1.22);
 	
-	--LoadActor( "choicebar" )..{
-		--OnCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+155;zoomy,0;zoomx,0;linear,0.5;zoomy,1;sleep,0.66;linear,0.5;zoomx,1);
-		--OffCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+155;sleep,0.33;linear,0.462;addx,510;cropright,1);
-	--};
+	-LoadActor( "choicebar" )..{
+		OnCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+155;zoomy,0;zoomx,0;linear,0.5;zoomy,1;sleep,0.66;linear,0.5;zoomx,1);
+		OffCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+155;sleep,0.33;linear,0.462;addx,510;cropright,1);
+		SwitchToPage1Command=cmd(linear,0.5;zoomx,1;sleep,0.2;linear,0.5;zoomx,0);
+		SwitchToPage2Command=cmd(queuecommand,"SwitchToPage1");
+	};
 	LoadActor( "p1" )..{
 		BeginCommand=cmd(playcommand,"IsP1Present");
 		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
