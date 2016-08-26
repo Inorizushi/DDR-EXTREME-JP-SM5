@@ -2,29 +2,19 @@ local t = Def.ActorFrame {};
 
 t[#t+1] = Def.ActorFrame {
   InitCommand=cmd(Center);
-	Def.Quad {
-		InitCommand=cmd(scaletoclipped,SCREEN_WIDTH,SCREEN_HEIGHT);
-		OnCommand=cmd(diffusealpha,0;sleep,30;diffuse,color("1,1,1,1"));
+	Def.Quad{
+			OnCommand=cmd(zoomto,SCREEN_WIDTH,SCREEN_HEIGHT;diffuse,color("1,1,1,1"));
 	};
-};
-t[#t+1] = Def.ActorFrame {
-  InitCommand=cmd(Center);
-	Def.ActorFrame {
-		Def.Quad {
-			InitCommand=cmd(zoomto,SCREEN_WIDTH,SCREEN_HEIGHT);
-			OnCommand=cmd();
-		};
-		LoadActor("1") .. {
-			OnCommand=cmd(zoomx,1.1;diffusealpha,0;linear,0.5;diffusealpha,1;sleep,5;linear,0.5;diffusealpha,0);
-		};
-        LoadActor("2") .. {
-			OnCommand=cmd(zoomx,1.1;diffusealpha,0;sleep,6;linear,0.5;diffusealpha,1;sleep,5;linear,0.5;diffusealpha,0);
-		};
-		LoadActor("3") .. {
-			OnCommand=cmd(zoomx,1.1;diffusealpha,0;sleep,12;linear,0.5;diffusealpha,1;sleep,5;linear,0.5;diffusealpha,0);
-		};
+	LoadActor("1") .. {
+			OnCommand=cmd(diffusealpha,1;sleep,5.5;linear,0.3;diffusealpha,0);
+	};
+    LoadActor("2") .. {
+			OnCommand=cmd(diffusealpha,0;sleep,5.8;linear,0.3;diffusealpha,1;sleep,5.3;linear,0.3;diffusealpha,0);
+	};
+	LoadActor("3") .. {
+			OnCommand=cmd(diffusealpha,0;sleep,11.7;linear,0.3;diffusealpha,1;sleep,5.9);
+	};
         	
-	};
 };
 
 return t

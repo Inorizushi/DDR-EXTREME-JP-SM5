@@ -4,55 +4,30 @@ function TextBannerAfterSet(self,param)
 	local Artist=self:GetChild("Artist")
 
 	if Subtitle:GetText() == "" then
-		Title:maxwidth(180)
-		Title:y(-8)
+		Title:maxwidth(192)
+		Title:y(-7)
 		Title:zoom(1)
 
 		Subtitle:visible(false)
 
-		Artist:maxwidth(266)
-		Artist:y(8)
-		Artist:zoom(0.6)
+		Artist:maxwidth(349)
+		Artist:y(9)
+		Artist:zoom(0.55)
 	else
-		Title:maxwidth(180)
-		Title:zoom(1)
+		Title:maxwidth(274)
+		Title:zoom(0.7)
 		Title:y(-10)
 
 		-- subtitle below title
-		Subtitle:visible(false)
-		Subtitle:zoom(0.5)
-		Subtitle:maxwidth(360)
+		Subtitle:visible(true)
+		Subtitle:zoom(0.7)
+		Subtitle:maxwidth(274)
 
-		Artist:maxwidth(266)
-		Artist:y(10)
-		Artist:zoom(0.6)
+		Artist:maxwidth(349)
+		Artist:y(9)
+		Artist:zoom(0.55)
 	end
 
-	-- special easter eggs!
-	--if GAMESTATE:Dopefish() then
-		--if Title:GetText() == "hussiladi" then
-			--Title:settext("yussulibi")
-			--Artist:settext("soccer")
-			-- Europeans: you may comment the above line and uncomment this one:
-			--Artist:settext("football")
-			-- however, it ruins the joke, because "socer" isn't in the word
-			-- "football".
-		--end
-
-		-- this one time my hard drive was acting weird and oxyd's background
-		-- file showed up with a 69TB filesize.
-		--if Title:GetText() == "Oxyd" then
-			--Title:settext("Oxyd (69TB Mix)")
-			--Artist:settext("syntax (feat. AJ's busted hard drive)")
-		--end
-
-		-- okay this one probably doesn't make sense.
-		-- just go with me on this one, I'm drunk
-		--if Title:GetText() == "rasen" then
-			--Title:settext("raisin")
-			--Artist:settext("syntax error")
-		--end
-	--end
 end
 
 local difficultyToIconIndex = {
@@ -88,15 +63,6 @@ function LoadStepsDisplayGameplayFrame(self,player)
 	if player == PLAYER_2 then state = state + 1; end;
 	return state;
 end;
-
--- if you don't want to use the side graphics, set this to false:
-local useScreenSides = false
--- but be warned: widescreen mode isn't complete yet.
-function GetOverlayScreens()
-	local ret = ""
-	if useScreenSides then ret = "Sides," end
-	return ret.."ScreenSystemLayer,ScreenSyncOverlay,ScreenStatsOverlay,ScreenDebugOverlay,ScreenInstallOverlay"
-end
 
 function Actor:scale_or_crop_background()
 	if PREFSMAN:GetPreference("StretchBackgrounds") then
@@ -223,29 +189,6 @@ function GetSummaryBannerY(num)
 	end
 end
 
--- ScreenDifficulty item OffCommands
-local delays = {
-	0.3, 0.7, 0.9,	-- page 1 (Light, Standard, Heavy)
-	0.5, -- page 2 (Oni)
-}
-
--- "choice" is indexed by 0; the "item" param begins at 1
-function Actor:DifficultyItemOff(item)
-	local top = SCREENMAN:GetTopScreen()
-	if top then
-		local choice = top:GetSelectionIndex(GAMESTATE:GetMasterPlayerNumber())
-		if choice > 3 and item > 4 then
-			-- page 2
-			self:sleep(delays[item])
-			self:accelerate(0.4)
-			self:addx(-SCREEN_WIDTH*1.25)
-		else
-			if item < 5 then
-				-- page 1
-				self:sleep(delays[item])
-				self:accelerate(0.4)
-				self:addx(-SCREEN_WIDTH*1.25)
-			end
-		end
-	end
-end
+-- GetCharAnimPath(sPath)
+-- Easier access to Characters folder (taken from ScreenHowToPlay.cpp)
+function GetCharAnimPath(sPath) return "/Characters/"..sPath end

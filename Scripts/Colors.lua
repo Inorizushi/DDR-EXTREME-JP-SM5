@@ -1,4 +1,4 @@
--- DDRMAX colors
+-- EXTREME colors
 function PlayerColor( pn )
 	if pn == PLAYER_1 then return color("#1FEFB6") end
 	if pn == PLAYER_2 then return color("#FFBD18") end

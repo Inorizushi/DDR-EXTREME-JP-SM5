@@ -30,7 +30,6 @@ t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay")
 t[#t+1] = StandardDecorationFromFile("BannerFrame","BannerFrame")
 t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
 t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
-t[#t+1] = StandardDecorationFromFileOptional("AvailableDifficulties", "AvailableDifficulties")
 
 -- difficulty icons
 if ShowStandardDecoration("DifficultyIcons") then
@@ -98,25 +97,20 @@ end
 -- song options text (e.g. 1.5xmusic)
 t[#t+1] = StandardDecorationFromFileOptional("SongOptions","SongOptions")
 
-if AllowOptionsMenu() then
-	t[#t+1] = StandardDecorationFromFile("OptionsMessage","OptionsMessage")
-end
-
 -- other items (balloons, etc.)
 
-t[#t+1] = LoadActor("help")..{ 
-	InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_BOTTOM-34;);
-	OnCommand=cmd(draworder,199;shadowlength,0;diffuseblink;linear,0.5);
-}
+t[#t+1] = StandardDecorationFromFile( "Balloon", "Balloon" );
 
 t[#t+1] = LoadActor("GrooveRadar base")..{ 
-	InitCommand=cmd(x,SCREEN_LEFT+152;y,SCREEN_CENTER_Y+90;);
+	InitCommand=cmd(x,SCREEN_CENTER_X-168;y,SCREEN_CENTER_Y+90;);
+	BeginCommand=cmd(playcommand,"CheckCourseMode");
 	OnCommand=cmd(zoom,0;rotationz,-360;sleep,0.3;decelerate,0.4;rotationz,0;zoom,1);
-	OffCommand=cmd(sleep,0.4;accelerate,0.383;zoom,0;rotationz,-360)
-}
-
-t[#t+1] = LoadActor("slash")..{
-	InitCommand=cmd(draworder,99;x,SCREEN_RIGHT-103;y,SCREEN_CENTER_Y-220);
+	OffCommand=cmd(sleep,0.4;accelerate,0.383;zoom,0;rotationz,-360);
+	CheckCourseModeCommand=function(self,param)
+			if GAMESTATE:IsCourseMode() == true then
+				self:visible(false)
+			end
+		end;
 }
 
 return t

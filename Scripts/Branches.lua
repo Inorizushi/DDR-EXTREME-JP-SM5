@@ -1,5 +1,3 @@
--- foonmix theme branches
-
 Branch.StartGame = function()
 	if SONGMAN:GetNumSongs() == 0 and SONGMAN:GetNumAdditionalSongs() == 0 then
 		-- xxx: use titlemenu and titlejoin as needed
@@ -147,7 +145,12 @@ Branch.AfterSaveSummary = function()
 	--return GAMESTATE:AnyPlayerHasRankingFeats() and "ScreenNameEntry" or "ScreenGameOver"
 end
 
+Branch.InformationPage = function()
+	local nextScreen = getenv("NextInfoScreen");
+	return nextScreen or "ScreenInformation"
+end
+
 function InitialScreen()
 	if GAMESTATE:Dopefish() then return "foon" end
-	return "ScreenCompany"
+	return "ScreenWarning"
 end

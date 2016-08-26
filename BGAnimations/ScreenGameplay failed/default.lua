@@ -1,14 +1,14 @@
 local travelDist = SCREEN_WIDTH*1.5;
 
 local LeftToRight = Def.ActorFrame{
-	LoadActor("../FLeftToRight");
+	LoadActor("../LeftToRight_purple");
 	Def.Quad{
 		InitCommand=cmd(halign,1;zoomto,1088,32;diffuse,color("0,0,0,1");addx,-64);
 	};
 };
 
 local RightToLeft = Def.ActorFrame{
-	LoadActor("../FRightToLeft");
+	LoadActor("../RightToLeft_purple");
 	Def.Quad{
 		InitCommand=cmd(halign,0;zoomto,SCREEN_WIDTH*1.9,32;diffuse,color("0,0,0,1");addx,64);
 	};

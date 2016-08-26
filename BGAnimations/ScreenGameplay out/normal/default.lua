@@ -1,5 +1,14 @@
 local travelDist = SCREEN_WIDTH*1.5;
 
+local t = Def.ActorFrame{};
+
+t[#t+1] = Def.ActorFrame{
+	Def.Quad{
+		InitCommand=cmd(Center;FullScreen;diffuse,color("0,0,0,0");draworder,-1);
+		OnCommand=cmd(linear,0.3;diffusealpha,1);
+	};
+};
+
 local LeftToRight = Def.ActorFrame{
 	LoadActor("LeftToRight");
 	Def.Quad{
@@ -14,12 +23,7 @@ local RightToLeft = Def.ActorFrame{
 	};
 };
 
-local t = Def.ActorFrame{
-	Def.Quad{
-		InitCommand=cmd(Center;FullScreen;diffuse,color("0,0,0,0"));
-		OnCommand=cmd(sleep,1;linear,0.3;diffusealpha,1);
-	};
-
+t[#t+1] = Def.ActorFrame{
 	-- 7 left -> right
 	LeftToRight..{
 		InitCommand=cmd(x,SCREEN_LEFT-64;y,SCREEN_CENTER_Y-192);
@@ -85,9 +89,19 @@ local t = Def.ActorFrame{
 	};
 };
 
-local clearMessageNormal = LoadActor("cleared")..{
-	InitCommand=cmd(Center;diffusealpha,0;cropbottom,1;);
-	OnCommand=cmd(sleep,1;linear,0.8;diffusealpha,1;cropbottom,0;sleep,2.0;linear,0.5;diffusealpha,0);
+local clearMessageNormal = Def.ActorFrame{
+	LoadActor("cleared")..{
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-6);
+		OnCommand=cmd(diffusealpha,0;sleep,1.13;diffusealpha,1);
+	};
+	Def.Quad{
+		InitCommand=cmd(setsize,SCREEN_WIDTH,142;CenterX;y,SCREEN_CENTER_Y-4;fadetop,0.2;diffuse,color("0,0,0,1"));
+		OnCommand=cmd(diffusealpha,0;zoomtowidth,490;sleep,1.13;diffusealpha,1;linear,0.416;addy,122);
+	};
+	Def.Quad{
+		InitCommand=cmd(FullScreen;diffuse,color("0,0,0,1"));
+		OnCommand=cmd(diffusealpha,0;sleep,2;linear,0.3;diffusealpha,1);
+	};
 };
 
 if GAMESTATE:GetPlayMode() == 'PlayMode_Rave' then
@@ -110,5 +124,6 @@ else
 		StartTransitioningCommand=cmd(visible,GAMESTATE:GetEarnedExtraStage() == 'EarnedExtraStage_No');
 	}
 end
+
 
 return t

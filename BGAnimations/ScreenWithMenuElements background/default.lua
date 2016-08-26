@@ -1,6 +1,10 @@
-return Def.ActorFrame{
-	-- for widescreen things; temporary.
-	--LoadActor("bg")..{ InitCommand=cmd(Center;FullScreen;diffusealpha,0.333) },
-
-	LoadActor("bg")..{ InitCommand=cmd(Center) },
+local t = Def.ActorFrame{
+	LoadActor("bg")..{
+		InitCommand=cmd(Center);
+	};
+	LoadActor("../time_slash")..{
+		InitCommand=cmd(x,SCREEN_RIGHT-54;y,SCREEN_TOP+26;draworder,99);
+	};
 }
+
+return t

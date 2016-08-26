@@ -1,9 +1,5 @@
 return Def.ActorFrame{
-	LoadActor("caution")..{
+	LoadActor("centered")..{
 		InitCommand=cmd(Center);
-		OnCommand=function(self)
-			if GAMESTATE:Dopefish() then self:rotationz(180) end
-		end;
 	}
-	
 }
