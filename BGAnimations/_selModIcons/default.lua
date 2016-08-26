@@ -59,6 +59,28 @@ return Def.ActorFrame {
   		end;
     };
     --Arrow (I'm not implementing this until I figure out how I'll implement this.)
+    -- Arrow
+	Def.Sprite {
+		InitCommand=function(self)
+			self:x(90);
+			if GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'NORMAL-FLAT')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'CLASSIC-FLAT')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'SOLO-FLAT')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'PS3-FLAT')
+			or GAMESTATE:PlayerIsUSingModifer(PLAYER_1, 'DDRX-FLAT')
+			or GAMESTATE:PlayerIsUSingModifer(PLAYER_1, 'SN2-FLAT') then
+				self:Load(THEME:GetPathB("","_selModIcons/flat"));
+			elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'NORMAL-SOLO')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'PS3-SOLO')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'SOLO-NOTE')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'DDRX-SOLO')
+			or GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'SN2-SOLO') then
+				self:Load(THEME:GetPathB("","_selModIcons/solo"));
+			elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1, 'dark') then
+			  self:Load(THEME:GetPathB("","_selModIcons/dark")
+		  end;
+    end;
+  };
     -- Scroll
   	Def.Sprite {
   		InitCommand=function(self)
