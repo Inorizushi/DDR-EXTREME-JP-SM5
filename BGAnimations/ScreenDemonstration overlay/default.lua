@@ -1,17 +1,17 @@
 return Def.ActorFrame{
 	--Topframe underlay
 	Def.Quad{
-		InitCommand=cmd(setsize,SCREEN_WIDTH,66;valign,0;y,SCREEN_TOP;CenterX;diffuse,color("0,0,0,1");
+		InitCommand=cmd(setsize,SCREEN_WIDTH,49;valign,0;y,SCREEN_TOP;CenterX;diffuse,color("0,0,0,1"));
 	};
 	--Bottomframe underlay
 	Def.Quad{
-		InitCommand=cmd(setsize,SCREEN_WIDTH,140;valign,1;y,SCREEN_BOTTOM;CenterX;diffuse,color("0,0,0,1");
+		InitCommand=cmd(setsize,SCREEN_WIDTH,70;valign,1;y,SCREEN_BOTTOM;CenterX;diffuse,color("0,0,0,1"));
 	};
-	LoadActor("lifeframe")..{
-		InitCommand=cmd(CenterX;y,SCREEN_TOP+27);
+	LoadActor("demup")..{
+		InitCommand=cmd(x,SCREEN_LEFT;halign,0;valign,0;y,SCREEN_TOP+15);
 	};
-	LoadActor("scoreframe")..{
-		InitCommand=cmd(CenterX;y,SCREEN_BOTTOM-29);
+	LoadActor("demdown")..{
+		InitCommand=cmd(x,SCREEN_RIGHT;halign,1;valign,0;y,SCREEN_TOP+419);
 	};
 	--flashity flashing flasher
 	LoadActor("gameover")..{

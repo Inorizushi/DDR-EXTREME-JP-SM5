@@ -4,10 +4,14 @@ local headerTextImage
 --this should probably be a metric
 if screenName == "ScreenSelectMusic" then
     headerTextImage = "Music.png"
-elseif string.find(screenName, "Options") then
+elseif screenName == "ScreenPlayerOptions" then
     headerTextImage = "Options.png"
 elseif screenName == "ScreenMapControllers" then
 	headerTextImage = "Options.png"
+elseif screenName == "ScreenOptionsService" then
+	headerTextImage = "optionsserv.png"
+elseif screenName == "ScreenOptionsServiceChild" then
+	headerTextImage = "optionsserv.png"
 elseif screenName == "ScreenSelectStyle" then
     headerTextImage = "style.png"
 elseif screenName == "ScreenSelectDifficulty" then
@@ -31,6 +35,13 @@ local out = Def.ActorFrame{
 	};
   LoadActor("time_slash")..{
 		InitCommand=cmd(x,SCREEN_RIGHT-54;y,SCREEN_TOP+26;);
+    OnCommand=function(self)
+      if screenName ~= 'ScreenOptionsService' then
+        self:visible(true)
+      else
+        self:visible(false)
+      end;
+    end;
 	};
 }
 

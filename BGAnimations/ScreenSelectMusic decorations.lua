@@ -1,30 +1,5 @@
 local t = LoadFallbackB();
 
-if not GAMESTATE:IsCourseMode() then
-	local function GenerateModIconRow(pn)
-		local MetricsName = "ModIcons" .. ToEnumShortString(pn);
-		return Def.ActorFrame {
-			InitCommand=function(self) self:name(MetricsName); ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen"); end;
-			LoadActor( THEME:GetPathG("OptionIcon","Player") )..{
-				InitCommand=cmd(pause;halign,0;x,-19);
-				BeginCommand=function(self)
-					self:setstate( pn == PLAYER_1 and 0 or 1 );
-				end;
-			};
-			
-			Def.ModIconRow {
-				InitCommand=cmd(Load,"ModIconRowSelectMusic"..ToEnumShortString(pn),pn;x,341;y,1;);
-			};
-		};
-	end;
-
-	for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
-		if ShowStandardDecoration("ModIcons") then
-			t[#t+1] = GenerateModIconRow(pn);
-		end
-	end;
-end;
-
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay")
 t[#t+1] = StandardDecorationFromFile("BannerFrame","BannerFrame")
@@ -76,24 +51,6 @@ local function StepsDisplay(pn)
 	return sd;
 end
 
-if ShowStandardDecoration("StepsDisplay") then
-	for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
-		-- frame
-		local meterFrame = LoadActor(THEME:GetPathG(Var "LoadingScreen", "MeterFrame"), pn)
-		t[#t+1] = StandardDecorationFromTable( "MeterFrame" .. ToEnumShortString(pn), meterFrame );
-
-		-- stepsdisplay
-		local MetricsName = "StepsDisplay" .. PlayerNumberToString(pn);
-		t[#t+1] = StepsDisplay(pn) .. {
-			InitCommand=function(self)
-				self:player(pn);
-				self:name(MetricsName);
-				ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen");
-			end;
-		};
-	end
-end
-
 -- song options text (e.g. 1.5xmusic)
 t[#t+1] = StandardDecorationFromFileOptional("SongOptions","SongOptions")
 
@@ -101,7 +58,7 @@ t[#t+1] = StandardDecorationFromFileOptional("SongOptions","SongOptions")
 
 t[#t+1] = StandardDecorationFromFile( "Balloon", "Balloon" );
 
-t[#t+1] = LoadActor("GrooveRadar base")..{ 
+t[#t+1] = LoadActor("GrooveRadar base")..{
 	InitCommand=cmd(x,SCREEN_CENTER_X-168;y,SCREEN_CENTER_Y+90;);
 	BeginCommand=cmd(playcommand,"CheckCourseMode");
 	OnCommand=cmd(zoom,0;rotationz,-360;sleep,0.3;decelerate,0.4;rotationz,0;zoom,1);

@@ -7,7 +7,7 @@ end
 
 CustomDifficultyColor = {
 	Beginner	= color("0.058,0.98,0.99,1"),	-- cyan
-	Easy		= color("0.98,0.67,0,1"),		-- light yellow
+	Easy		= color("#f5a806"),		-- light yellow
 	Medium		= color("0.98,0,0.63,1"),		-- light pink-red
 	Hard		= color("0,0.97,0.28,1"),		-- light green
 	Challenge	= color("0.45,0.42,0.98,1"),	-- purple blue
