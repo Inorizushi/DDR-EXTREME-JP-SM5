@@ -74,7 +74,7 @@ end
 
 t[#t+1] = LoadActor("p1badge")..{
 	InitCommand=function(self)
-		self:x(SCREEN_LEFT):y(SCREEN_TOP+52):halign(0);
+		self:x(SCREEN_CENTER_X-320):y(SCREEN_TOP+52):halign(0);
 	end;
 	BeginCommand=function(self,param)
 		if GAMESTATE:IsPlayerEnabled('PlayerNumber_P1') then
@@ -89,7 +89,7 @@ t[#t+1] = LoadActor("p1badge")..{
 
 t[#t+1] = LoadActor("p2badge")..{
 	InitCommand=function(self)
-		self:x(SCREEN_LEFT):y(SCREEN_TOP+64):halign(0);
+		self:x(SCREEN_CENTER_X-320):y(SCREEN_TOP+64):halign(0);
 	end;
 	BeginCommand=function(self,param)
 		if GAMESTATE:IsPlayerEnabled('PlayerNumber_P2') then
@@ -110,29 +110,56 @@ t[#t+1] = Def.ActorFrame{
 	};
 };
 
+-- StepsDisplay
 local function StepsDisplay(pn)
 	local function set(self, player)
-		self:SetFromGameState( player );
+		self:SetFromGameState(player);
 	end
 
-	local t = Def.StepsDisplay {
-		InitCommand=cmd(Load,"StepsDisplay",GAMESTATE:GetPlayerState(pn););
+	local name = "StepsDisplaySelMusic";
+
+	local sd = Def.StepsDisplay {
+		InitCommand=cmd(Load,name..ToEnumShortString(pn),GAMESTATE:GetPlayerState(pn););
+		CurrentSongChangedMessageCommand=function(self)
+			local song = GAMESTATE:GetCurrentSong();
+			if not song then
+				-- hacky hack 1: set all feet to nothing!
+				self:GetChild("Ticks"):settext("0000000000");
+				-- hacky hack 2: diffuse to beginner
+				self:GetChild("Ticks"):diffuse(CustomDifficultyToColor("Beginner"))
+			end
+		end;
 	};
 
 	if pn == PLAYER_1 then
-		t.CurrentStepsP1ChangedMessageCommand=function(self) set(self, pn); end;
-		t.CurrentTrailP1ChangedMessageCommand=function(self) set(self, pn); end;
+		sd.CurrentStepsP1ChangedMessageCommand=function(self) set(self, pn); end;
+		sd.CurrentTrailP1ChangedMessageCommand=function(self) set(self, pn); end;
 	else
-		t.CurrentStepsP2ChangedMessageCommand=function(self) set(self, pn); end;
-		t.CurrentTrailP2ChangedMessageCommand=function(self) set(self, pn); end;
+		sd.CurrentStepsP2ChangedMessageCommand=function(self) set(self, pn); end;
+		sd.CurrentTrailP2ChangedMessageCommand=function(self) set(self, pn); end;
 	end
 
-	return t;
+	return sd;
 end
 
+if ShowStandardDecoration("StepsDisplay") then
+	for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+		-- stepsdisplay
+		local MetricsName = "StepsDisplay" .. PlayerNumberToString(pn);
+		t[#t+1] = StepsDisplay(pn) .. {
+			InitCommand=function(self)
+				self:player(pn);
+				self:name(MetricsName);
+				ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen");
+			end;
+		};
+	end
+end
+
+
 local xPosPlayer = {
-  P1 = (SCREEN_LEFT+26),
-  P2 = (SCREEN_LEFT+280)
+  P1 = (SCREEN_CENTER_X-294),
+  P2 = (SCREEN_CENTER_X-40)
 }
 
 local hAlignPlayer = {

@@ -1,31 +1,32 @@
-function TextBannerAfterSet(self,param) 
+function TextBannerAfterSet(self,param)
 	local Title=self:GetChild("Title")
 	local Subtitle=self:GetChild("Subtitle")
 	local Artist=self:GetChild("Artist")
 
 	if Subtitle:GetText() == "" then
 		Title:maxwidth(192)
-		Title:y(-7)
-		Title:zoom(1)
+		Title:y(-8)
+		Title:zoom(1.2)
+		Title:zoomx(1.4)
 
 		Subtitle:visible(false)
 
 		Artist:maxwidth(349)
-		Artist:y(9)
-		Artist:zoom(0.55)
+		Artist:y(10)
+		Artist:zoom(0.75)
 	else
 		Title:maxwidth(274)
-		Title:zoom(0.7)
+		Title:zoom(1)
 		Title:y(-10)
 
 		-- subtitle below title
 		Subtitle:visible(true)
-		Subtitle:zoom(0.7)
+		Subtitle:zoom(0.55)
 		Subtitle:maxwidth(274)
 
 		Artist:maxwidth(349)
 		Artist:y(9)
-		Artist:zoom(0.55)
+		Artist:zoom(0.7)
 	end
 
 end

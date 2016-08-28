@@ -10,7 +10,7 @@ return Def.ActorFrame{
 			end
 		end;
 	};
-	
+
 	LoadActor("BPMDisplay label")..{
 		Name="Label";
 		InitCommand=cmd(halign,0);

@@ -9,6 +9,13 @@ t[#t+1] = Def.ActorFrame{
 	};
 };
 
+t[#t+1] = Def.ActorFrame{
+	Def.Quad{
+		InitCommand=cmd(diffusealpha,0);
+		OnCommand=cmd(sleep,3.284);
+	};
+};
+
 local LeftToRight = Def.ActorFrame{
 	LoadActor("LeftToRight");
 	Def.Quad{
@@ -92,15 +99,11 @@ t[#t+1] = Def.ActorFrame{
 local clearMessageNormal = Def.ActorFrame{
 	LoadActor("cleared")..{
 		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-6);
-		OnCommand=cmd(diffusealpha,0;sleep,1.13;diffusealpha,1);
+		OnCommand=cmd(diffusealpha,0;sleep,1.05;diffusealpha,1;sleep,0.4;sleep,1.5;linear,0.333;diffusealpha,0);
 	};
 	Def.Quad{
 		InitCommand=cmd(setsize,SCREEN_WIDTH,142;CenterX;y,SCREEN_CENTER_Y-4;fadetop,0.2;diffuse,color("0,0,0,1"));
-		OnCommand=cmd(diffusealpha,0;zoomtowidth,490;sleep,1.13;diffusealpha,1;linear,0.416;addy,122);
-	};
-	Def.Quad{
-		InitCommand=cmd(FullScreen;diffuse,color("0,0,0,1"));
-		OnCommand=cmd(diffusealpha,0;sleep,2;linear,0.3;diffusealpha,1);
+		OnCommand=cmd(texturewrapping,1;diffusealpha,0;zoomtowidth,488;zoomtoheight,60;sleep,1.05;diffusealpha,1;linear,0.4;addy,177;sleep,0;diffusealpha,0);
 	};
 };
 
