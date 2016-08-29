@@ -15,8 +15,8 @@ SM5 port of TakuyaMAXX and beware's DDR EXTREME 3.9 Theme
 - ScreenGameplay(Mod Icons, fix reverse/lifeframes)
 
 #CHANGELOG
-##September 9th, 2015
--We are now live!
-
 ##August 29th, 2016
 - Almost done with basic necessities (for event mode)
+
+##September 9th, 2015
+- We are now live!
