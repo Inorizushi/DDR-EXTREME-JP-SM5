@@ -1,3 +1,12 @@
+**Table of Contents**
+ * [DDR-EXTREME-JP-SM5](#ddr-extreme-jp-sm5)
+ * [Graphics:](#graphics)
+ * [Coding:](#coding)
+ * [What Needs Work:](#what-needs-work)
+ * [Changelog:](#changelog)
+ * [Copyright](#copyright)
+
+
 # DDR-EXTREME-JP-SM5
 SM5 port of TakuyaMAXX and beware's DDR EXTREME 3.9 Theme
 
