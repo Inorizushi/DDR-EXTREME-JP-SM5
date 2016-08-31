@@ -11,7 +11,7 @@ t[#t+1] = Def.ActorFrame{
     OffCommand=cmd(sleep,0.066;sleep,0.333;linear,0.416;diffusealpha,0);
     SetCommand=function(self)
       self:Load("RollingNumbersMaxCombo")
-      if GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() >= 1 then
+      if GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() <= 1 then
         self:targetnumber(STATSMAN:GetFinalEvalStageStats():GetPlayerStageStats(PLAYER_1):MaxCombo());
       else
         self:targetnumber(STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):MaxCombo());
