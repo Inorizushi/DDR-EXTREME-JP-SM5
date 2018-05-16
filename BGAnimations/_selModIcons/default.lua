@@ -5,15 +5,15 @@ return Def.ActorFrame {
         self:x(-220);
 
         if GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'1.5x') then
-          self:Load(THEME:GetPathB("","_selModIcons/x1.5"));
+          self:Load(THEME:GetPathB("","_selModIcons/x1.5.png"));
         elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'2x') then
-          self:Load(THEME:GetPathB("","_selModIcons/x2"));
+          self:Load(THEME:GetPathB("","_selModIcons/x2.png"));
         elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'3x') then
-          self:Load(THEME:GetPathB("","_selModIcons/x3"));
+          self:Load(THEME:GetPathB("","_selModIcons/x3.png"));
         elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'5x') then
-          self:Load(THEME:GetPathB("","_selModIcons/x5"));
+          self:Load(THEME:GetPathB("","_selModIcons/x5.png"));
         elseif GAMESTATE:PlayerIsUsingModifier(PLAYER_1,'8x') then
-          self:Load(THEME:GetPathB("","_selModIcons/x8"));
+          self:Load(THEME:GetPathB("","_selModIcons/x8.png"));
         end;
       end;
     };

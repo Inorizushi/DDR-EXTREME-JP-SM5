@@ -30,7 +30,7 @@ end
 local out = Def.ActorFrame{
 	LoadActor("base")..{
 		InitCommand=function(self)
-			self:x(SCREEN_CENTER_X):y(SCREEN_TOP+5):valign(0):setsize(SCREEN_WIDTH,68);
+			self:x(SCREEN_CENTER_X):y(SCREEN_TOP):valign(0):setsize(SCREEN_WIDTH,68);
 		end;
 	};
   LoadActor("time_slash")..{

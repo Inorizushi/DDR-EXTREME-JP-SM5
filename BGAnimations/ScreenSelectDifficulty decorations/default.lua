@@ -68,7 +68,7 @@ t[#t+1] = Def.ActorFrame{
 			curIndexP2 = curIndexP2 - 1
 		end;
 	};
-	Def.BitmapText{
+	--[[Def.BitmapText{
 		Font="Common Normal",
 		InitCommand=function(self)
 			self:CenterX():y(SCREEN_CENTER_Y-20):diffuse(Color("Blue"))
@@ -85,7 +85,7 @@ t[#t+1] = Def.ActorFrame{
 		OnCommand=cmd(settext,(curIndexP2));
 		MenuRightP2MessageCommand=cmd(queuecommand,"On");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"On");
-	},
+	},]]--
 	Def.Sprite{
 		InitCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14);
 		SetCommand=function(self)
@@ -162,16 +162,6 @@ t[#t+1] = Def.ActorFrame{
 		InitCommand=cmd(x,SCREEN_LEFT+238);
 		OnCommand=cmd(addx,-204;diffusealpha,0;sleep,0.264;diffusealpha,1;sleep,0.198;linear,0.198;addx,204);
 		OffCommand=cmd(sleep,0.66;linear,0.198;addx,-204;sleep,0.198;diffusealpha,0);
-	};
-};
-
-t[#t+1] = Def.ActorFrame{
-	LoadActor( "bar" )..{
-		InitCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y+154;);
-		OnCommand=cmd(cropbottom,1;sleep,0.264;sleep,0.033;cropleft,0.493;cropright,0.493;linear,0.264;cropbottom,0;linear,0.726;cropleft,0;cropright,0);
-		OffCommand=cmd(cropbottom,0;cropleft,0;cropright,0;sleep,0.726;linear,0.726;cropleft,0.493;cropright,0.493;linear,0.264;cropbottom,1);
-		SwitchToPage1Command=cmd(linear,0.5;zoomx,1;sleep,0.2;linear,0.5;zoomx,0);
-		SwitchToPage2Command=cmd(queuecommand,"SwitchToPage1");
 	};
 };
 

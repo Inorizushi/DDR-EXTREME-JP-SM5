@@ -1,4 +1,5 @@
 local t = Def.ActorFrame {
+	LoadActor(THEME:GetPathG("","_sort/_Preferred.png"));
 	Def.Sprite{
 		BeginCommand=cmd(playcommand,"SetGraphic");
 		SetGraphicCommand=function(self)

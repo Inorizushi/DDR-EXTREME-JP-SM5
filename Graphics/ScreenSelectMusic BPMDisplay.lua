@@ -1,4 +1,5 @@
 return Def.ActorFrame{
+	LoadActor("BPMBacker");
 	Def.BPMDisplay{
 		Name="BPMDisplay";
 		File=THEME:GetPathF("BPMDisplay", "bpm");
