@@ -9,6 +9,8 @@ local DifficultyChoices = {
 	{ Name = "Oni", difficulty = "playmode,oni;screen,"..Branch.InstructionsCourse()},
 };
 
+local cardpath = THEME:GetPathB("","ScreenSelectDifficulty decorations/Cards");
+
 local curIndexP1 = 1
 local curIndexP2 = 1
 
@@ -92,17 +94,17 @@ t[#t+1] = Def.ActorFrame{
 			if GAMESTATE:IsPlayerEnabled(PLAYER_1) == true then
 				self:visible(true)
 				if curIndexP1 == 1 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceBEGINNER P1/_picture"));
+					self:Load(cardpath.."/BEGINNER P1.png");
 				elseif curIndexP1 == 2 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceEASY P1/_picture"));
+					self:Load(cardpath.."/LIGHT P1.png");
 				elseif curIndexP1 == 3 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceMEDIUM P1/_picture"));
+					self:Load(cardpath.."/STANDARD P1.png");
 				elseif curIndexP1 == 4 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceHard P1/_picture"));
+					self:Load(cardpath.."/HEAVY P1.png");
 				elseif curIndexP1 == 5 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceNonstop P1/_picture"));
+					self:Load(cardpath.."/NONSTOP P1.png");
 				elseif curIndexP1 == 6 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceOni P1/_picture"));
+					self:Load(cardpath.."/ONI P1.png");
 				end;
 			else
 				self:visible(false)
@@ -119,17 +121,17 @@ t[#t+1] = Def.ActorFrame{
 			if GAMESTATE:IsPlayerEnabled(PLAYER_2) == true then
 				self:visible(true)
 				if curIndexP2 == 1 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceBEGINNER P2/_picture"));
+					self:Load(cardpath.."/BEGINNER P2.png");
 				elseif curIndexP2 == 2 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceEASY P2/_picture"));
+					self:Load(cardpath.."/LIGHT P2.png");
 				elseif curIndexP2 == 3 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceMEDIUM P2/_picture"));
+					self:Load(cardpath.."/STANDARD P2.png");
 				elseif curIndexP2 == 4 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceHard P2/_picture"));
+					self:Load(cardpath.."/HEAVY P2.png");
 				elseif curIndexP2 == 5 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceNonstop P2/_picture"));
+					self:Load(cardpath.."NONSTOP P2.png");
 				elseif curIndexP2 == 6 then
-					self:Load(THEME:GetPathG("","ScreenSelectDifficulty Scroll ChoiceOni P2/_picture"));
+					self:Load(cardpath.."/ONI P2.png");
 				end;
 			else
 				self:visible(false)
@@ -168,26 +170,29 @@ t[#t+1] = Def.ActorFrame{
 t[#t+1] = Def.ActorFrame {
 	InitCommand=cmd(sleep,1.22);
 	LoadActor( "p1" )..{
-		BeginCommand=cmd(playcommand,"IsP1Present");
+		InitCommand=cmd(player,PLAYER_1;);
 		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
 		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
-		IsP1PresentCommand=function(self,param)
-			if GAMESTATE:IsPlayerEnabled(0) == false then
-				self:visible(false)
-			end
-		end;
 	};
 	LoadActor( "p2" )..{
-		BeginCommand=cmd(playcommand,"IsP2Present");
+		InitCommand=cmd(player,PLAYER_2;);
 		OnCommand=cmd(x,SCREEN_CENTER_X+34;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
 		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
-		IsP2PresentCommand=function(self,param)
-			if GAMESTATE:IsPlayerEnabled(1) == false then
-				self:visible(false)
-			end
-		end;
 	};
 
+}
+
+t[#t+1] = Def.ActorFrame{
+	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P1"))..{
+		InitCommand=cmd(player,PLAYER_1;draworder,99;x,SCREEN_CENTER_X-76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
+		OnCommand=cmd();
+		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+	};
+	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P2"))..{
+		InitCommand=cmd(player,PLAYER_2;draworder,99;x,152;x,SCREEN_CENTER_X+76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
+		OnCommand=cmd();
+		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+	};
 }
 
 return t
