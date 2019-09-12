@@ -19,14 +19,14 @@ t[#t+1] = Def.ActorFrame{
 local LeftToRight = Def.ActorFrame{
 	LoadActor("LeftToRight");
 	Def.Quad{
-		InitCommand=cmd(halign,1;zoomto,1088,32;diffuse,color("0,0,0,1");addx,-64);
+		InitCommand=cmd(texturewrapping,1;halign,1;zoomto,1088,32;diffuse,color("0,0,0,1");addx,-64);
 	};
 };
 
 local RightToLeft = Def.ActorFrame{
 	LoadActor("RightToLeft");
 	Def.Quad{
-		InitCommand=cmd(halign,0;zoomto,SCREEN_WIDTH*1.9,32;diffuse,color("0,0,0,1");addx,64);
+		InitCommand=cmd(texturewrapping,1;halign,0;zoomto,SCREEN_WIDTH*1.9,32;diffuse,color("0,0,0,1");addx,64);
 	};
 };
 

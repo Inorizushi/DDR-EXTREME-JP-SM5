@@ -193,3 +193,26 @@ end
 -- GetCharAnimPath(sPath)
 -- Easier access to Characters folder (taken from ScreenHowToPlay.cpp)
 function GetCharAnimPath(sPath) return "/Characters/"..sPath end
+
+function IsW1AllowedHere()
+	if PREFSMAN:GetPreference("AllowW1") == "AllowW1_Everywhere" then
+		return true;
+	elseif PREFSMAN:GetPreference("AllowW1") == "AllowW1_CoursesOnly" then
+		return (GAMESTATE:GetPlayMode() == 'PlayMode_Nonstop' or GAMESTATE:GetPlayMode() == "PlayMode_Oni" or GAMESTATE:GetPlayMode() == "PlayMode_Endless")
+	end;
+	return false;
+end;
+
+function EvalW1Offset()
+	return IsW1AllowedHere() and 23 or 0
+end;
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end

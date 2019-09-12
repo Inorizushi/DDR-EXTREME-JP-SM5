@@ -71,278 +71,177 @@ local t = Def.ActorFrame{
 
 	};
 };
---6 Right to Left Stars
-t[#t+1] = Def.ActorFrame{
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-64;y,SCREEN_TOP+48;);
-		OnCommand=cmd(linear,1.254;addx,1216);
+local travelDist = SCREEN_WIDTH*1.7;
+
+local LeftToRightIn = Def.ActorFrame{
+	LoadActor("../LeftToRight_green")..{
+		InitCommand=cmd(blend,Blend.Add);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-128;y,SCREEN_TOP+112;);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-192;y,SCREEN_TOP+176;);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-256;y,SCREEN_TOP+240;);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-320;y,SCREEN_TOP+304;);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-384;y,SCREEN_TOP+368;);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-448;y,SCREEN_TOP+432;);
-		OnCommand=cmd(linear,1.254;addx,1216);
+	Def.Quad{
+		InitCommand=cmd(addx,64;diffuse,color("#000000FF");halign,0;zoomto,travelDist,32);
 	};
 };
 
---6 RightToLeft leading bars
-t[#t+1] = Def.ActorFrame{
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-64;y,SCREEN_TOP+48;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
+local RightToLeftIn = Def.ActorFrame{
+	LoadActor("../RightToLeft_green")..{
+		InitCommand=cmd(blend,Blend.Add);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-128;y,SCREEN_TOP+112;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-192;y,SCREEN_TOP+176;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-256;y,SCREEN_TOP+240;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-320;y,SCREEN_TOP+304;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-384;y,SCREEN_TOP+368;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-448;y,SCREEN_TOP+432;addx,64;halign,0;zoomtowidth,1216);
-		OnCommand=cmd(linear,1.254;addx,1216);
+	Def.Quad{
+		InitCommand=cmd(addx,-64;diffuse,color("#000000FF");halign,1;zoomto,travelDist,32);
 	};
 };
 
---6 LeftToRight wiping stars
-t[#t+1] = Def.ActorFrame{
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-64;y,SCREEN_TOP+16;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
+local LeftToRightOut = Def.ActorFrame{
+	LoadActor("../LeftToRight_green")..{
+		InitCommand=cmd(blend,Blend.Add);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-128;y,SCREEN_TOP+80;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-192;y,SCREEN_TOP+144;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-256;y,SCREEN_TOP+208;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-320;y,SCREEN_TOP+272;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-384;y,SCREEN_TOP+336;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-448;y,SCREEN_TOP+400;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
-	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-512;y,SCREEN_TOP+464;);
-		OnCommand=cmd(addx,1216;linear,1.256;addx,-1216);
+	Def.Quad{
+		InitCommand=cmd(addx,64;diffuse,color("#000000FF");halign,0;zoomto,-travelDist,32);
 	};
 };
 
---6 LeftToRight leading bars (I hate this.)
+local RightToLeftOut = Def.ActorFrame{
+	LoadActor("../RightToLeft_green")..{
+		InitCommand=cmd(blend,Blend.Add);
+	};
+	Def.Quad{
+		InitCommand=cmd(addx,-64;diffuse,color("#000000FF");halign,1;zoomto,-travelDist,32);
+	};
+};
+--Stars in animation
+
+--Stars in left to right
 t[#t+1] = Def.ActorFrame{
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-64;y,SCREEN_TOP+16;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,48);
+		OnCommand=cmd(linear,2;addx,1920);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-128;y,SCREEN_TOP+80;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,112);
+		OnCommand=cmd(addx,-80;linear,2;addx,1920);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-192;y,SCREEN_TOP+144;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,176);
+		OnCommand=cmd(addx,-160;linear,2;addx,1920);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-256;y,SCREEN_TOP+208;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,240);
+		OnCommand=cmd(addx,-240;linear,2;addx,1920);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-320;y,SCREEN_TOP+272;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,304);
+		OnCommand=cmd(addx,-320;linear,2;addx,1920);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-384;y,SCREEN_TOP+336;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-448;y,SCREEN_TOP+400;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-512;y,SCREEN_TOP+464;addx,1216;halign,1;addx,-64;zoomtowidth,1216;);
-		OnCommand=cmd(linear,1.256;addx,-1216);
+	LeftToRightIn..{
+		InitCommand=cmd(xy,SCREEN_LEFT-63,368);
+		OnCommand=cmd(addx,-480;linear,2;addx,1920);
 	};
 };
 
-
---Out Stars (KLJHASWJKHASDGF)
---7 LeftToRight wiping stars
+--Stars in left to right
 t[#t+1] = Def.ActorFrame{
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-64;y,SCREEN_TOP+16);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,16);
+		OnCommand=cmd(addx,560;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-128;y,SCREEN_TOP+80);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,80);
+		OnCommand=cmd(addx,480;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-192;y,SCREEN_TOP+144);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,144);
+		OnCommand=cmd(addx,400;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-256;y,SCREEN_TOP+208);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,208);
+		OnCommand=cmd(addx,320;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-256;y,SCREEN_TOP+272);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,272);
+		OnCommand=cmd(addx,240;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-192;y,SCREEN_TOP+336);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,336);
+		OnCommand=cmd(addx,160;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-128;y,SCREEN_TOP+400);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,400);
+		OnCommand=cmd(addx,80;linear,2;addx,-1920);
 	};
-	LoadActor("../LeftToRight.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT-64;y,SCREEN_TOP+464);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftIn..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+63,464);
+		OnCommand=cmd(addx,0;linear,2;addx,-1920);
 	};
 };
 
---7 LeftToRight trailing bars
+--Stars out animation
+
+--stars out right to left
 t[#t+1] = Def.ActorFrame{
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-64;y,SCREEN_TOP+16;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,48);
+		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-128;y,SCREEN_TOP+80;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,112);
+		OnCommand=cmd(addx,80;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-192;y,SCREEN_TOP+144;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,176);
+		OnCommand=cmd(addx,160;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-256;y,SCREEN_TOP+208;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,240);
+		OnCommand=cmd(addx,240;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-256;y,SCREEN_TOP+272;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,304);
+		OnCommand=cmd(addx,160;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-192;y,SCREEN_TOP+336;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,368);
+		OnCommand=cmd(addx,80;sleep,22.566;linear,1.368;addx,-1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-128;y,SCREEN_TOP+400;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT-64;y,SCREEN_TOP+464;halign,1;addx,-64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,960);
+	RightToLeftOut..{
+		InitCommand=cmd(xy,SCREEN_RIGHT+65,432);
+		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,-1280);
 	};
 };
 
--- 8 RIGHTTOLEFT WIPING MOTHERFUCKING STARS WHY ARE THERE 8 THIS TIME WHAT THE FUCK.
+--stars out left to right
 t[#t+1] = Def.ActorFrame{
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+64;y,SCREEN_TOP+48;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,16);
+		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+128;y,SCREEN_TOP+112;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,80);
+		OnCommand=cmd(addx,-80;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+192;y,SCREEN_TOP+176;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,144);
+		OnCommand=cmd(addx,-160;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+256;y,SCREEN_TOP+240;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,208);
+		OnCommand=cmd(addx,-240;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+192;y,SCREEN_TOP+304;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,272);
+		OnCommand=cmd(addx,-240;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+128;y,SCREEN_TOP+368;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,336);
+		OnCommand=cmd(addx,-160;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../RightToLeft.png")..{
-		InitCommand=cmd(x,SCREEN_LEFT+64;y,SCREEN_TOP+640;addx,640);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,400);
+		OnCommand=cmd(addx,-80;sleep,22.566;linear,1.368;addx,1280);
 	};
-};
-
--- 8 RightToLeft leading bars
-t[#t+1] = Def.ActorFrame{
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+64;y,SCREEN_TOP+48;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
+	LeftToRightOut..{
+		InitCommand=cmd(xy,SCREEN_LEFT-65,464);
+		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,1280);
 	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+128;y,SCREEN_TOP+112;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+192;y,SCREEN_TOP+176;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+256;y,SCREEN_TOP+240;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+192;y,SCREEN_TOP+304;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+128;y,SCREEN_TOP+368;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-	LoadActor("../_black")..{
-		InitCommand=cmd(texturewrapping,1;x,SCREEN_LEFT+64;y,SCREEN_TOP+432;addx,640;halign,0;addx,64;zoomtowidth,960);
-		OnCommand=cmd(sleep,22.72;linear,0.99;addx,-960);
-	};
-};
+}
 
 return t;

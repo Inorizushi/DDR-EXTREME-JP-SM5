@@ -6,7 +6,7 @@ return Def.ActorFrame {
 		SwitchToPage2Command=cmd(linear,0.3;cropleft,1;cropright,1);
 	};
 	LoadActor(THEME:GetPathG("","_difficulty cursor/default.lua"))..{
-		InitCommand=cmd(x,-228;visible,false);
+		InitCommand=cmd(x,-230;visible,false);
 		GainFocusCommand=cmd(visible,true);
 		LoseFocusCommand=cmd(visible,false);
 	};

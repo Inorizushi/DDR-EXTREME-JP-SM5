@@ -1,5 +1,7 @@
-local counter = 0;
-local t = Def.ActorFrame{
+local t = Def.ActorFrame{};
+
+if GAMESTATE:GetCoinMode() == 'CoinMode_Home' then
+t[#t+1] = Def.ActorFrame{
 	LoadActor("home_warn")..{
 		InitCommand=cmd(CenterX;y,SCREEN_BOTTOM-84);
 		OffCommand=cmd(linear,0.4;diffusealpha,0);
@@ -12,5 +14,6 @@ local t = Def.ActorFrame{
 		OffCommand=cmd(diffusealpha,0.5;linear,0.4;diffusealpha,0);
 	};
 };
+end;
 
 return t;

@@ -8,7 +8,7 @@ return Def.ActorFrame{
 	};
 
 	LoadActor(THEME:GetPathB("","_moveon"))..{
-		InitCommand=cmd(Center;zoomy,0;diffusealpha,0);
+		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-10;zoomy,0;diffusealpha,0);
 		OnCommand=cmd(diffusealpha,0;zoomy,0;sleep,0.916;linear,0.233;diffusealpha,1;zoomy,1);
 	};
 };

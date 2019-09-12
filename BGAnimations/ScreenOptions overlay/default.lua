@@ -5,6 +5,6 @@ return Def.ActorFrame{
     OffCommand=cmd(linear,0.3;cropleft,0);
   };
   LoadActor("overlay")..{
-    InitCommand=cmd(CenterX;y,SCREEN_BOTTOM;valign,1;setsize,640,438);
+    InitCommand=cmd(CenterX;y,SCREEN_BOTTOM;valign,1;setsize,SCREEN_WIDTH,438);
   };
 };
