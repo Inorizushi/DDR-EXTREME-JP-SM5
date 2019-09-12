@@ -79,7 +79,11 @@ t[#t+1] = Def.BitmapText{
         self:settext("")
       end;
   	else
-  		self:settext(string.format("% 9.0i",0))
+      if PROFILEMAN:IsPersistentProfile(pn) then
+        self:settext(string.format("% 9.0i",0))
+      else
+        self:settext("")
+      end;
   	end;
   end;
 };

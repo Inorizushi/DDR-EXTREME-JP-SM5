@@ -35,9 +35,9 @@ return Def.ActorFrame{
 		InitCommand=cmd(Center);
 	};
 	Def.Quad{
-		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,1;xy,SCREEN_RIGHT,_screen.cy);
+		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,0;xy,_screen.cx+320,_screen.cy);
 	};
 	Def.Quad{
-		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,0;xy,SCREEN_LEFT,_screen.cy);
+		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,1;xy,_screen.cx-320,_screen.cy);
 	};
 };
