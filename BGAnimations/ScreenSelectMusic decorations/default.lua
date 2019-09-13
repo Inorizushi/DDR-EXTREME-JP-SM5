@@ -2,10 +2,12 @@ local t = LoadFallbackB();
 
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay")
+t[#t+1] = LoadActor("BannerHandler.lua");
 t[#t+1] = StandardDecorationFromFile("BannerFrame","BannerFrame")
 t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
 t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
-t[#t+1] = LoadActor("BannerHandler.lua");
+
+if not GAMESTATE:IsCourseMode() then
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 	t[#t+1] = LoadActor("diff/default.lua");
 	t[#t+1] = LoadActor("modicons/default.lua")..{
@@ -50,6 +52,7 @@ for i,v in ipairs(GRPos) do
 			s:sleep(i/10):linear(0.1):diffusealpha(0):addx(-10)
 		end;
 	}
+end
 end
 
 t[#t+1] = Def.Sprite {

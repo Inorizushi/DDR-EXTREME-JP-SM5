@@ -8,7 +8,7 @@ local t = Def.ActorFrame{
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Group" then
-          if has_value(SectionList, params.Text) then
+          if has_value(SectionList, group) then
             self:Load("Songs/"..group.."/card.png");
             self:diffusealpha(1)
             self:diffuse(color("#ff8400"))
