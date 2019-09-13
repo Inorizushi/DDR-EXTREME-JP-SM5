@@ -49,7 +49,6 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 			local complete = ""
 			for i,a in ipairs(mods) do
 				for v in ivalues(ToHide) do
-					lua.ReportScriptError( a .. "  ".. v )
 					if not (a == v) then
 						complete = complete .. a .. " "
 					end
