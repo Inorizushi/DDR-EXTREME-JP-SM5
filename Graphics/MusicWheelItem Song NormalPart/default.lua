@@ -30,7 +30,7 @@ local t = Def.ActorFrame{
         if has_value(SectionList, group) then
           self:visible(false)
         else
-          self:visbble(true)
+          self:visible(true)
         end;
       end;
     end;
