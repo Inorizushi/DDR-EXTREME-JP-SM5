@@ -12,7 +12,9 @@ local DifficultyChoices = {
 local cardpath = THEME:GetPathB("","ScreenSelectDifficulty decorations/Cards");
 
 local curIndexP1 = 1
+local oldIndexP1 = curIndexP1
 local curIndexP2 = 1
+local oldIndexP2 = curIndexP2
 
 t[#t+1] = Def.ActorFrame{
 	InitCommand=function(self)
@@ -95,13 +97,13 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
@@ -139,20 +141,20 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
-	
-	
-	
-	
+
+
+
+
 ---ICON P1
 	Def.Sprite{
 		--InitCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14);
@@ -187,19 +189,19 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
-	
-	
-	
+
+
+
 ---ICON P2
 	Def.Sprite{
 		--InitCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14);
@@ -234,13 +236,13 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
@@ -278,18 +280,18 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
-	
-	
+
+
 ---ICON P2
 	Def.Sprite{
 		--InitCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14);
@@ -324,17 +326,17 @@ InitCommand=cmd(draworder,98;);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
-	},	
-	
+	},
+
 };
 
 
@@ -348,150 +350,132 @@ InitCommand=cmd(draworder,98;);
 t[#t+1] = Def.ActorFrame{
 	Def.Actor{
 		Name="InputHandler";
-		MenuRightP1MessageCommand=function(self)
-			curIndexP1 = curIndexP1 + 1
-		--[[
-		if curIndexP1 == 5 then
-			fixcurIndexP2 = curIndexP1 - curIndexP2;
-			curIndexP2 = curIndexP2 + fixcurIndexP2;
-		end;
-		--]]
-		
-		if curIndexP2 == 5 and curIndexP1 == 4 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 5 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 6 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		end;
-		MenuLeftP1MessageCommand=function(self)
-			curIndexP1 = curIndexP1 - 1
-			
-		if curIndexP2 == 5 and curIndexP1 == 4 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		if curIndexP1 == 5 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 6 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		end;
-		
-		MenuDownP1MessageCommand=function(self)
-			curIndexP1 = curIndexP1 + 1
-			
-		if curIndexP2 == 5 and curIndexP1 == 4 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 5 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 6 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		end;
-		MenuUpP1MessageCommand=function(self)
-			curIndexP1 = curIndexP1 - 1
-			
-		if curIndexP2 == 5 and curIndexP1 == 4 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		if curIndexP1 == 5 then
-			curIndexP2 = curIndexP1;
-		end;
-		
-		if curIndexP1 == 6 then
-			curIndexP2 = curIndexP1;
-		end;
-			
-		end;
-		
-		MenuRightP2MessageCommand=function(self)
+		MenuUpP1MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_1, Input = "Up", }); end;
+		MenuDownP1MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_1, Input = "Down", }); end;
+		MenuRightP1MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_1, Input = "Right", }); end;
+		MenuLeftP1MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_1, Input = "Left", }); end;
+		MenuUpP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Up", }); end;
+		MenuDownP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Down", }); end;
+		MenuRightP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Right", }); end;
+		MenuLeftP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Left", }); end;
+
+		MenuInputMessageCommand=function(self,param)
+			oldIndexP1 = curIndexP1
+			oldIndexP2 = curIndexP2
+			if param.Input == "Right" and param.Player == PLAYER_1 then
+				curIndexP1 = curIndexP1+1
+
+				if curIndexP2 == 5 and curIndexP1 == 4 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 5 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 6 then
+					curIndexP2 = curIndexP1;
+				end;
+			elseif param.Input == "Left" and param.Player == PLAYER_1 then
+				curIndexP1 = curIndexP1-1
+
+				if curIndexP2 == 5 and curIndexP1 == 4 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 5 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 6 then
+					curIndexP2 = curIndexP1;
+				end;
+			elseif param.Input == "Down" and param.Player == PLAYER_1 then
+				curIndexP1 = curIndexP1 + 1
+
+				if curIndexP2 == 5 and curIndexP1 == 4 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 5 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 6 then
+					curIndexP2 = curIndexP1;
+				end;
+			elseif param.Input == "Up" and param.Player == PLAYER_1 then
+				curIndexP1 = curIndexP1 - 1
+
+				if curIndexP2 == 5 and curIndexP1 == 4 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 5 then
+					curIndexP2 = curIndexP1;
+				end;
+
+				if curIndexP1 == 6 then
+					curIndexP2 = curIndexP1;
+				end;
+			elseif param.Input == "Right" and param.Player == PLAYER_2 then
 			curIndexP2 = curIndexP2 + 1
-		--[[
-		if curIndexP2 == 5 then
-			fixcurIndexP1 = curIndexP2 - curIndexP1;
-			curIndexP1 = curIndexP1 + fixcurIndexP1;
-		end;
-		--]]
-		
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 5 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
-			
-		end;
-		MenuLeftP2MessageCommand=function(self)
+
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 5 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
+			elseif param.Input == "Left" and param.Player == PLAYER_2 then
 			curIndexP2 = curIndexP2 - 1
-		
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 5 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
-			
-		end;
-		
-		MenuDownP2MessageCommand=function(self)
+
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 5 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
+			elseif param.Input == "Down" and param.Player == PLAYER_2 then
 			curIndexP2 = curIndexP2 + 1
-			
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 5 then
-			curIndexP1 = curIndexP2;
-		end;
-		
-		if curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
-			
-		end;
-		MenuUpP2MessageCommand=function(self)
+
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 5 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
+			elseif param.Input == "Up" and param.Player == PLAYER_2 then
 			curIndexP2 = curIndexP2 - 1
-			
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
+
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 5 then
+				curIndexP1 = curIndexP2;
+			end;
+
+			if curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
 		end;
-		
-		if curIndexP2 == 5 then
-			curIndexP1 = curIndexP2;
 		end;
-		
-		if curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
-			
-		end;
-	
 		MenuStartP1MessageCommand=function(self)
 			SOUND:PlayAnnouncer(P1announcer);
 		end;
@@ -500,37 +484,15 @@ t[#t+1] = Def.ActorFrame{
 			SOUND:PlayAnnouncer(P2announcer);
 		end;
 	};
-	
-	
-	
---[[
-Def.BitmapText{
-		Font="Common Normal",
-		InitCommand=function(self)
-			self:CenterX():y(SCREEN_CENTER_Y-20):diffuse(Color("Blue"))
-		end;
-		OnCommand=cmd(settext,(curIndexP1));
-		MenuRightP1MessageCommand=cmd(queuecommand,"On");
-		MenuLeftP1MessageCommand=cmd(queuecommand,"On");
-		MenuDownP1MessageCommand=cmd(queuecommand,"On");
-		MenuUpP1MessageCommand=cmd(queuecommand,"On");
-	},
-	Def.BitmapText{
-		Font="Common Normal",
-		InitCommand=function(self)
-			self:CenterX():y(SCREEN_CENTER_Y+20):diffuse(Color("Orange"))
-		end;
-		OnCommand=cmd(settext,(curIndexP2));
-		MenuRightP2MessageCommand=cmd(queuecommand,"On");
-		MenuLeftP2MessageCommand=cmd(queuecommand,"On");
-		MenuDownP2MessageCommand=cmd(queuecommand,"On");
-		MenuUpP2MessageCommand=cmd(queuecommand,"On");
-	},
-	--]]
-
 
 	Def.Sprite{
 		InitCommand=cmd(x,SCREEN_CENTER_X-156;y,SCREEN_CENTER_Y-14);
+		LoadHeavyP1Command=function(self)
+			self:Load(cardpath.."/HEAVY P1.png");
+		end;
+		LoadNonstopP1Command=function(self)
+			self:Load(cardpath.."/NONSTOP P1.png");
+		end;
 		SetCommand=function(self)
 			if GAMESTATE:IsPlayerEnabled(PLAYER_1) == true then
 				self:visible(true)
@@ -544,10 +506,18 @@ Def.BitmapText{
 					self:Load(cardpath.."/STANDARD P1.png");
 					P1announcer = "ScreenSelectMaster comment standard";
 				elseif curIndexP1 == 4 then
-					self:Load(cardpath.."/HEAVY P1.png");
+					if oldIndexP1 == 5 then
+						self:sleep(0.2):queuecommand("LoadHeavyP1")
+					else
+						self:Load(cardpath.."/HEAVY P1.png");
+					end;
 					P1announcer = "ScreenSelectMaster comment heavy";
 				elseif curIndexP1 == 5 then
-					self:Load(cardpath.."/NONSTOP P1.png");
+					if oldIndexP1 == 4 then
+						self:sleep(0.2):queuecommand("LoadNonstopP1")
+					else
+						self:Load(cardpath.."/NONSTOP P1.png");
+					end;
 					P1announcer = "ScreenSelectMaster comment nonstop";
 				elseif curIndexP1 == 6 then
 					self:Load(cardpath.."/ONI P1.png");
@@ -561,18 +531,24 @@ Def.BitmapText{
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 	},
 	Def.Sprite{
 		InitCommand=cmd(x,SCREEN_CENTER_X+156;y,SCREEN_CENTER_Y-14);
+		LoadHeavyP2Command=function(self)
+			self:Load(cardpath.."/HEAVY P2.png");
+		end;
+		LoadNonstopP2Command=function(self)
+			self:Load(cardpath.."/NONSTOP P2.png");
+		end;
 		SetCommand=function(self)
 			if GAMESTATE:IsPlayerEnabled(PLAYER_2) == true then
 				self:visible(true)
@@ -586,11 +562,19 @@ Def.BitmapText{
 					self:Load(cardpath.."/STANDARD P2.png");
 					P2announcer = "ScreenSelectMaster comment standard";
 				elseif curIndexP2 == 4 then
-					self:Load(cardpath.."/HEAVY P2.png");
-					P2announcer = "ScreenSelectMaster comment heavy";
+					if oldIndexP2 == 5 then
+						self:sleep(0.2):queuecommand("LoadHeavyP2")
+					else
+						self:Load(cardpath.."/HEAVY P2.png");
+					end;
+					P1announcer = "ScreenSelectMaster comment heavy";
 				elseif curIndexP2 == 5 then
-					self:Load(cardpath.."/NONSTOP P2.png");
-					P2announcer = "ScreenSelectMaster comment nonstop";
+					if oldIndexP2 == 4 then
+						self:sleep(0.2):queuecommand("LoadNonstopP2")
+					else
+						self:Load(cardpath.."/NONSTOP P2.png");
+					end;
+					P1announcer = "ScreenSelectMaster comment nonstop";
 				elseif curIndexP2 == 6 then
 					self:Load(cardpath.."/ONI P2.png");
 					P2announcer = "ScreenSelectMaster comment oni";
@@ -601,16 +585,16 @@ Def.BitmapText{
 		end;
 		OnCommand=cmd(queuecommand,"Set";cropleft,1;sleep,0.264;sleep,0.132;cropleft,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropleft,0.936;linear,0.396;cropleft,0);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropleft,0.936;sleep,0.016;linear,0.267;cropbottom,1);
-		
+
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP1MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP1MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuRightP2MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP2MessageCommand=cmd(queuecommand,"Set");
-		
+
 		MenuDownP2MessageCommand=cmd(queuecommand,"Set");
 		MenuUpP2MessageCommand=cmd(queuecommand,"Set");
 		--[[

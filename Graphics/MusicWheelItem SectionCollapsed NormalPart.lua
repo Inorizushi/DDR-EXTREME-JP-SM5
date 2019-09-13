@@ -1,5 +1,5 @@
 local t = Def.ActorFrame{
-  LoadActor("../_section part");
+  LoadActor("_section part");
   --Section Card
   Def.Sprite{
     SetMessageCommand=function(self,params)
