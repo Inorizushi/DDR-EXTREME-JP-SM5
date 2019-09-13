@@ -46,10 +46,10 @@ t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(-24):MaskSource() e
 
 local somf = Def.ActorFrame{
 	CodeMessageCommand=function(s,param)
-		if param.Name == "SongLeft" then
+		if param.Name == "SongLeft" or param.Name == "SongMenuLeft" then
 			s:finishtweening():y(-22)
 			:decelerate(0.24):y(0)
-		elseif param.Name == "SongRight" then
+		elseif param.Name == "SongRight" or param.Name == "SongMenuRight" then
 			s:finishtweening():y(0)
 			:decelerate(0.24):y(-22)
 		end
