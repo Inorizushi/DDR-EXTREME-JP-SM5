@@ -16,7 +16,7 @@ local t = Def.ActorFrame{
             self:diffusealpha(1)
           end;
         else
-          self:diffusealpha(1)
+          self:diffusealpha(0)
         end;
       end;
     end;

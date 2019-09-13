@@ -1,4 +1,4 @@
-local t = Def.ActorFrame{};
+local t = Def.ActorFrame{}
 
 local alphas = {0.5 ,0.5, 0.4, 0.3, 0.2, 0, 0.2, 0.3, 0.4, 0.5, 0.5};
 local indexes = {0,1, 2, 3, 4, 5, 6, 7, 8, 9,10};
@@ -16,6 +16,9 @@ t[#t+1] = Def.ActorFrame{
           self:diffusealpha(0)
         end;
       end;
+    end;
+    OffCommand=function(s)
+      s:diffuse( color("0,0,0,0.07") )
     end;
   };
 };
