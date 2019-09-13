@@ -24,11 +24,33 @@ t[#t+1] = LoadActor("GrooveRadar base")..{
 	OnCommand=cmd(zoom,0;rotationz,-360;sleep,0.3;decelerate,0.4;rotationz,0;zoom,1);
 	OffCommand=cmd(sleep,0.4;accelerate,0.383;zoom,0;rotationz,-360);
 	BeginCommand=function(self,param)
-			if GAMESTATE:IsCourseMode() == true then
-				self:visible(false)
-			end
-		end;
+		if GAMESTATE:IsCourseMode() == true then
+			self:visible(false)
+		end
+	end;
 }
+
+local GRPos = {
+	{-3,-90},
+	{-104,-31},
+	{-99,47},
+	{98,47},
+	{107,-31},
+}
+
+for i,v in ipairs(GRPos) do
+	t[#t+1] = Def.Sprite{
+		Texture=THEME:GetPathG("GrooveRadar","labels"),
+		OnCommand=function(s)
+			s:animate(0):setstate(i-1)
+			:xy(SCREEN_CENTER_X-168+v[1],SCREEN_CENTER_Y+92+v[2])
+			:diffusealpha(0):addx(-10):sleep(0.1+i/10):linear(0.1):diffusealpha(1):addx(10)
+		end;
+		OffCommand=function(s)
+			s:sleep(i/10):linear(0.1):diffusealpha(0):addx(-10)
+		end;
+	}
+end
 
 t[#t+1] = Def.Sprite {
 Texture="help 1x3.png",
