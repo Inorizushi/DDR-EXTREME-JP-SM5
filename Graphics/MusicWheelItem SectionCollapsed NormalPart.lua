@@ -4,11 +4,11 @@ local t = Def.ActorFrame{
   Def.Sprite{
     SetMessageCommand=function(self,params)
       self:x(-127):halign(0)
-      group = params.Text;
+      local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Group" then
-          if has_value(SectionList, params.Text) then
+          if has_value(SectionList, group) then
             self:Load("Songs/"..group.."/card.png");
             self:diffusealpha(1)
             self:diffuse(color("#ff8400"))
@@ -26,11 +26,11 @@ local t = Def.ActorFrame{
     Font="_shared3";
     SetMessageCommand=function(self,params)
       self:halign(0):x(-127):maxwidth(200)
-      group=params.Text;
+      local group=params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Group" then
-          if not has_value(SectionList, params.Text) then
+          if not has_value(SectionList, group) then
             self:settext(group)
             self:diffuse(color("#ff8400"))
           end;
@@ -43,7 +43,7 @@ local t = Def.ActorFrame{
     Font="MusicWheelItem abc";
     SetMessageCommand=function(self,params)
       self:x(-96):halign(0)
-      group=params.Text;
+      local group=params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Title" then
