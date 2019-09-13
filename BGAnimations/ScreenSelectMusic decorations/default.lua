@@ -8,44 +8,12 @@ t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
 t[#t+1] = LoadActor("BannerHandler.lua");
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 	t[#t+1] = LoadActor("diff/default.lua");
+	t[#t+1] = LoadActor("modicons/default.lua")..{
+		InitCommand=cmd(draworder,100);
+	};
 end;
 
 t[#t+1] = StandardDecorationFromFileOptional("GrooveRadar","GrooveRadar")
-
--- StepsDisplay
-local function StepsDisplay(pn)
-	local function set(self, player)
-		self:SetFromGameState(player);
-	end
-
-	local name = "StepsDisplaySelMusic";
-
-	local sd = Def.StepsDisplay {
-		InitCommand=cmd(Load,name..ToEnumShortString(pn),GAMESTATE:GetPlayerState(pn););
-		CurrentSongChangedMessageCommand=function(self)
-			local song = GAMESTATE:GetCurrentSong();
-			if not song then
-				-- hacky hack 1: set all feet to nothing!
-				self:GetChild("Ticks"):settext("0000000000");
-				-- hacky hack 2: diffuse to beginner
-				self:GetChild("Ticks"):diffuse(CustomDifficultyToColor("Beginner"))
-			end
-		end;
-	};
-
-	if pn == PLAYER_1 then
-		sd.CurrentStepsP1ChangedMessageCommand=function(self) set(self, pn); end;
-		sd.CurrentTrailP1ChangedMessageCommand=function(self) set(self, pn); end;
-	else
-		sd.CurrentStepsP2ChangedMessageCommand=function(self) set(self, pn); end;
-		sd.CurrentTrailP2ChangedMessageCommand=function(self) set(self, pn); end;
-	end
-
-	return sd;
-end
-
--- song options text (e.g. 1.5xmusic)
-t[#t+1] = StandardDecorationFromFileOptional("SongOptions","SongOptions")
 
 -- other items (balloons, etc.)
 
@@ -61,5 +29,19 @@ t[#t+1] = LoadActor("GrooveRadar base")..{
 			end
 		end;
 }
+
+t[#t+1] = Def.Sprite {
+Texture="help 1x3.png",
+	InitCommand=function(self)
+		self:draworder(100):CenterX():y(SCREEN_BOTTOM-35)
+		self:SetAllStateDelays(4.224)
+	end,
+	OnCommand=function(self)
+		self:shadowlength(0):addy(999):sleep(0.6):addy(-999):diffuseblink():effectperiod(1.056)
+	end,
+	OffCommand=function(self)
+		self:addy(999)
+	end
+};
 
 return t
