@@ -46,12 +46,21 @@ t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(-24):MaskSource() e
 
 local somf = Def.ActorFrame{
 	CodeMessageCommand=function(s,param)
+		local WheelLocked = SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked()
 		if param.Name == "SongLeft" or param.Name == "SongMenuLeft" then
-			s:finishtweening():y(-22)
-			:decelerate(0.24):y(0)
+			s:stoptweening()
+			if WheelLocked then
+				s:y(-22):linear(0.24/2):y(-11):bounceend(0.24/2):y(-22)
+			else
+				s:y(-22):decelerate(0.24):y(0)
+			end
 		elseif param.Name == "SongRight" or param.Name == "SongMenuRight" then
-			s:finishtweening():y(0)
-			:decelerate(0.24):y(-22)
+			s:stoptweening()
+			if WheelLocked then
+				s:y(0):linear(0.24/2):y(-11):bounceend(0.24/2):y(0)
+			else
+				s:y(0):decelerate(0.24):y(-22)
+			end
 		end
 	end;
 	item,
