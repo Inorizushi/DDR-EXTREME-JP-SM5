@@ -35,4 +35,33 @@ if ShowStandardDecoration("StageNumber") then
 	end
 end
 
+local ToHide = {"Overhead"}
+
+for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
+	t[#t+1] = Def.BitmapText{
+		Font="ScreenGameplay player options",
+		OnCommand=function(s)
+			s:xy(
+				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."X"),
+				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."Y")
+			)
+			local mods = GAMESTATE:GetPlayerState(pn):GetPlayerOptionsArray("ModsLevel_Preferred")
+			local complete = ""
+			for i,a in ipairs(mods) do
+				for v in ivalues(ToHide) do
+					lua.ReportScriptError( a .. "  ".. v )
+					if not (a == v) then
+						complete = complete .. a .. " "
+					end
+				end
+			end
+
+			s:settext( complete )
+			s:draworder(99):halign( pn == PLAYER_1 and 0 or 1 )
+			:diffuse( pn == PLAYER_1 and color("0.4,0.8,1.0,1") or color("1.0,0.5,0.2,1") )
+			:shadowlength(1):addy(78):linear(0.6):addy(-78)
+		end;
+	}
+end
+
 return t
