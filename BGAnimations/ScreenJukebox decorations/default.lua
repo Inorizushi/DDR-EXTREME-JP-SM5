@@ -1,5 +1,19 @@
 local t = Def.ActorFrame{};
 
+--[[t[#t+1] = Def.BitmapText{
+    Name="Diff",
+    Font="_arial black norm 20px";
+    CurrentSongChangedMessageCommand=function(s)
+        s:queuecommand("Set")
+    end,
+    SetCommand=function(s)
+        s:xy(SCREEN_RIGHT-250,SCREEN_TOP+90):zoom(0.75)
+        local diff = GAMESTATE:GetCurrentSteps(PLAYER_1):GetDifficulty();
+        s:settext(THEME:GetString("CustomDifficulty",ToEnumShortString(diff)))
+        :diffuse(CustomDifficultyToColor(diff)):strokecolor(color("0,0,0,0.5")):uppercase(true)
+    end,
+}]]
+
 t[#t+1] = Def.Quad{
     InitCommand=function(s)
         s:FullScreen():diffuse(color("0,0,0,0.5"))
