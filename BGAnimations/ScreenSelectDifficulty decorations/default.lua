@@ -17,6 +17,8 @@ t[#t+1] = Def.Actor{
 	MenuDownP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Down", }); end;
 	MenuRightP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Right", }); end;
 	MenuLeftP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Left", }); end;
+	MenuStartP1MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_1, Input = "Start", }); end;
+	MenuStartP2MessageCommand=function(self) MESSAGEMAN:Broadcast("MenuInput", { Player = PLAYER_2, Input = "Start", }); end;
 
 	MenuInputMessageCommand=function(self,param)
 		oldIndexP1 = curIndexP1
@@ -63,54 +65,51 @@ t[#t+1] = Def.Actor{
 				curIndexP2 = curIndexP1;
 			end;
 		elseif param.Input == "Right" and param.Player == PLAYER_2 then
-		curIndexP2 = curIndexP2 + 1
+			curIndexP2 = curIndexP2 + 1
 
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
 
-		if curIndexP2 == 5 or curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP2 == 5 or curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
 
 		elseif param.Input == "Left" and param.Player == PLAYER_2 then
-		curIndexP2 = curIndexP2 - 1
+			curIndexP2 = curIndexP2 - 1
 
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
 
-		if curIndexP2 == 5 or curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP2 == 5 or curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
 		elseif param.Input == "Down" and param.Player == PLAYER_2 then
-		curIndexP2 = curIndexP2 + 1
+			curIndexP2 = curIndexP2 + 1
 
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
 
-		if curIndexP2 == 5 or curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP2 == 5 or curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
 		elseif param.Input == "Up" and param.Player == PLAYER_2 then
-		curIndexP2 = curIndexP2 - 1
+			curIndexP2 = curIndexP2 - 1
 
-		if curIndexP1 == 5 and curIndexP2 == 4 then
-			curIndexP1 = curIndexP2;
-		end;
+			if curIndexP1 == 5 and curIndexP2 == 4 then
+				curIndexP1 = curIndexP2;
+			end;
 
-		if curIndexP2 == 5 or curIndexP2 == 6 then
-			curIndexP1 = curIndexP2;
-		end;
-	end
-	end;
-	MenuStartP1MessageCommand=function(self)
-		SOUND:PlayAnnouncer(P1announcer);
-	end;
-
-	MenuStartP2MessageCommand=function(self)
-		SOUND:PlayAnnouncer(P2announcer);
+			if curIndexP2 == 5 or curIndexP2 == 6 then
+				curIndexP1 = curIndexP2;
+			end;
+		elseif param.Input == "Start" and param.Player == PLAYER_1 then
+			SOUND:PlayAnnouncer(P1announcer);
+		elseif param.Input == "Start" and param.Player == PLAYER_2 then
+			SOUND:PlayAnnouncer(P2announcer);
+		end
 	end;
 };
 
@@ -473,14 +472,12 @@ t[#t+1] = Def.ActorFrame {
 t[#t+1] = Def.ActorFrame{
 	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P1"))..{
 		InitCommand=cmd(player,PLAYER_1;draworder,99;x,SCREEN_CENTER_X-76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
-		OnCommand=cmd();
-		--SelectP1Command=cmd(addy,68;diffusealpha,1;);
-		--MenuStartP1MessageCommand=cmd(queuecommand,"SelectP1");
+		OnCommand=cmd();AnimCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
 		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
 	};
 	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P2"))..{
 		InitCommand=cmd(player,PLAYER_2;draworder,99;x,152;x,SCREEN_CENTER_X+76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
-		OnCommand=cmd();
+		OnCommand=cmd();AnimCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
 		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
 	};
 }
