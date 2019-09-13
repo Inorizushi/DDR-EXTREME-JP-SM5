@@ -93,4 +93,21 @@ t[#t+1] = Def.Quad{
 	end;
 };
 
+-- TODO
+-- Make this entirely lua based
+local ToHide = {"Overhead"}
+t[#t+1] = Def.Actor{
+	OnCommand=function(s)
+		if SCREENMAN:GetTopScreen() then
+			for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
+				if SCREENMAN:GetTopScreen():GetChild("PlayerOptions"..ToEnumShortString(pn)) then
+					for v in ivalues(ToHide) do
+						local text = SCREENMAN:GetTopScreen():GetChild("PlayerOptions"..ToEnumShortString(pn)):GetText()
+						SCREENMAN:GetTopScreen():GetChild("PlayerOptions"..ToEnumShortString(pn)):settext( string.gsub(text,v,"") )
+					end
+				end
+			end
+		end
+	end;
+}
 return t;
