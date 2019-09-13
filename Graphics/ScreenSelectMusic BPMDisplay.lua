@@ -45,24 +45,24 @@ t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(22):MaskSource() en
 t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(-24):MaskSource() end; }
 
 local somf = Def.ActorFrame{
-	CodeMessageCommand=function(s,param)
+	PreviousSongMessageCommand=function(s,param)
 		local WheelLocked = SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked()
-		if param.Name == "SongLeft" or param.Name == "SongMenuLeft" then
-			s:stoptweening()
-			if WheelLocked then
-				s:y(-22):linear(0.24/2):y(-11):bounceend(0.24/2):y(-22)
-			else
-				s:y(-22):decelerate(0.24):y(0)
-			end
-		elseif param.Name == "SongRight" or param.Name == "SongMenuRight" then
-			s:stoptweening()
-			if WheelLocked then
-				s:y(0):linear(0.24/2):y(-11):bounceend(0.24/2):y(0)
-			else
-				s:y(0):decelerate(0.24):y(-22)
-			end
+		s:stoptweening()
+		if WheelLocked then
+			s:y(-22):linear(0.24/2):y(-11):bounceend(0.24/2):y(-22)
+		else
+			s:y(-22):decelerate(0.24):y(0)
 		end
-	end;
+	end,
+	NextSongMessageCommand=function(s,param)
+		local WheelLocked = SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked()
+		s:stoptweening()
+		if WheelLocked then
+			s:y(0):linear(0.24/2):y(-11):bounceend(0.24/2):y(0)
+		else
+			s:y(0):decelerate(0.24):y(-22)
+		end
+	end,
 	item,
 	item..{
 		OnCommand=function(s)
