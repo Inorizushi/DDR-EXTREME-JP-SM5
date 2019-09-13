@@ -1,8 +1,9 @@
-return Def.ActorFrame{
+local t = Def.ActorFrame{}
+local item = Def.ActorFrame{
 	Def.BPMDisplay{
 		Name="BPMDisplay";
 		File=THEME:GetPathF("BPMDisplay", "bpm");
-		InitCommand=cmd(halign,1);
+		InitCommand=cmd(halign,1;MaskDest);
 		CurrentSongChangedMessageCommand=function(self)
 			self:SetFromGameState()
 			if GAMESTATE:IsExtraStage() or GAMESTATE:IsExtraStage2() then
@@ -13,7 +14,7 @@ return Def.ActorFrame{
 
 	LoadActor("BPMDisplay label")..{
 		Name="Label";
-		InitCommand=cmd(halign,0);
+		InitCommand=cmd(halign,0;MaskDest);
 		CurrentSongChangedMessageCommand=function(self)
 			if GAMESTATE:IsExtraStage() or GAMESTATE:IsExtraStage2() then
 				(THEME:GetMetric("BPMDisplay","SetExtraCommand"))(self)
@@ -39,3 +40,28 @@ return Def.ActorFrame{
 		end;
 	};
 };
+
+t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(22):MaskSource() end; }
+t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(-24):MaskSource() end; }
+
+local somf = Def.ActorFrame{
+	CodeMessageCommand=function(s,param)
+		if param.Name == "SongLeft" then
+			s:finishtweening():y(-22)
+			:decelerate(0.24):y(0)
+		elseif param.Name == "SongRight" then
+			s:finishtweening():y(0)
+			:decelerate(0.24):y(-22)
+		end
+	end;
+	item,
+	item..{
+		OnCommand=function(s)
+			s:y(22)
+		end;
+	}
+}
+
+t[#t+1] = somf
+
+return t;
