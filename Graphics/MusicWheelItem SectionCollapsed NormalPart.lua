@@ -4,7 +4,7 @@ local t = Def.ActorFrame{
   Def.Sprite{
     SetMessageCommand=function(self,params)
       self:x(-127):halign(0)
-      group = params.Text;
+      local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Group" then
@@ -26,13 +26,15 @@ local t = Def.ActorFrame{
     Font="_shared3";
     SetMessageCommand=function(self,params)
       self:halign(0):x(-127):maxwidth(200)
-      group=params.Text;
+      local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Group" then
-          if not has_value(SectionList, params.Text) then
+          if not has_value(SectionList, group) then
             self:settext(group)
             self:diffuse(color("#ff8400"))
+          else
+            self:diffusealpha(0)
           end;
         end;
       end;
@@ -43,7 +45,7 @@ local t = Def.ActorFrame{
     Font="MusicWheelItem abc";
     SetMessageCommand=function(self,params)
       self:x(-96):halign(0)
-      group=params.Text;
+      local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
         if so == "SortOrder_Title" then
