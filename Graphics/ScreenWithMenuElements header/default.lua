@@ -3,23 +3,23 @@ local headerTextImage
 
 --this should probably be a metric
 local screens = {
-	{"ScreenSelectMusic","Music.png"},
-	{"ScreenPlayerOptions","Options.png"},
-	{"ScreenMapControllers","Options.png"},
-	{"ScreenOptionsService","optionsserv.png"},
-	{"ScreenOptionsServiceChild","optionsserv.png"},
-	{"ScreenSelectStyle","style.png"},
-	{"ScreenSelectDifficulty","diff.png"},
-	{"ScreenEvaluationNormal","eval.png"},
-	{"ScreenEvaluationSummary","eval.png"},
-	{"ScreenEvaluationOni","eval.png"},
-	{"ScreenEvaluationNonstop","eval.png"},
-	{"ScreenSelectCourse","course.png"},
+	{"ScreenSelectMusic","Music"},
+	{"ScreenPlayerOptions","Options"},
+	{"ScreenMapControllers","Options"},
+	{"ScreenOptionsService","optionsserv"},
+	{"ScreenOptionsServiceChild","optionsserv"},
+	{"ScreenSelectStyle","style"},
+	{"ScreenSelectDifficulty","diff"},
+	{"ScreenEvaluationNormal","eval"},
+	{"ScreenEvaluationSummary","eval"},
+	{"ScreenEvaluationOni","eval"},
+	{"ScreenEvaluationNonstop","eval"},
+	{"ScreenSelectCourse","course"},
 }
 
 for v in ivalues(screens) do
 	if screenName == v[1] then
-		headerTextImage = v[2]
+		headerTextImage = v[2]..".png"
 	end
 end
 
