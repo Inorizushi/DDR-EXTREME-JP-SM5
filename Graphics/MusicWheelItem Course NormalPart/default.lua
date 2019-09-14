@@ -9,7 +9,7 @@ local t = Def.ActorFrame{
         if FILEMAN:DoesFileExist(actualpath.."-card.png") then
           self:Load(actualpath.."-card.png")
           self:diffusealpha(1)
-          self:diffuse(color(NonstopListColor[course:GetDisplayFullTitle()]))
+          self:diffuse(color(ListColor[course:GetDisplayFullTitle()]))
         else
           self:diffusealpha(0)
         end;
