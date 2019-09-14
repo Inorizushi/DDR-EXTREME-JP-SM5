@@ -6,7 +6,7 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(draworder,99);
 	};
 	Def.Quad{
-		InitCommand=cmd(setsize,SCREEN_WIDTH,70;valign,1;CenterX;y,SCREEN_BOTTOM+10;diffuse,Color("Black"));
+		InitCommand=cmd(setsize,SCREEN_WIDTH,90;valign,1;CenterX;y,SCREEN_BOTTOM+10;diffuse,Color("Black"));
 	};
 	LoadActor("scoreframe")..{
 		InitCommand=cmd(halign,1;x,SCREEN_RIGHT;valign,1;y,SCREEN_BOTTOM+10);

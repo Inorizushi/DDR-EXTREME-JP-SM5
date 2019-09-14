@@ -6,8 +6,8 @@ local t = Def.ActorFrame{
       local song = param.Song;
       if song then
         local group = song:GetGroupName()
-        if has_value(SectionList, group) then
-          local Dir = song:GetSongDir()
+        local Dir = song:GetSongDir()
+        if FILEMAN:DoesFileExist(Dir.."/card.png") then
           self:Load(Dir.."/card.png")
           if has_value(RedEntry, song:GetDisplayMainTitle()) then
             self:diffuse(color("1,0,0,1"))
@@ -26,8 +26,9 @@ local t = Def.ActorFrame{
       local song = param.Song;
       if song then
         local group = song:GetGroupName()
+        local Dir = song:GetSongDir()
         self:diffuse(SONGMAN:GetSongGroupColor(group))
-        if has_value(SectionList, group) then
+        if FILEMAN:DoesFileExist(Dir.."/card.png") then
           self:visible(false)
         else
           self:visible(true)

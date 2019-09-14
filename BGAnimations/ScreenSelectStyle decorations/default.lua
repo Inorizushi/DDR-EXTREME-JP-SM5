@@ -32,14 +32,22 @@ t[#t+1] = LoadActor("../help")..{
 }
 
 t[#t+1] = Def.ActorFrame{
-	Def.Sprite{
-		InitCommand=cmd(x,SCREEN_CENTER_X+156;y,SCREEN_CENTER_Y+9;);
+	InitCommand=cmd(x,SCREEN_CENTER_X+156;y,SCREEN_CENTER_Y+9;);
 		OnCommand=cmd(draworder,90;zoomy,0;sleep,0.264;zoomy,0.079;linear,0.25;zoomy,1.125;linear,0.1;zoomy,0.914;linear,0.1;zoomy,1.052;linear,0.083;zoomy,0.973;linear,0.066;zoomy,1);
 		OffCommand=cmd(sleep,0.183;linear,0.066;zoomy,0.973;linear,0.083;zoomy,1.052;linear,0.1;zoomy,0.914;linear,0.1;zoomy,1.125;linear,0.25;zoomy,0.079;linear,0;diffusealpha,0);
-		StyleSingleMessageCommand=function(s) s:Load(THEME:GetPathB("","ScreenSelectStyle decorations/single.png")) end,
+	Def.Sprite{
+		StyleSingleMessageCommand=function(s) s:Load(THEME:GetPathB("","ScreenSelectStyle decorations/base.png")) end,
 		StyleVersusMessageCommand=function(s) s:Load(THEME:GetPathB("","ScreenSelectStyle decorations/versus.png")) end,
 		StyleDoubleMessageCommand=function(s) s:Load(THEME:GetPathB("","ScreenSelectStyle decorations/double.png")) end,
 	};
+	Def.Sprite{
+		Texture="Stage 2x3.png";
+		InitCommand=cmd(xy,95,-17;pause;playcommand,"Set");
+		SetCommand=function(s)
+			local maxstages = PREFSMAN:GetPreference("SongsPerPlay")
+			s:setstate(maxstages-1)
+		end
+	}
 };
 
 return t

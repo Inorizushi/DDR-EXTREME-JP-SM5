@@ -4,6 +4,7 @@ return Def.ActorFrame{
 	OnCommand=cmd(addx,(-SCREEN_WIDTH/2.28);sleep,0.450;linear,0.267;addx,(SCREEN_WIDTH/2.33);linear,0.05;addx,-6;decelerate,0.116;addx,12;decelerate,0.067;addx,-4;decelerate,0.1;addx,4);
 	OffCommand=cmd(accelerate,0.316;addx,(-SCREEN_WIDTH/2.28));
 	CurrentSongChangedMessageCommand=cmd(queuecommand,"Set");
+	--Group/Song Fading Banner
 	Def.FadingBanner{
 		SetCommand=function(self)
 			local song = GAMESTATE:GetCurrentSong()
@@ -15,20 +16,57 @@ return Def.ActorFrame{
 				FL = false
 			elseif not FL then
 				FL = true
-				if mw:GetSelectedType() == 'WheelItemDataType_Roulette' then
-					self:LoadRoulette()
-				elseif mw:GetSelectedType() == 'WheelItemDataType_Random' then
-					self:LoadRandom()
+				if so == "SortOrder_Group" then
+					self:LoadFromSortOrder('SortOrder_Length')
 				else
-					if so == "SortOrder_Group" then
-						self:LoadFromSortOrder('SortOrder_Length')
-					else
-						self:LoadFromSortOrder(so)
-					end;
+					self:LoadFromSortOrder(so)
 				end;
 			end
 		end;
 	};
+	--Roulette Banner
+	Def.FadingBanner{
+		SetCommand=function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			local mw = SCREENMAN:GetTopScreen():GetChild("MusicWheel")
+			FL = false
+			if song then
+				FL = false
+				self:visible(false)
+			elseif not FL then
+				FL = true
+				if mw:GetSelectedType() == 'WheelItemDataType_Roulette' then
+					self:LoadRoulette()
+					self:visible(true)
+					FL = false
+				else
+					self:visible(false)
+				end;
+			end
+		end;
+	};
+	--Random Banner
+	Def.FadingBanner{
+		SetCommand=function(self)
+			local song = GAMESTATE:GetCurrentSong()
+			local mw = SCREENMAN:GetTopScreen():GetChild("MusicWheel")
+			FL = false
+			if song then
+				FL = false
+				self:visible(false)
+			elseif not FL then
+				FL = true
+				if mw:GetSelectedType() == 'WheelItemDataType_Random' then
+					self:LoadRandom()
+					self:visible(true)
+					FL = false
+				else
+					self:visible(false)
+				end;
+			end
+		end;
+	};
+	--Cached Banner fix
 	Def.Sprite{
 		OnCommand=cmd(playcommand,"Set"),
 		SetCommand=function(self)
