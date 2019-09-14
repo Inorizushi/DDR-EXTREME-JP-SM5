@@ -13,6 +13,9 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 			local short = ToEnumShortString(pn)
 			self:y(yPosPlayer[short])
 			:CenterX()
+			if IsUsingWideScreen() then
+				self:fadeleft(0.1):faderight(0.1)
+			end
 		end;
 		OnCommand=cmd(addx,-SCREEN_WIDTH;sleep,0.317;decelerate,0.766;addx,SCREEN_WIDTH);
 		OffCommand=cmd(accelerate,0.783;addx,-640);
@@ -22,7 +25,10 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 		InitCommand=function(self)
 			self:x(SCREEN_CENTER_X-320)
 			:y( pn == PLAYER_1 and  SCREEN_TOP+52 or SCREEN_TOP+64)
-			:halign(0);
+			:halign(0)
+			if IsUsingWideScreen() then
+				self:fadeleft(0.1)
+			end
 		end;
 		BeginCommand=function(self,param)
 			self:visible( GAMESTATE:IsPlayerEnabled(pn) )
