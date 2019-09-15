@@ -2,28 +2,25 @@ local screenName = Var "LoadingScreen"
 local headerTextImage
 
 --this should probably be a metric
-if screenName == "ScreenSelectMusic" then
-    headerTextImage = "Music.png"
-elseif screenName == "ScreenPlayerOptions" then
-    headerTextImage = "Options.png"
-elseif screenName == "ScreenMapControllers" then
-	headerTextImage = "Options.png"
-elseif screenName == "ScreenOptionsService" then
-	headerTextImage = "optionsserv.png"
-elseif screenName == "ScreenOptionsServiceChild" then
-	headerTextImage = "optionsserv.png"
-elseif screenName == "ScreenSelectStyle" then
-    headerTextImage = "style.png"
-elseif screenName == "ScreenSelectDifficulty" then
-    headerTextImage = "diff.png"
-elseif screenName == "ScreenEvaluationNormal" then
-	headerTextImage = "eval.png"
-elseif screenName == "ScreenEvaluationSummary" then
-	headerTextImage = "eval.png"
-elseif screenName == "ScreenEvaluationOni" then
-	headerTextImage = "eval.png"
-elseif screenName == "ScreenEvaluationNonstop" then
-	headerTextImage = "eval.png"
+local screens = {
+	{"ScreenSelectMusic","Music"},
+	{"ScreenPlayerOptions","Options"},
+	{"ScreenMapControllers","Options"},
+	{"ScreenOptionsService","optionsserv"},
+	{"ScreenOptionsServiceChild","optionsserv"},
+	{"ScreenSelectStyle","style"},
+	{"ScreenSelectDifficulty","diff"},
+	{"ScreenEvaluationNormal","eval"},
+	{"ScreenEvaluationSummary","eval"},
+	{"ScreenEvaluationOni","eval"},
+	{"ScreenEvaluationNonstop","eval"},
+	{"ScreenSelectCourse","course"},
+}
+
+for v in ivalues(screens) do
+	if screenName == v[1] then
+		headerTextImage = v[2]..".png"
+	end
 end
 
 --Base Anchoring
