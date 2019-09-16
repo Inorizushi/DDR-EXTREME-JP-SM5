@@ -66,12 +66,21 @@ end
 
 local clearMessageNormal = Def.ActorFrame{
 	LoadActor("cleared")..{
-		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-6);
-		OnCommand=cmd(diffusealpha,0;sleep,1.05;diffusealpha,1;sleep,0.4;sleep,1.5;linear,0.333;diffusealpha,0);
+		InitCommand=function(s)
+			s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-6)
+		end,
+		OnCommand=function(s)
+			s:diffusealpha(0):sleep(1.05):diffusealpha(1):sleep(0.4):sleep(1.5):linear(0.333):diffusealpha(0)
+		end
 	};
 	Def.Quad{
-		InitCommand=cmd(setsize,SCREEN_WIDTH,142;CenterX;y,SCREEN_CENTER_Y-4;fadetop,0.2;diffuse,color("0,0,0,1"));
-		OnCommand=cmd(texturewrapping,1;diffusealpha,0;zoomtowidth,488;zoomtoheight,110;sleep,1;diffusealpha,1;linear,0.4;addy,177+30;sleep,0;diffusealpha,0);
+		InitCommand=function(s)
+			s:setsize(SCREEN_WIDTH,142):xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-4):fadetop(0.2):diffuse(Color.Black)
+		end,
+		OnCommand=function(s)
+			s:texturewrapping(1):diffusealpha(0):zoomtowidth(488):zoomtoheight(110):sleep(1):diffusealpha(1)
+			:linear(0.4):addy(177+30):sleep(0):diffusealpha(0)
+		end
 	};
 };
 
@@ -84,15 +93,21 @@ if GAMESTATE:GetPlayMode() == 'PlayMode_Rave' then
 	end
 	t[#t+1] = LoadActor("_rave "..resultType)..{
 		Name="RaveResultMessage";
-		InitCommand=cmd(Center;diffusealpha,0;cropbottom,1;);
-		OnCommand=cmd(sleep,1;linear,0.8;diffusealpha,1;cropbottom,0;sleep,2.0;linear,0.5;diffusealpha,0);
+		InitCommand=function(s)
+			s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):diffusealpha(0):cropbottom(1)
+		end,
+		OnCommand=function(s)
+			s:sleep(1):linear(0.8):diffusealpha(1):cropbottom(0):sleep(2.0):linear(0.5):diffusealpha(0)
+		end
 	};
 elseif GAMESTATE:IsCourseMode() then
 	t[#t+1] = clearMessageNormal
 else
 	-- normal mode; hide if extra stage achieved
 	t[#t+1] = clearMessageNormal..{
-		StartTransitioningCommand=cmd(visible,GAMESTATE:GetEarnedExtraStage() == 'EarnedExtraStage_No');
+		StartTransitioningCommand=function(s)
+			s:visible( GAMESTATE:GetEarnedExtraStage() == 'EarnedExtraStage_No' )
+		end,
 	}
 end
 
