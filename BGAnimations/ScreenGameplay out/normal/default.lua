@@ -38,20 +38,25 @@ local RightToLeft = Def.ActorFrame{
 	};
 };
 
-for i=1,6 do
-	-- 6 left -> right
+for i=1,7 do
+	local pos = {1,2,3,4,3,2,1}
+	-- 8 left -> right
 	t[#t+1] = LeftToRight..{
 		InitCommand=function(s)
-			s:xy( SCREEN_LEFT-64*i,SCREEN_CENTER_Y-176+(64*(i-1)) )
+			s:xy( SCREEN_LEFT-64*pos[i],SCREEN_CENTER_Y-176+(64*(i-1.75)) )
 		end,
 		OnCommand=function(s)
 			s:linear(1.3):addx(SCREEN_WIDTH*1.7)
 		end
 	}
-	-- 6 right -> left
+end
+
+for i=1,8 do
+	local pos = {1,2,3,4,3,2,1,1}
+	-- 8 right -> left
 	t[#t+1] = RightToLeft..{
 		InitCommand=function(s)
-			s:xy( SCREEN_RIGHT+64*i,SCREEN_CENTER_Y-144+(64*(i-1)) )
+			s:xy( SCREEN_RIGHT+64*pos[i],SCREEN_CENTER_Y-144+(64*(i-1.75)) )
 		end,
 		OnCommand=function(s)
 			s:linear(1.3):addx(-SCREEN_WIDTH*1.7)
