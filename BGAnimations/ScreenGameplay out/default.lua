@@ -2,7 +2,7 @@
 -- extra stages are in extra1 and extra2.
 
 local t = Def.ActorFrame{
-	Def.Actor{ OnCommand=cmd(sleep,5); };
+	Def.Actor{ OnCommand=function(s) s:sleep(5) end };
 }
 
 if GAMESTATE:IsCourseMode() then
