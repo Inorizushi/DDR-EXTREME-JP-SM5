@@ -1,5 +1,6 @@
 return Def.ActorFrame{
-	LoadActor("centered")..{
-		InitCommand=cmd(Center);
+	Def.Sprite{
+		Texture="centered",
+		InitCommand=function(s) s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y) end
 	}
 }
