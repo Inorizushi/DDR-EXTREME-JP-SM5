@@ -71,7 +71,7 @@ local clearMessageNormal = Def.ActorFrame{
 	};
 	Def.Quad{
 		InitCommand=cmd(setsize,SCREEN_WIDTH,142;CenterX;y,SCREEN_CENTER_Y-4;fadetop,0.2;diffuse,color("0,0,0,1"));
-		OnCommand=cmd(texturewrapping,1;diffusealpha,0;zoomtowidth,488;zoomtoheight,60;sleep,1.05;diffusealpha,1;linear,0.4;addy,177;sleep,0;diffusealpha,0);
+		OnCommand=cmd(texturewrapping,1;diffusealpha,0;zoomtowidth,488;zoomtoheight,110;sleep,1;diffusealpha,1;linear,0.4;addy,177+30;sleep,0;diffusealpha,0);
 	};
 };
 
