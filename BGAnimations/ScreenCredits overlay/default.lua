@@ -8,7 +8,7 @@ return Def.ActorFrame {
 	};
 	Def.Sprite{
 		Texture="glitchborder",
-		InitCommand=function(s) xy(SCREEN_CENTER_X,SCREEN_CENTER_Y) end
+		InitCommand=function(s) s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y) end
 	};
 	Def.Sprite{
 		Texture="logo",
