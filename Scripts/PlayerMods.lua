@@ -265,7 +265,12 @@ function StepsListing()
         NotifyOfSelection= function(s, pn, choice)
             MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=choice-1})
         end,
-		SaveSelections = function(s, list, pn)
+        SaveSelections = function(s, list, pn)
+            for i,v in ipairs(Steplist) do
+                if list[i] then
+                    GAMESTATE:SetCurrentSteps(pn,Steplist[i])
+                end
+            end
 		end
 	}
 	setmetatable(t, t)
