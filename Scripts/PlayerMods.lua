@@ -242,3 +242,32 @@ function ModFreeze()
 	setmetatable(t, t)
 	return t
 end
+
+function StepsListing()
+    local Steplist = GAMESTATE:GetCurrentSong():GetStepsByStepsType( GAMESTATE:GetCurrentStyle():GetStepsType() )
+    local conv = {}
+    for v in ivalues(Steplist) do
+        conv[#conv+1] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
+    end
+	local t = {
+		Name="Steps",
+		LayoutType = "ShowAllInRow",
+		SelectType = "SelectOne",
+		ExportOnChange = true,
+		Choices = conv,
+		LoadSelections = function(s, list, pn)
+            for i,v in ipairs(Steplist) do
+                if GAMESTATE:GetCurrentSteps(pn) == v then
+                    list[i] = true
+                end
+            end
+        end,
+        NotifyOfSelection= function(s, pn, choice)
+            MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=choice-1})
+        end,
+		SaveSelections = function(s, list, pn)
+		end
+	}
+	setmetatable(t, t)
+	return t
+end
