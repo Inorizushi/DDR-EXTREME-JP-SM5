@@ -245,7 +245,7 @@ end
 
 function StepsListing()
     local Steplist = GAMESTATE:GetCurrentSong():GetStepsByStepsType( GAMESTATE:GetCurrentStyle():GetStepsType() )
-    local conv = {"fallback"}
+    local conv = {{},{}}
     local fixeddifflist = {
         Difficulty_Beginner = 1,
         Difficulty_Easy = 2,
@@ -256,7 +256,8 @@ function StepsListing()
     }
     for v in ivalues(Steplist) do
         if v:GetDifficulty() then
-            conv[ fixeddifflist[v:GetDifficulty()] ] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
+            conv[1][ fixeddifflist[v:GetDifficulty()] ] = v
+            conv[2][ fixeddifflist[v:GetDifficulty()] ] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
         end
     end
 	local t = {
@@ -264,9 +265,9 @@ function StepsListing()
 		LayoutType = "ShowAllInRow",
 		SelectType = "SelectOne",
 		ExportOnChange = true,
-		Choices = conv,
+		Choices = conv[2],
 		LoadSelections = function(s, list, pn)
-            for i,v in ipairs(Steplist) do
+            for i,v in ipairs(conv[1]) do
                 if GAMESTATE:GetCurrentSteps(pn) == v then
                     list[i] = true
                 end
@@ -278,7 +279,7 @@ function StepsListing()
         SaveSelections = function(s, list, pn)
             for i,v in ipairs(Steplist) do
                 if list[i] then
-                    GAMESTATE:SetCurrentSteps(pn,Steplist[i])
+                    GAMESTATE:SetCurrentSteps(pn,conv[1][i])
                 end
             end
 		end
