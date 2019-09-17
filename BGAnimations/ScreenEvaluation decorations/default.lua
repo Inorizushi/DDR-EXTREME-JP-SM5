@@ -2,7 +2,7 @@ local t = LoadFallbackB();
 
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay");
-
+if GAMESTATE:GetPlayMode() ~= "PlayMode_Oni" then
 t[#t+1] = Def.ActorFrame{
   LoadActor("frame1")..{
     InitCommand=cmd(xy,SCREEN_CENTER_X-228,SCREEN_CENTER_Y+9;player,PLAYER_1);
@@ -71,7 +71,7 @@ t[#t+1] = Def.ActorFrame {
 		OnCommand=cmd(play);
 	};
 };
-
+end;
 
 t[#t+1] = Def.ActorFrame{
   InitCommand=function(s)
