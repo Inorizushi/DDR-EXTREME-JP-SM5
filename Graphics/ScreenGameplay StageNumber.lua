@@ -2,7 +2,7 @@
 local Player = ...
 if not Player then error("ScreenGameplay StageNumber requires a Player") end
 
-return LoadFont("Stagenumber")..{
+return LoadFont("stage")..{
 	BeginCommand=cmd(playcommand,"Set");
 	SetCommand=function(self)
 		local curStageStats = STATSMAN:GetCurStageStats()
