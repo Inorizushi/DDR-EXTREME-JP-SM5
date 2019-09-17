@@ -245,9 +245,19 @@ end
 
 function StepsListing()
     local Steplist = GAMESTATE:GetCurrentSong():GetStepsByStepsType( GAMESTATE:GetCurrentStyle():GetStepsType() )
-    local conv = {}
+    local conv = {"fallback"}
+    local fixeddifflist = {
+        Difficulty_Beginner = 1,
+        Difficulty_Easy = 2,
+        Difficulty_Medium = 3,
+        Difficulty_Hard = 4,
+        Difficulty_Challenge = 5,
+        Difficulty_Edit = 6,
+    }
     for v in ivalues(Steplist) do
-        conv[#conv+1] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
+        if v:GetDifficulty() then
+            conv[ fixeddifflist[v:GetDifficulty()] ] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
+        end
     end
 	local t = {
 		Name="Steps",
