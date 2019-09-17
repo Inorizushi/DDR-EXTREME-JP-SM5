@@ -26,11 +26,16 @@ t[#t+1] = Def.ActorFrame{
   };
   Def.ActorFrame{
     InitCommand=cmd(x,pn=="PlayerNumber_P2" and 15 or -15);
-    OnCommand=cmd(addy,40;diffusealpha,0;sleep,0.717;decelerate,0.183;addy,-40;diffusealpha,1);
+	OnCommand=function(s)
+		s:addy(40):diffusealpha(0):sleep(0.717):decelerate(0.183):addy(-40):diffusealpha(1)
+	end,
     OffCommand=cmd(sleep,0.2;accelerate,0.183;addy,40;diffusealpha,0);
     Def.Sprite{
       Texture="_difficulty icons 1x6.png";
-      InitCommand=cmd(pause);
+	  InitCommand=cmd(pause);
+	  BeginCommand=function(s)
+		s:diffusealpha(0):cropbottom(1):sleep(0.717):decelerate(0.183):cropbottom(0):diffusealpha(1)
+	end,
       SetCommand=function(self)
         local song = GAMESTATE:GetCurrentSong()
         if song then
@@ -45,7 +50,10 @@ t[#t+1] = Def.ActorFrame{
       end;
       CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
   		CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"Set");
-  		CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
+		  CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
+		OffCommand=function(s)
+			s:sleep(0.2):accelerate(0.183):cropbottom(1)
+		end,
     };
     LoadActor("_autogen")..{
       InitCommand=cmd(visible,false);

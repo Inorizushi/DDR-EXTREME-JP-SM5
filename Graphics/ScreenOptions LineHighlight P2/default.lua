@@ -4,7 +4,7 @@ t = Def.ActorFrame{
 		InitCommand=cmd(setsize,SCREEN_WIDTH,38;diffuse,color("#b87000"));
 	};
 	LoadActor("badge")..{
-		InitCommand=cmd(x,(SCREEN_WIDTH/2)+35);
+		InitCommand=function(s) s:x((SCREEN_WIDTH/2)):halign(1) end
 	};
 };
 return t;
