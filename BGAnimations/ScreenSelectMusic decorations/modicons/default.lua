@@ -39,7 +39,9 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 
 	t[#t+1] = Def.ActorFrame{
 		LoadActor( "Icons", pn ) .. {
-			InitCommand=cmd(player,pn;CenterX;y,SCREEN_TOP+52.1;draworder,1);
+			InitCommand=function(s)
+				s:player(pn):xy(SCREEN_CENTER_X, pn == PLAYER_1 and  SCREEN_TOP+52 or 52+12 ):draworder(1)
+			end,
 			OnCommand=cmd(addx,-SCREEN_WIDTH;sleep,0.317;decelerate,0.766;addx,SCREEN_WIDTH);
 			OffCommand=cmd(accelerate,0.783;addx,-640);
 		};
