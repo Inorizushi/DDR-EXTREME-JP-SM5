@@ -1,15 +1,15 @@
 return Def.ActorFrame{
 	LoadActor(THEME:GetPathS("","_swoosh"))..{
-		OnCommand=cmd(play);
-		OffCommand=cmd(play);
+		OnCommand=function(s) s:play() end,
+		OffCommand=function(s) s:play() end
 	};
 	LoadActor("../_moveon")..{
-		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-10);
+		InitCommand=function(s) s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-10) end
 	};
 	Def.Sprite{
-		InitCommand=cmd(xy,-640/2,SCREEN_CENTER_Y);
-		OnCommand=cmd(decelerate,.5;x,SCREEN_CENTER_X);
-		OffCommand=cmd(accelerate,.5;x,SCREEN_WIDTH+640/2);
+		InitCommand=function(s) s:xy(-640/2,SCREEN_CENTER_Y) end,
+		OnCommand=function(s) s:decelerate(.5):x(SCREEN_CENTER_X) end,
+		OffCommand=function(s) s:accelerate(.5):x(SCREEN_WIDTH+640/2) end,
 		BeginCommand=function(self)
 			local GM = GAMESTATE:GetPlayMode()
 			if GM == 'PlayMode_Nonstop' then

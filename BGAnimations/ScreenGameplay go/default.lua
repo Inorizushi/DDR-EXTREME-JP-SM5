@@ -1,7 +1,12 @@
 return Def.ActorFrame{
-	LoadActor("../go")..{
+	Def.Sprite{
+		Texture="../go",
 		Name="Main";
-		InitCommand=cmd(CenterX;y,SCREEN_CENTER_Y-12);
-		OnCommand=cmd(diffusealpha,1;sleep,1.2;diffusealpha,0);
+		InitCommand=function(s)
+			s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-12)
+		end,
+		OnCommand=function(s)
+			s:diffusealpha(1):sleep(1.2):diffusealpha(0)
+		end
 	};
 };
