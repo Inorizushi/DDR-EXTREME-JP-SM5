@@ -56,10 +56,8 @@ end
 Branch.AfterEvaluation = function()
 	if GAMESTATE:IsCourseMode() then
 		-- (nonstop, oni, endless eval)
-		return "ScreenNameEntry"
+		return "ScreenProfileSave"
 	else
-		-- (normal, rave eval)
-
 		-- event mode is classic infinite.
 		if GAMESTATE:IsEventMode() then return "ScreenProfileSave" end
 
