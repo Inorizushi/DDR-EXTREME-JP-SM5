@@ -19,6 +19,7 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 			end
 		end;
 	};
+	t[#t+1] = LoadActor( THEME:GetPathG("ScreenGameplay","StageNumber"), pn )
 end
 
 t[#t+1] = StandardDecorationFromFile("LifeFrame","LifeFrame")
