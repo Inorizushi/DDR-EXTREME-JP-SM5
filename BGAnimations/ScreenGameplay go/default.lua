@@ -1,6 +1,6 @@
 return Def.ActorFrame{
 	Def.Sprite{
-		Texture="../go",
+		Texture="go",
 		Name="Main";
 		InitCommand=function(s)
 			s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-12)
