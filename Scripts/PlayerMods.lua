@@ -244,7 +244,9 @@ function ModFreeze()
 end
 
 function StepsListing()
-    local Steplist = GAMESTATE:GetCurrentSong():GetStepsByStepsType( GAMESTATE:GetCurrentStyle():GetStepsType() )
+    local Steplist = function()
+        return GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse():GetAllTrails() or GAMESTATE:GetCurrentSong():GetStepsByStepsType( GAMESTATE:GetCurrentStyle():GetStepsType() )
+    end
     local conv = {{},{}}
     local fixeddifflist = {
         Difficulty_Beginner = 1,
@@ -254,8 +256,8 @@ function StepsListing()
         Difficulty_Challenge = 5,
         Difficulty_Edit = 6,
     }
-    for v in ivalues(Steplist) do
-        if v:GetDifficulty() then
+    for v in ivalues(Steplist()) do
+        if v:GetDifficulty() and v:GetStepsType() == GAMESTATE:GetCurrentStyle():GetStepsType() then
             conv[1][ fixeddifflist[v:GetDifficulty()] ] = v
             conv[2][ fixeddifflist[v:GetDifficulty()] ] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
         end
@@ -266,20 +268,28 @@ function StepsListing()
 		SelectType = "SelectOne",
 		ExportOnChange = true,
 		Choices = conv[2],
-		LoadSelections = function(s, list, pn)
-            for i,v in ipairs(conv[1]) do
-                if GAMESTATE:GetCurrentSteps(pn) == v then
+        LoadSelections = function(s, list, pn)
+            local CM = GAMESTATE:IsCourseMode()
+            local StepsOrCourse = GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentTrail(pn) or GAMESTATE:GetCurrentSteps(pn)
+            for i,v in ipairs(Steplist()) do
+                if v == StepsOrCourse then
                     list[i] = true
+                    MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=CM and i or i-1})
                 end
             end
         end,
         NotifyOfSelection= function(s, pn, choice)
-            MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=choice-1})
+            local CM = GAMESTATE:IsCourseMode()
+            MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=CM and choice or choice-1})
         end,
         SaveSelections = function(s, list, pn)
-            for i,v in ipairs(Steplist) do
+            for i,v in ipairs(Steplist()) do
                 if list[i] then
-                    GAMESTATE:SetCurrentSteps(pn,conv[1][i])
+                    if GAMESTATE:IsCourseMode() then
+                        GAMESTATE:SetCurrentTrail(pn,conv[1][i])
+                    else
+                        GAMESTATE:SetCurrentSteps(pn,conv[1][i])
+                    end
                 end
             end
 		end
