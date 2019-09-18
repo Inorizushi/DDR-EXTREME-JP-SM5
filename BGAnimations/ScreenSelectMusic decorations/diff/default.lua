@@ -180,7 +180,7 @@ t[#t+1] = Def.ActorFrame{
 	LoadFont("DifficultyMeter meter")..{
 		InitCommand=function(self)
 			local short = ToEnumShortString(pn)
-			self:x(xPosPlayer[short]):halign(pn=='PLAYER_2' and 1 or 0)
+			self:x(xPosPlayer[short]):halign(pn=='PlayerNumber_P2' and 1 or 0)
 			:y(_screen.cy+183)
 		end;
 		SetCommand=function(self)

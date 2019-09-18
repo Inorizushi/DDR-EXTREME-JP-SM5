@@ -30,7 +30,7 @@ t[#t+1] = Def.Actor{
 				curIndexP2 = curIndexP1;
 			end;
 
-			if curIndexP1 == 5 or curIndex == 6 then
+			if curIndexP1 == 5 or curIndexP1 == 6 then
 				curIndexP2 = curIndexP1;
 			end;
 
