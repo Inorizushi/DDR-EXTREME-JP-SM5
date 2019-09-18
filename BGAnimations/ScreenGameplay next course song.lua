@@ -2,7 +2,8 @@
 -- StartCommand
 -- ChangeCourseSongInMessageCommand
 -- ChangeCourseSongOutMessageCommand
--- FinishCommand
+-- FinishCommand
+
 -- in stars
 local distanceIn = SCREEN_WIDTH*1.7
 
@@ -36,7 +37,8 @@ local rightToLeftOut = Def.ActorFrame{
 		InitCommand=cmd(addx,64;diffuse,color("#000000FF");halign,0;zoomto,distanceOut,32);
 	};
 }
-return Def.ActorFrame{
+
+return Def.ActorFrame{
 	Def.ActorFrame{
 		Name="StarsIn";
 
@@ -206,7 +208,7 @@ local rightToLeftOut = Def.ActorFrame{
 	-- song banner
 	Def.Banner{
 		Name="SongBanner";
-		InitCommand=cmd(Center;scaletoclipped,568,176;diffusealpha,0);
+		InitCommand=cmd(Center;scaletoclipped,256,80;diffusealpha,0);
 		StartCommand=function(self)
 			local course = GAMESTATE:GetCurrentCourse()
 			local entry = course:GetCourseEntry(GAMESTATE:GetLoadingCourseSongIndex())

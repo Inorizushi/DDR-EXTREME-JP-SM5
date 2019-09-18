@@ -37,16 +37,16 @@ local t = Def.ActorFrame{
     end;
     Def.BitmapText{
       Name="Title";
-      Font="_arial black norm 20px";
+      Font="_shared2";
       SetMessageCommand=function(self,param)
         self:x(-127):halign(0)
         local song = param.Song;
         if song then
           local group = song:GetGroupName()
           if song:GetDisplaySubTitle() == "" then
-            self:maxwidth(192):zoom(1):zoomx(1.2):y(-8)
+            self:maxwidth(192):zoom(1):y(-7)
           else
-            self:maxwidth(274):zoom(0.8):y(-10)
+            self:maxwidth(274):zoom(0.7):y(-10)
           end;
           self:settext(song:GetDisplayMainTitle())
         end;
@@ -54,7 +54,7 @@ local t = Def.ActorFrame{
     };
     Def.BitmapText{
       Name="Subtitle";
-      Font="_arial black norm 20px";
+      Font="_shared2";
       SetMessageCommand=function(self,param)
         self:x(-127):halign(0)
         local song = param.Song;
@@ -62,7 +62,7 @@ local t = Def.ActorFrame{
           local group = song:GetGroupName()
           if song:GetDisplaySubTitle() ~= "" then
             self:settext(song:GetDisplaySubTitle())
-            self:maxwidth(274):zoom(0.55)
+            self:maxwidth(274):zoom(0.7)
           else
             self:settext("")
           end;
@@ -71,16 +71,16 @@ local t = Def.ActorFrame{
     };
     Def.BitmapText{
       Name="Artist";
-      Font="_arial black norm 20px";
+      Font="_shared2";
       SetMessageCommand=function(self,param)
         self:x(-127):halign(0)
         local song = param.Song;
         if song then
           local group = song:GetGroupName()
           if song:GetDisplaySubTitle() == "" then
-            self:maxwidth(349):zoom(0.75):y(10)
+            self:maxwidth(349):zoom(0.55):y(9)
           else
-            self:maxwidth(349):zoom(0.7):y(9)
+            self:maxwidth(349):zoom(0.55):y(9)
           end;
           self:settext("/"..song:GetDisplayArtist())
         end;

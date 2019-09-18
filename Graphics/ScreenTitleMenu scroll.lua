@@ -1,7 +1,7 @@
 local gc = Var("GameCommand");
 
 return Def.ActorFrame {
-	LoadFont("_sharedx") .. {
+	LoadFont("_shared2") .. {
 		Text=gc:GetText();
 		InitCommand=cmd(uppercase,true;shadowlength,2);
 		OnCommand=cmd();
