@@ -258,8 +258,8 @@ function StepsListing()
     }
     for v in ivalues(Steplist()) do
         if v:GetDifficulty() and v:GetStepsType() == GAMESTATE:GetCurrentStyle():GetStepsType() then
-            conv[1][ fixeddifflist[v:GetDifficulty()] ] = v
-            conv[2][ fixeddifflist[v:GetDifficulty()] ] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
+            conv[1][#conv[1]+1] = v
+            conv[2][#conv[2]+1] = THEME:GetString("CustomDifficulty",ToEnumShortString(v:GetDifficulty()))
         end
     end
 	local t = {
@@ -274,13 +274,16 @@ function StepsListing()
             for i,v in ipairs(Steplist()) do
                 if v == StepsOrCourse then
                     list[i] = true
-                    MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=CM and i or i-1})
+                    MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=fixeddifflist[StepsOrCourse:GetDifficulty()]-1})
                 end
             end
         end,
         NotifyOfSelection= function(s, pn, choice)
             local CM = GAMESTATE:IsCourseMode()
-            MESSAGEMAN:Broadcast("DifficultyIconChanged",{Player=pn,Difficulty=CM and choice or choice-1})
+            MESSAGEMAN:Broadcast("DifficultyIconChanged",{
+                Player=pn,
+                Difficulty=fixeddifflist[conv[1][choice]:GetDifficulty()]-1
+            })
         end,
         SaveSelections = function(s, list, pn)
             for i,v in ipairs(Steplist()) do
