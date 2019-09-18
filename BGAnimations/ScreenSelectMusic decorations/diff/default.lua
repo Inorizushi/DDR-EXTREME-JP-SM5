@@ -166,19 +166,14 @@ local xPosPlayer = {
   P2 = (SCREEN_CENTER_X-40)
 }
 
-local hAlignPlayer = {
-	P1 = (0),
-	P2 = (1)
-}
-
 --meter
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 t[#t+1] = Def.ActorFrame{
-	LoadFont("_shared5")..{
+	LoadFont("DifficultyMeter meter")..{
 		InitCommand=function(self)
 			local short = ToEnumShortString(pn)
-			self:x(xPosPlayer[short]):halign(hAlignPlayer[short])
-			:y(SCREEN_BOTTOM-58)
+			self:x(xPosPlayer[short]):halign(pn=='PLAYER_2' and 1 or 0)
+			:y(_screen.cy+183)
 		end;
 		SetCommand=function(self)
 		local SongOrCourse, StepsOrTrail;
@@ -197,6 +192,7 @@ t[#t+1] = Def.ActorFrame{
 				if SongOrCourse:HasStepsTypeAndDifficulty(st,diff) then
 				local steps = SongOrCourse:GetOneSteps( st, diff );
 					self:settext(steps:GetMeter());
+					self:diffuse(CustomDifficultyToColor(ToEnumShortString(diff)));
 				else
 					self:settext("");
 				end;

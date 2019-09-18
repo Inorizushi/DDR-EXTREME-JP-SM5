@@ -31,7 +31,7 @@ local t = Def.ActorFrame{
     end;
     Def.BitmapText{
       Name="Title";
-      Font="_arial black norm 20px";
+      Font="_shared2";
       SetMessageCommand=function(self,param)
         self:x(-127):halign(0)
         local course = param.Course;

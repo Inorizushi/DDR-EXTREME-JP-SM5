@@ -1,5 +1,5 @@
 local t = LoadFallbackB();
-
+local screenName = Var "LoadingScreen"
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay");
 if GAMESTATE:GetPlayMode() ~= "PlayMode_Oni" then
@@ -16,6 +16,7 @@ t[#t+1] = Def.ActorFrame{
   };
 };
 
+if screenName ~= "ScreenEvaluationSummary" then
 t[#t+1] = Def.ActorFrame{
   Def.RollingNumbers{
     Font="ScreenEvaluation Combo",
@@ -24,11 +25,7 @@ t[#t+1] = Def.ActorFrame{
     OffCommand=cmd(sleep,0.066;sleep,0.333;linear,0.416;diffusealpha,0);
     SetCommand=function(self)
       self:Load("RollingNumbersMaxCombo")
-      if GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() <= 1 then
-        self:targetnumber(STATSMAN:GetAccumPlayedStageStats():GetPlayerStageStats(PLAYER_1):MaxCombo());
-      else
-        self:targetnumber(STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):MaxCombo());
-      end;
+      self:targetnumber(STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):MaxCombo());
     end;
   };
 };
@@ -41,11 +38,7 @@ t[#t+1] = Def.ActorFrame{
     OffCommand=cmd(sleep,0.066;sleep,0.333;linear,0.416;diffusealpha,0);
     SetCommand=function(self)
       self:Load("RollingNumbersMaxCombo")
-      if GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() <= 1 then
-        self:targetnumber(STATSMAN:GetAccumPlayedStageStats():GetPlayerStageStats(PLAYER_2):MaxCombo());
-      else
-        self:targetnumber(STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_2):MaxCombo());
-      end;
+      self:targetnumber(STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_2):MaxCombo());
     end;
   };
 };
@@ -71,7 +64,7 @@ t[#t+1] = Def.ActorFrame {
 		OnCommand=cmd(play);
 	};
 };
-end;
+
 
 t[#t+1] = Def.ActorFrame{
   InitCommand=function(s)
@@ -104,5 +97,7 @@ t[#t+1] = Def.ActorFrame{
   },
   LoadActor(THEME:GetPathG("","ScreenEvaluation BannerFrame"));
 }
+end
+end
 
 return t;

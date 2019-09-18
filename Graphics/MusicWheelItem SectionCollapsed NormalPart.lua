@@ -23,7 +23,7 @@ local t = Def.ActorFrame{
   };
   --NoSection Text
   Def.BitmapText{
-    Font="_shared3";
+    Font="_shared3.ini";
     SetMessageCommand=function(self,params)
       self:halign(0):x(-127):maxwidth(200)
       local group = params.Text;

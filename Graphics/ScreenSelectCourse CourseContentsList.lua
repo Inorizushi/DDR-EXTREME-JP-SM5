@@ -89,7 +89,7 @@ return Def.ActorFrame{
 						else
 							-- set real
 							self:SetFromSong(param.Song)
-							self:diffuse(SONGMAN:GetSongColor(param.Song))
+							self:diffuse(CustomDifficultyToColor(customDiff))
 						end
 					end;
 				};
