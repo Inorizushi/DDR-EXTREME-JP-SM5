@@ -20,11 +20,6 @@ for pn in ivalues(PlayerNumber) do
 				end
 			end
 		end;
-			Def.Quad{
-				InitCommand=function(s) s:visible(false):xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):stretchto(0,0,SCREEN_WIDTH,SCREEN_HEIGHT):diffuse(Color.Black) end,
-				ShowCommand=function(s) s:visible(true):diffuseblink():effectclock("music") end,
-				HideCommand=function(s) s:visible(false) end
-			};
 			LoadActor("_danger")..{
 				InitCommand=function(s) s:visible(false):xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoomto(640,480) end,
 				ShowCommand=function(s) s:visible(true):diffuseblink():effectcolor1(color("1,1,1,1")):effectcolor2(color("0,0,0,0")):effectclock("music") end,

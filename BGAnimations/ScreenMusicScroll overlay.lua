@@ -27,7 +27,7 @@ table.sort(songCollection,function(a,b) return SortSongsByTitle(a,b) end)
 local function MakeSongItem(song)
 	return LoadFont("MusicList titles")..{
 		Text=song:GetTranslitFullTitle();
-		InitCommand=cmd(diffuse,SONGMAN:GetSongColor(song);zoom,0.75);
+		InitCommand=cmd(diffuse,SONGMAN:GetSongColor(song));
 	};
 end;
 
@@ -36,7 +36,7 @@ for song in ivalues(songCollection) do
 	table.insert(scrollerChildren,Def.ActorFrame{ MakeSongItem(song) })
 end;
 
-local secondsPerItem = 0.15
+local secondsPerItem = 0.142
 local paddingBefore = 8
 local paddingAfter = 8
 

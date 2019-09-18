@@ -10,4 +10,17 @@ x[#x+1] = Def.Actor {
 	LoadCommand=function() SCREENMAN:GetTopScreen():Continue(); end;
 };
 
+x[#x+1] = Def.Quad{
+	InitCommand=function(s)
+		s:FullScreen():diffuse(Color.Black):draworder(100)
+	  end,
+	  BeginCommand=function(s)
+		if GAMESTATE:GetSmallestNumStagesLeftForAnyHumanPlayer() == 0 then
+		  s:visible(true)
+		else
+		  s:visible(false)
+		end
+	  end,
+};
+
 return x;
