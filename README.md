@@ -17,22 +17,22 @@ Graphics:
 Coding:
 ============
  - SM3.9: TakuyaMAXX, beware
- - SM5: Inorizushi, reiaya, FlameyBoy
+ - SM5: Inorizushi, reiaya, FlameyBoy, leadbman, JoseVarela
 
 What Needs Work
 ============
 - Eventually move all metrics to lua (keep compatability in the future)
 - ScreenSelectDifficulty(SSM sucks, I need to make this a custom screen.)
-- ScreenPlayerOptions(Add Mod Icons and have them refresh)
-- ScreenEvaluation(Only Regular Stage is coded. Needs everything else; Move Judgement Lines to lua)
+- ScreenPlayerOptions(Fix stroke of items. Possibly needs a custom setup.)
+- ScreenEvaluation(Move Judgement Lines to lua)
 - ScreenGameplay(Mod Icons, fix reverse/lifeframes)
 
 CHANGELOG
 ============
-##August 29th, 2016
+## August 29th, 2016
 - Almost done with basic necessities (for event mode)
 
-##September 9th, 2015
+## September 9th, 2015
 - We are now live!
 
 Copyright
