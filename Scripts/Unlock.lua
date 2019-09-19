@@ -11,7 +11,7 @@ codes = {
 	"SQFRXYYJSBERAH",
 	"JHEDXF ALZSMSH",
 	"BWUVHBKKVXFXYA"
-},
+}
 
 function UnlockSomeStuffMaybe(text)
 	-- How many unlocks are there? Get the number.
