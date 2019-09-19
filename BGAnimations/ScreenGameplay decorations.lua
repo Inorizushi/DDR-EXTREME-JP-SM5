@@ -36,11 +36,31 @@ if ShowStandardDecoration("StageNumber") then
 end
 
 local ToHide = {"Overhead","Vivid","NoRecover","FailOff"}
-
-for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
+for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')
+    t[#t+1] = Def.Sprite{
+        Texture=THEME:GetPathG("StepsDisplayGameplay","frame"),
+        InitCommand=function(s)
+            s:animate(0):draworder(101):xy(
+                pn == PLAYER_1 and SCREEN_LEFT+80 or SCREEN_RIGHT-80,
+                usingreverse and SCREEN_TOP+85-44 or SCREEN_BOTTOM-37-30
+            )
+        end,
+        OnCommand=function(s)
+            s:addx( pn == PLAYER_1 and -164 or 164 ):linear(0.6):addx( pn == PLAYER_1 and 164 or -164 )
+            s:playcommand("Set")
+        end,
+        SetCommand=function(s)
+			if GAMESTATE:GetCurrentSteps(pn) then
+				local stt = LoadStepsDisplayGameplayFrame(self,pn)
+				s:setstate( usingreverse and stt+2 or stt )
+            end
+        end
+	};
+	
 	t[#t+1] = Def.BitmapText{
 		Font="ScreenGameplay player options",
-		OnCommand=function(s)
+		OnCommand=function(s) 
 			s:xy(
 				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."X"),
 				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."Y")
@@ -62,7 +82,7 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 			s:settext( complete )
 			s:draworder(99):halign( pn == PLAYER_1 and 0 or 1 )
 			:diffuse( pn == PLAYER_1 and color("0.4,0.8,1.0,1") or color("1.0,0.5,0.2,1") )
-			:shadowlength(1):addy(78):linear(0.6):addy(-78)
+			:shadowlength(1):addy(usingreverse and -50 or 78):linear(0.6):addy(usingreverse and 50 or -78)
 		end;
 	}
 end

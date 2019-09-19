@@ -44,11 +44,11 @@ function GetDifficultyIconFrame(diff) return difficultyToIconIndex[diff] or diff
 function LoadStepsDisplayGameplayFrame(self,player)
 	local difficultyStates = {
 		Difficulty_Beginner	 = 0,
-		Difficulty_Easy		 = 2,
-		Difficulty_Medium	 = 4,
-		Difficulty_Hard		 = 6,
-		Difficulty_Challenge = 8,
-		Difficulty_Edit		 = 10,
+		Difficulty_Easy		 = 4,
+		Difficulty_Medium	 = 8,
+		Difficulty_Hard		 = 12,
+		Difficulty_Challenge = 16,
+		Difficulty_Edit		 = 20,
 	};
 	local selection;
 	if GAMESTATE:IsCourseMode() then
