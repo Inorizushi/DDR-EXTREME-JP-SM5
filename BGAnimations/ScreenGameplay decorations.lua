@@ -35,7 +35,6 @@ if ShowStandardDecoration("StageNumber") then
 	end
 end
 
-local ToHide = {"Overhead","Vivid","NoRecover","FailOff"}
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')
     t[#t+1] = Def.Sprite{
@@ -72,7 +71,6 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 				local ToHide = {"Overhead","Vivid","NoRecover","FailOff"}
 				for _, v in pairs(ToHide) do
 					if a == v then
-						lua.ReportScriptError( "removing ".. a )
 						removed = true
 						break
 					end
