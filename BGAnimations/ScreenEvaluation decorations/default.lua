@@ -100,4 +100,10 @@ t[#t+1] = Def.ActorFrame{
 end
 end
 
+for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+  t[#t+1] = LoadActor("GradeDisplay",pn)..{
+    InitCommand=function(s) s:draworder(101) end
+  }
+end
+
 return t;
