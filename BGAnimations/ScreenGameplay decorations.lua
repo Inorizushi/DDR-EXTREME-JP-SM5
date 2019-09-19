@@ -65,13 +65,20 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."X"),
 				THEME:GetMetric(Var "LoadingScreen","PlayerOptions".. ToEnumShortString(pn) .."Y")
 			)
-			local mods = GAMESTATE:GetPlayerState(pn):GetPlayerOptionsArray("ModsLevel_Preferred")
+			local mods = {}
 			local complete = ""
-			for i,a in ipairs(mods) do
-				for v in ivalues(ToHide) do
+			for i,a in ipairs(GAMESTATE:GetPlayerState(pn):GetPlayerOptionsArray("ModsLevel_Preferred")) do
+				local removed = false
+				local ToHide = {"Overhead","Vivid","NoRecover","FailOff"}
+				for _, v in pairs(ToHide) do
 					if a == v then
-						table.remove(mods,i)
+						lua.ReportScriptError( "removing ".. a )
+						removed = true
+						break
 					end
+				end
+				if not removed then
+					mods[#mods+1] = a
 				end
 			end
 
