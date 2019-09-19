@@ -22,7 +22,11 @@ t[#t+1] = Def.Sprite{
 t[#t+1] = Def.Sprite{
 	Texture=THEME:GetPathG("ScreenEvaluation","grades"),
   OnCommand=function(s)
-    Grade = tonumber( string.sub( ToEnumShortString( SCREENMAN:GetTopScreen():GetStageStats():GetPlayerStageStats(pn):GetGrade() ), 5 ) )
+    if SCREENMAN:GetTopScreen():GetStageStats():GetPlayerStageStats(pn):GetGrade() ~= "Grade_Failed" then
+      Grade = tonumber( string.sub( ToEnumShortString( SCREENMAN:GetTopScreen():GetStageStats():GetPlayerStageStats(pn):GetGrade() ), 5 ) )
+    else
+      Grade = 8
+    end
     s:diffuseblink():effectperiod(10000)
 		s:queuecommand("UpdateFrame")
 	end,
