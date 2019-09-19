@@ -2,16 +2,13 @@
 -- By Jose_Varela
 local pn = ...
 local Gradepos = { [PLAYER_1] = SCREEN_CENTER_X-224, [PLAYER_2] = SCREEN_CENTER_X+224 }
+local MultPos = pn == PLAYER_1 and -SCREEN_WIDTH/2 or SCREEN_WIDTH/2
 local t = Def.ActorFrame{
   OnCommand=function(s)
     s:xy( Gradepos[pn] , SCREEN_TOP+112 )
-    :addx(pn == PLAYER_1 and -SCREEN_WIDTH/2 or SCREEN_WIDTH/2)
-    :sleep(0.250):decelerate(0.150)
-    :addx(pn == PLAYER_1 and SCREEN_WIDTH/2 or -SCREEN_WIDTH/2)
+    :addx(MultPos):sleep(0.250):decelerate(0.150):addx( MultPos*-1 )
   end,
-  OffCommand=function(s)
-    s:sleep(0.6):accelerate(0.150):addx(pn == PLAYER_1 and -SCREEN_WIDTH/2 or SCREEN_WIDTH/2)
-  end,
+  OffCommand=function(s) s:sleep(0.6):accelerate(0.150):addx(MultPos) end
 }
 
 local TotalTime = 2.5
@@ -26,8 +23,7 @@ t[#t+1] = Def.Sprite{
 	Texture=THEME:GetPathG("ScreenEvaluation","grades"),
   OnCommand=function(s)
     Grade = tonumber( string.sub( ToEnumShortString( SCREENMAN:GetTopScreen():GetStageStats():GetPlayerStageStats(pn):GetGrade() ), 5 ) )
-    s:customtexturerect(0,0,1,1):zoom(1):draworder(101)
-    :diffuseblink():effectperiod(10000)
+    s:diffuseblink():effectperiod(10000)
 		s:queuecommand("UpdateFrame")
 	end,
 	UpdateFrameCommand=function(s)
@@ -47,12 +43,9 @@ t[#t+1] = Def.Sprite{
 			PercentIntoScrolling = (1 + 1/NumGradeFrames) - ( (PercentIntoScrolling-0.9) / 0.1 ) * 1/NumGradeFrames
 		end
 
-		sumtest = PercentIntoScrolling*3
-		s:customtexturerect( 0, StartCoord+Mult+(Mult*sumtest), 1, StartCoord+1+(Mult*sumtest) )
+		s:customtexturerect( 0, StartCoord+Mult+(Mult*(PercentIntoScrolling*3)), 1, StartCoord+1+(Mult*(PercentIntoScrolling*3)) )
 
-    if TimeLeftInScroll == 0 then
-      s:queuecommand("StartGlow")
-    end
+    if TimeLeftInScroll == 0 then s:queuecommand("StartGlow") end
 		s:sleep(1/50):queuecommand("UpdateFrame")
   end,
   StartGlowCommand=function(s)
