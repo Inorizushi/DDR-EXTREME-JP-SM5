@@ -35,7 +35,7 @@ if ShowStandardDecoration("StageNumber") then
 	end
 end
 
-local ToHide = {"Overhead"}
+local ToHide = {"Overhead","Vivid","NoRecover","FailOff"}
 
 for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 	t[#t+1] = Def.BitmapText{
@@ -49,10 +49,14 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 			local complete = ""
 			for i,a in ipairs(mods) do
 				for v in ivalues(ToHide) do
-					if not (a == v) then
-						complete = complete .. a .. " "
+					if a == v then
+						table.remove(mods,i)
 					end
 				end
+			end
+
+			for i,a in ipairs(mods) do
+				complete = complete .. a .. " "
 			end
 
 			s:settext( complete )
