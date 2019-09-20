@@ -113,44 +113,55 @@ t[#t+1] = Def.Actor{
 	end;
 };
 
-
-for i=1,2 do
 t[#t+1] = Def.ActorFrame{
-	InitCommand=function(self) self:x(i == 2 and _screen.cx+156 or _screen.cx-156):y(_screen.cy-14) end;
+	InitCommand=function(self)
+		if GAMESTATE:IsPlayerEnabled(PLAYER_1) == false then
+			self:visible(true)
+		else
+			self:visible(false)
+		end;
+		self:x(SCREEN_CENTER_X-156):y(SCREEN_CENTER_Y-14)
+	end;
 	LoadActor( "null" )..{
-		OnCommand=function(s)
-			if i == 2 then s:zoomx(-1) end
-			s:cropright(1):sleep(0.396):cropright(0.936):cropbottom(1):linear(0.264):cropbottom(0):cropright(0.936):linear(0.396):cropright(0)
-		end,
-		OffCommand=function(s) s:sleep(1.233):linear(0.333):cropright(0.936):sleep(0.016):linear(0.267):cropbottom(1) end,
+		OnCommand=cmd(cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 	};
+
 	LoadActor( "innull" )..{
-		OnCommand=function(s)
-			s:y(19)
-			if i == 2 then 
-				s:x(119):halign(1):addx(240):cropright(1):sleep(0.66):linear(0.396):addx(-240):cropright(0)
-			else 
-				s:x(-119):halign(0):addx(-240):cropleft(1):sleep(0.66):linear(0.396):addx(240):cropleft(0)
-			end
-		end,
-		OffCommand=function(s)
-			s:sleep(1.236):linear(0.341)
-			if i == 2 then s:cropright(1):addx(240)
-			else s:cropleft(1):addx(-240)
-			end
-		end,
+		OnCommand=cmd(x,-119;y,19;horizalign,left;addx,-240;cropleft,1;sleep,0.264;sleep,0.132;sleep,0.264;linear,0.396;addx,240;cropleft,0);
+		OffCommand=cmd(sleep,1;sleep,0.236;linear,0.341;cropleft,1;addx,-240);
 	};
 };
-end
 
-t[#t+1] = LoadActor("bar")..{
+--2P--
+t[#t+1] = Def.ActorFrame {
+	InitCommand=function(self)
+		if GAMESTATE:IsPlayerEnabled(PLAYER_2) == false then
+			self:visible(true)
+		else
+			self:visible(false)
+		end;
+		self:x(SCREEN_CENTER_X+156):y(SCREEN_CENTER_Y-14)
+	end;
+	LoadActor( "null" )..{
+		OnCommand=cmd(zoomx,-1;cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
+	};
+	LoadActor( "innull" )..{
+		OnCommand=cmd(x,119;y,19;horizalign,right;addx,240;cropright,1;sleep,0.264;sleep,0.132;sleep,0.264;linear,0.396;addx,-240;cropright,0);
+		OffCommand=cmd(horizalign,right;sleep,1;sleep,0.236;linear,0.341;cropright,1;addx,240);
+	};
+};
+
+t[#t+1] = Def.ActorFrame{
 	InitCommand=function(s)
 		s:xy(_screen.cx,SCREEN_CENTER_Y+154):draworder(98)
 		s:MaskDest():ztestmode("ZTestMode_WriteOnFail")
 	end,
+	LoadActor("bar");
 };
 
-local xPos = {_screen.cx-228,_screen.cx-76,_screen.cx+76,_screen.cx+228,_screen.cx-76,_screen.cx+73};
+xPos = {_screen.cx-228,_screen.cx-76,_screen.cx+76,_screen.cx+228,_screen.cx-76,_screen.cx+73};
 
 t[#t+1] = Def.ActorFrame{
 	InitCommand=function(s)
@@ -389,17 +400,21 @@ t[#t+1] = Def.ActorFrame{
 	},
 };
 
-t[#t+1] = LoadActor("../help")..{
-	InitCommand=function(s) s:xy(_screen.cx-165,SCREEN_BOTTOM-33.5) end,
-	OnCommand=function(s) s:draworder(199):diffuseblink():effectperiod(0.5) end,
-};
+t[#t+1] = LoadActor("../"..lang.."help")..{
+	InitCommand=cmd(x,SCREEN_CENTER_X-165;y,SCREEN_BOTTOM-33.5;);
+	OnCommand=cmd(draworder,199;shadowlength,0;diffuseblink;linear,0.5);
+}
 
 t[#t+1] = Def.ActorFrame{
 	InitCommand=cmd(y,SCREEN_TOP+58;draworder,100);
 	LoadActor("explanation")..{
 		InitCommand=cmd(x,SCREEN_LEFT+136);
+		--OnCommand=cmd(draworder,99;diffusealpha,0;sleep,0.264;diffusealpha,1);
 		OnCommand=function(self)
-			self:draworder(99):diffusealpha(0):sleep(0.264):diffusealpha(1);
+			self:draworder(99);
+			self:diffusealpha(0);
+			self:sleep(0.264);
+			self:diffusealpha(1);
 			SOUND:PlayAnnouncer("ScreenSelectMaster intro");
 		end;
 	};
@@ -415,27 +430,32 @@ t[#t+1] = Def.ActorFrame{
 	};
 };
 
-for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-	t[#t+1] = Def.ActorFrame{
-		LoadActor(ToEnumShortString(pn))..{
-			InitCommand=function(s)
-				s:xy(pn == "PlayerNumber_P2" and _screen.cx+34 or _screen.cx-24,_screen.cy-160):valign(0)
-			end,
-			OnCommand=function(s) s:zoomy(0):sleep(0.134):linear(0.25):zoomy(1) end,
-			OffCommand=function(s) s:sleep(1.566):linear(0.267):zoomy(0) end,
-		},
-		LoadActor("cursor/_OK "..ToEnumShortString(pn))..{
-			InitCommand=function(s) s:draworder(99):x(pn == "PlayerNumber_P2" and _screen.cx+76 or _screen.cx-76):y(_screen.cy+84):diffusealpha(0) end,
-			AnimCommand=function(s) s:addy(68):diffusealpha(1):cropbottom(1):linear(0.083):addy(-68):cropbottom(0):decelerate(0.083):addy(-20):accelerate(0.083):addy(20):sleep(1):linear(0.1)
-				if pn == PLAYER_1 then
-					s:cropright(1)
-				else
-					s:cropleft(1)
-				end
-			end,
-			OffCommand=function(s) s:playcommand("Anim") end,
-		},
-	}
-end
+t[#t+1] = Def.ActorFrame {
+	InitCommand=cmd(sleep,1.22);
+	LoadActor( "p1" )..{
+		InitCommand=cmd(player,PLAYER_1;);
+		OnCommand=cmd(x,SCREEN_CENTER_X-24;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
+		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
+	};
+	LoadActor( "p2" )..{
+		InitCommand=cmd(player,PLAYER_2;);
+		OnCommand=cmd(x,SCREEN_CENTER_X+34;y,SCREEN_CENTER_Y-160;vertalign,top;zoomy,0;sleep,0.134;linear,0.25;zoomy,1);
+		OffCommand=cmd(sleep,1;sleep,0.566;linear,0.267;zoomy,0);
+	};
+
+}
+
+t[#t+1] = Def.ActorFrame{
+	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P1"))..{
+		InitCommand=cmd(player,PLAYER_1;draworder,99;x,SCREEN_CENTER_X-76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
+		OnCommand=cmd();AnimCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+	};
+	LoadActor(THEME:GetPathG("_difficulty","cursor/_OK P2"))..{
+		InitCommand=cmd(player,PLAYER_2;draworder,99;x,152;x,SCREEN_CENTER_X+76;y,SCREEN_CENTER_Y+84;diffusealpha,0);
+		OnCommand=cmd();AnimCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+		OffCommand=cmd(addy,68;diffusealpha,1;cropbottom,1;linear,0.083;addy,-68;cropbottom,0;decelerate,0.083;addy,-20;accelerate,0.083;addy,20;sleep,1;linear,0.1;cropright,1);
+	};
+}
 
 return t
