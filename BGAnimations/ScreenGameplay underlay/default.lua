@@ -40,7 +40,7 @@ t[#t+1] = Def.Quad{
 	OnCommand=function(self)
 		if GAMESTATE:IsAnExtraStage() == true then
 			self:setsize(SCREEN_WIDTH,70)
-			:y(SCREEN_BOTTOM-78):
+			:y(SCREEN_BOTTOM-30):
 			addy(78):linear(0.6):addy(-78);
 		else
 			self:setsize(SCREEN_WIDTH,58)
@@ -50,7 +50,7 @@ t[#t+1] = Def.Quad{
 	end;
 	OffCommand=function(self)
 		if GAMESTATE:IsAnExtraStage() == true then
-			self:linear(0.8);addy(78);
+			self:linear(0.8):addy(78);
 		else
 			self:linear(0.8):addy(-58);
 		end;

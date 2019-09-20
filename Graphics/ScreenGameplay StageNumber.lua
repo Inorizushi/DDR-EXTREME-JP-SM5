@@ -7,7 +7,7 @@ return LoadFont("stage")..{
 	SetCommand=function(self)
 		local curStageStats = STATSMAN:GetCurStageStats()
 		local pss = curStageStats:GetPlayerStageStats(Player)
-		self:settext(pss:GetSongsPlayed())
+		self:settext( string.format( "%2i", pss:GetSongsPlayed()) )
 	end;
 	ChangeCourseSongInMessageCommand=cmd(playcommand,"Set");
 	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");

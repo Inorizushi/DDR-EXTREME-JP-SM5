@@ -1,6 +1,75 @@
 -- ScreenHowToPlay Overlay
+local Char = CHARMAN:GetRandomCharacter()
+
+local animsets = {"BeginnerHelper_step-up","BeginnerHelper_step-jumplr","_DDRPC_common_Rest"}
+local ch = Def.ActorFrame{
+	OnCommand=function(s) s:fov(90):rotationx(45) end,
+}
+local Actions = {
+	{5,1,"gameplay comment good"},
+	{7.2,3},
+	{8,2,"gameplay comment good"},
+	{10,3,"gameplay comment danger"},
+}
+local beat,last_beat = 0,0
+local function UpdateRate()
+	beat = GAMESTATE:GetSongBeat()
+	for i,m in ipairs(Actions) do
+		if (beat >= m[1] and last_beat < m[1]) then
+			MESSAGEMAN:Broadcast("AnimationPlay",{ Actor=m[2] or nil, Announce=m[3] or nil })
+		elseif (beat < m[1]) then
+			break
+		end
+	end
+	last_beat = beat
+	return s;
+end
 
 local t = Def.ActorFrame{
+	OnCommand=function(s)
+		s:SetUpdateFunction( UpdateRate )
+	end;
+};
+local la
+for i=1,3 do
+	ch[#ch+1] = Def.Model{
+		Meshes=Char:GetModelPath(),
+		Materials=Char:GetModelPath(),
+		Bones="../../../../Characters/"..animsets[i],
+		OnCommand=function(s)
+			s:xy(SCREEN_CENTER_X-WideScale(225,205),SCREEN_CENTER_Y+210):zoom(25):cullmode("CullMode_None")
+			:rate( i == 3 and 1 or 0 ):loop( i == 3 and true or false ):z(30)
+			:visible( i == 3 and true or false )
+		end,
+		AnimationPlayMessageCommand=function(s,param)
+			s:finishtweening()
+			if param.Announce then la = param.Announce end
+			if param.Actor and param.Actor == i then
+				s:visible(true):position(0):rate(1)
+				if param.Actor < 3 then
+					s:sleep(0.4):queuecommand("QuickPause1")
+				else
+					s:sleep(1.5):queuecommand("LastAnnounce")
+				end
+			else s:visible(false)
+			end
+		end,
+		QuickPause1Command=function(s) s:rate(0):sleep(1):queuecommand("QuickResume1") end,
+		QuickResume1Command=function(s) s:rate(1):sleep(0.2):queuecommand("QuickPause2") end,
+		QuickPause2Command=function(s)
+			if la then SOUND:PlayAnnouncer(la) end
+			s:rate(0):sleep(3.4):queuecommand("QuickResume2")
+		end,
+		QuickResume2Command=function(s) s:rate(1):sleep(1.4):queuemessage("AnimationPlay",{Actor=3}) end,
+		LastAnnounceCommand=function(s)
+			if la then SOUND:PlayAnnouncer(la) end
+		end,
+	}
+end
+
+t[#t+1] = ch
+
+	t[#t+1] = Def.ActorFrame{
 	LoadActor("lifeframe")..{
 		InitCommand=cmd(CenterX;y,SCREEN_TOP+29);
 		OnCommand=cmd(draworder,99);

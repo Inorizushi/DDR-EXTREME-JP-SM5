@@ -26,6 +26,7 @@ local t = Def.ActorFrame{}
 						end
 					end
 				end
+				s:cropbottom(0.1)
 			end;
 			UpdateIconBarMessageCommand=function(s,param)
 				if param.player == player then

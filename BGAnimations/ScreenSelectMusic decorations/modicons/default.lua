@@ -40,7 +40,10 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 	t[#t+1] = Def.ActorFrame{
 		LoadActor( "Icons", pn ) .. {
 			InitCommand=function(s)
-				s:player(pn):xy(SCREEN_CENTER_X, pn == PLAYER_1 and  SCREEN_TOP+52 or 52+12 ):draworder(1)
+				s:player(pn):xy(SCREEN_CENTER_X, pn == PLAYER_1 and  SCREEN_TOP+52.1 or 52.1+12 ):draworder(1)
+				if GAMESTATE:IsAnExtraStage() then
+					s:diffuseblink():effectperiod(1/5):effectcolor1(Color.White):effectcolor2(color("1,1,1,0")):effectoffset(0.5)
+				end
 			end,
 			OnCommand=cmd(addx,-SCREEN_WIDTH;sleep,0.317;decelerate,0.766;addx,SCREEN_WIDTH);
 			OffCommand=cmd(accelerate,0.783;addx,-640);
