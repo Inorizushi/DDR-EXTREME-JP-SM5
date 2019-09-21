@@ -44,31 +44,26 @@ local item = Def.ActorFrame{
 t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(22):MaskSource() end; }
 t[#t+1] = Def.Quad{ OnCommand=function(s) s:zoomto(140,26):y(-24):MaskSource() end; }
 
+local time = THEME:GetMetric("MusicWheel","SwitchSeconds")+0.16
 local somf = Def.ActorFrame{
 	PreviousSongMessageCommand=function(s,param)
-		local WheelLocked = SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked()
 		s:stoptweening()
-		if WheelLocked then
-			s:y(-22):linear(0.24/2):y(-11):bounceend(0.24/2):y(-22)
+		if SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked() then
+			s:y(-22):linear(time/2):y(-11):bounceend(time/2):y(-22)
 		else
-			s:y(-22):decelerate(0.24):y(0)
+			s:y(-22):decelerate(time):y(0)
 		end
 	end,
 	NextSongMessageCommand=function(s,param)
-		local WheelLocked = SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked()
 		s:stoptweening()
-		if WheelLocked then
-			s:y(0):linear(0.24/2):y(-11):bounceend(0.24/2):y(0)
+		if SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked() then
+			s:y(0):linear(time/2):y(-11):bounceend(time/2):y(0)
 		else
-			s:y(0):decelerate(0.24):y(-22)
+			s:y(0):decelerate(time):y(-22)
 		end
 	end,
 	item,
-	item..{
-		OnCommand=function(s)
-			s:y(22)
-		end;
-	}
+	item..{ OnCommand=function(s) s:y(22) end }
 }
 
 t[#t+1] = somf

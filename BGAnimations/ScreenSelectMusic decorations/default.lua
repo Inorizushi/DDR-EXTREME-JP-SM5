@@ -27,18 +27,16 @@ if not GAMESTATE:IsCourseMode() then
 		OnCommand=function(s) s:zoom(0):rotationz(-360):sleep(0.3):decelerate(0.4):rotationz(0):zoom(1) end,
 		OffCommand=function(s) s:sleep(0.4):accelerate(0.383):zoom(0):rotationz(-360) end,
 		BeginCommand=function(self,param)
-			if GAMESTATE:IsCourseMode() == true then
-				self:visible(false)
-			end
+			self:visible( not GAMESTATE:IsCourseMode() )
 		end;
 	}
 
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
 			s:fov(25):draworder(101)
-			s:xy( SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83 )
+			:xy( SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83 )
 			:vanishpoint(SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83)
-			s:addx(-280):sleep(0.450):linear(0.267):addx(274)
+			:addx(-280):sleep(0.450):linear(0.267):addx(274)
 			:linear(0.05):addx(-6):decelerate(0.116):addx(12):decelerate(0.067)
 			:addx(-4):decelerate(0.1):addx(4)
 		end,
