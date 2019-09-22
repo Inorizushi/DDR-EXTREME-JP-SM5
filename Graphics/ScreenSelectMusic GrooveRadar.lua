@@ -41,6 +41,22 @@ local t = Def.ActorFrame {
 				end
 			end
 		end;
+		RandomizeDataMessageCommand=function(s) s:queuecommand("RandomLoop") end,
+		StopDataMessageCommand=function(s) s:finishtweening() end,
+		RandomLoopCommand=function(s)
+			local randnum = GAMESTATE:Env()["randnum"]
+			for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+				if randnum:HasStepsTypeAndDifficulty( GAMESTATE:GetCurrentSteps(pn):GetStepsType(), GAMESTATE:Env()["curdir"][pn]  ) then
+					local steps = randnum:GetAllSteps()
+					for v in ivalues(steps) do
+						if v:GetDifficulty() == GAMESTATE:Env()["curdir"][pn] then
+							s:SetFromRadarValues( pn, v:GetRadarValues(pn) )
+						end
+					end
+				end
+			end
+			s:sleep(1/8):queuecommand("RandomLoop")
+		end,
 	};
 };
 

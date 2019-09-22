@@ -4,8 +4,8 @@ function SpeedMods()
 		LayoutType = "ShowAllInRow",
 		SelectType = "SelectOne",
 		ExportOnChange = true,
-		Choices = {"X1","X1.5","X2","X3","X5","X8"},
-		Values = {1,1.5,2,3,5,8},
+		Choices = {"X1","X1.5","X2","X3","X5","X8","X0.5"},
+		Values = {1,1.5,2,3,5,8,0.5},
 		LoadSelections = function(s, list, pn)
 			local playeroptions = GAMESTATE:GetPlayerState(pn):GetPlayerOptions("ModsLevel_Preferred")
 			for i, val in ipairs(s.Values) do

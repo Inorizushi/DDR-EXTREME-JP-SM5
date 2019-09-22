@@ -1,4 +1,6 @@
 local t = Def.ActorFrame{}
+GAMESTATE:Env()["curdir"] = { [PLAYER_1] = nil,[PLAYER_2] = nil }
+GAMESTATE:Env()["randnum"] = nil
 local pn = ...
 
 local xPosPlayerIcon = { [PLAYER_1] = SCREEN_CENTER_X-263,[PLAYER_2] = SCREEN_CENTER_X-73 }
@@ -21,7 +23,6 @@ t[#t+1] = Def.ActorFrame{
 		s:diffusealpha(0):cropbottom(1):sleep(0.717):decelerate(0.183):cropbottom(0):diffusealpha(1)
 	end,
     SetCommand=function(self)
-	self:visible(false)
 		if GAMESTATE:GetCurrentSong() then
 			local steps = GAMESTATE:GetCurrentSteps(pn)
 			if steps then
@@ -94,6 +95,30 @@ local function StepsDisplay(pn)
 				self:GetChild("Ticks"):diffuse(CustomDifficultyToColor("Beginner"))
 			end
 		end;
+		RandomizeDataMessageCommand=function(s) s:queuecommand("RandomLoop") end,
+		StopDataMessageCommand=function(s) s:finishtweening():visible(false) end,
+		RandomLoopCommand=function(s)
+			GAMESTATE:Env()["randnum"] = SONGMAN:GetRandomSong()
+			local function DiffCheck()
+				GAMESTATE:Env()["randnum"] = SONGMAN:GetRandomSong()
+				if GAMESTATE:Env()["randnum"]:HasStepsTypeAndDifficulty( GAMESTATE:GetCurrentSteps(pn):GetStepsType(), GAMESTATE:Env()["curdir"][pn]  ) then
+					return true
+				else
+					DiffCheck()
+				end
+			end
+			DiffCheck()
+			local randnum = GAMESTATE:Env()["randnum"]
+			if randnum:HasStepsTypeAndDifficulty( GAMESTATE:GetCurrentSteps(pn):GetStepsType(), GAMESTATE:Env()["curdir"][pn]  ) then
+				local steps = randnum:GetAllSteps()
+				for v in ivalues(steps) do
+					if v:GetDifficulty() == GAMESTATE:Env()["curdir"][pn] then
+						s:SetFromSteps( v )
+					end
+				end
+			end
+			s:visible(true):sleep(1/8):queuecommand("RandomLoop")
+		end,
 	};
 
 	if pn == PLAYER_1 then
@@ -144,6 +169,7 @@ t[#t+1] = Def.ActorFrame{
 			local steps = SongOrCourse:GetOneSteps( st, diff );
 				self:settext(steps:GetMeter());
 				self:diffuse(CustomDifficultyToColor(ToEnumShortString(diff)));
+				GAMESTATE:Env()["curdir"][pn] = diff
 			else
 				self:settext("");
 			end;
@@ -153,11 +179,24 @@ t[#t+1] = Def.ActorFrame{
 	OnCommand=function(s) s:diffusealpha(0):sleep(0.533):linear(0.184):diffusealpha(1) end,
 	OffCommand=function(s) s:linear(0.2):zoomy(0) end,
 	CurrentSongChangedMessageCommand=function(s) s:playcommand("Set") end,
-	CurrentStepsP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
-	CurrentStepsP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
-	CurrentTrailP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
-	CurrentTrailP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
-	CurrentCourseChangedMessageCommand=function(s) s:playcommand("Set") end
+	["CurrentSteps"..ToEnumShortString(pn).."ChangedMessageCommand"]=function(s) s:playcommand("Set") end,
+	["CurrentTrail"..ToEnumShortString(pn).."ChangedMessageCommand"]=function(s) s:playcommand("Set") end,
+	CurrentCourseChangedMessageCommand=function(s) s:playcommand("Set") end,
+	RandomizeDataMessageCommand=function(s) s:queuecommand("RandomLoop") end,
+	StopDataMessageCommand=function(s) s:finishtweening():visible(false) end,
+	RandomLoopCommand=function(s)
+		local randnum = GAMESTATE:Env()["randnum"]
+		if randnum:HasStepsTypeAndDifficulty( GAMESTATE:GetCurrentSteps(pn):GetStepsType(), GAMESTATE:Env()["curdir"][pn]  ) then
+			local steps = randnum:GetAllSteps()
+			for v in ivalues(steps) do
+				if v:GetDifficulty() == GAMESTATE:Env()["curdir"][pn] then
+					s:settext( v:GetMeter() )
+				end
+			end
+		end
+		s:visible(true):diffuse( CustomDifficultyToColor( ToEnumShortString(GAMESTATE:Env()["curdir"][pn]) ) )
+		s:sleep(1/8):queuecommand("RandomLoop")
+	end,
 	};
 };
 

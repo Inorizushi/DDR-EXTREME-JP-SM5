@@ -16,4 +16,6 @@ t[#t+1] = Def.ActorFrame{
 };
 end;
 
+GAMESTATE:Env()["ItemThatWasJustUnlocked"] = nil
+
 return t;

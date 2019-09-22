@@ -33,7 +33,7 @@ local t = Def.ActorFrame{}
 					local playeroptions = GAMESTATE:GetPlayerState(player):GetPlayerOptions("ModsLevel_Preferred")
 					for v in ivalues(modifierlist[ i ]) do
 						if param.index == i then
-							if not (param.ch == "1x") then
+							if not (param.ch == "1x") and not (param.ch == "0.5x") then
 								s:Load( THEME:GetPathB("ScreenSelectMusic","decorations/modicons/Icons/"..param.ch..".png") )
 							else
 								s:Load( THEME:GetPathB("ScreenSelectMusic","decorations/modicons/Icons/default.png") )

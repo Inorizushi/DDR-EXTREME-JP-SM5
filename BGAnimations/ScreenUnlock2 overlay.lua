@@ -2,13 +2,13 @@ local t =  Def.ActorFrame{}
 
 -- if something was unlocked, the ItemThatWasJustUnlocked variable will have been set
 -- to be a path in the UnlockSomeStuffMaybe() function in your ./Scripts/Unlock.lua file
-if ItemThatWasJustUnlocked then
+if GAMESTATE:Env()["ItemThatWasJustUnlocked"] then
 	-- regardless of banner or not-banner, display some reward text
 	t[#t+1] = LoadFont("Common normal")..{
 		Name="RewardText",
 		InitCommand=cmd(xy, _screen.cx, 110; zoom,1.25),
 		OnCommand=function(self)
-			self:settext("You have unlocked: " .. ItemThatWasJustUnlocked)
+			self:settext("You have unlocked: " .. tostring(GAMESTATE:Env()["ItemThatWasJustUnlocked"]))
 		end
 	}
 	-- this is a sound to be played upon a successful unlock
@@ -20,7 +20,6 @@ if ItemThatWasJustUnlocked then
 			self:GetChild("songUnlocked"):play()
 		end
 	end
-
 
 -- otherwise, nothing was unlocked, and the path variable is nil
 else
@@ -40,7 +39,5 @@ else
 		self:GetChild("songNotUnlocked"):play()
 	end
 end
--- either way, set this to nil again now
-ItemThatWasJustUnlocked = nil
 
 return t

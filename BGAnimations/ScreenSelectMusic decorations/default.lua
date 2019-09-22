@@ -140,6 +140,18 @@ t[#t+1] = Def.Actor{
 			end
 		end
 	end;
-}
+	CurrentSongChangedMessageCommand=function(s) s:playcommand("RouletteCheck") end;
+	RouletteCheckCommand=function(s)
+		if SCREENMAN:GetTopScreen() then
+			if SCREENMAN:GetTopScreen():GetMusicWheel() then
+				if SCREENMAN:GetTopScreen():GetMusicWheel():GetSelectedType() == 'WheelItemDataType_Random' then
+					MESSAGEMAN:Broadcast("RandomizeData")
+				else
+					MESSAGEMAN:Broadcast("StopData")
+				end
+			end
+		end
+	end,
+};
 
 return t

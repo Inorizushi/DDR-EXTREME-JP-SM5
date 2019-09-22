@@ -1,7 +1,7 @@
 -- by not prefixing "local" before this variable,
 -- it will have global scope throughout your theme
 -- and can be accessed from any other theme file
-ItemThatWasJustUnlocked = nil
+GAMESTATE:Env()["ItemThatWasJustUnlocked"] = nil
 
 codes = {
 	{"JLEDKZTKOZGDJJ",6},
@@ -18,20 +18,15 @@ function UnlockSomeStuffMaybe(text)
 	local HowMany = UNLOCKMAN:GetNumUnlocks()
 
 	if HowMany > 0 then
-		ItemThatWasJustUnlocked = nil
 		for v in ivalues(codes) do
 			-- Since each sequential code just unlocks whatever the last one had and then its own,
 			-- let's make a loop that manages the max number and the code.
-			if text == v[1] then
+			if v[1] == text then
+				GAMESTATE:Env()["ItemThatWasJustUnlocked"] = tostring("1-"..v[2])
 				for i=1,v[2] do
 					UNLOCKMAN:UnlockEntryID(tostring(i))
 				end
-				ItemThatWasJustUnlocked = "1-"..v[2]
 			end
 		end
-	else
-		-- the lookup didn't find any locked content that matched the typed text
-		-- so set this variable to nil
-		ItemThatWasJustUnlocked = nil
 	end
 end
