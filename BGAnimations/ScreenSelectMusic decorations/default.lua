@@ -2,12 +2,8 @@ local t = LoadFallbackB();
 
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay")
-<<<<<<< HEAD
-t[#t+1] = LoadActor("BannerHandler.lua");
-=======
 t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/BannerHandler.lua") )();
 t[#t+1] = StandardDecorationFromFile("BannerFrame","BannerFrame")
->>>>>>> 02a5ad6b3f7b6c1cfec507b64be1c6f0cc2f9ad1
 t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
 t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
 
