@@ -25,11 +25,7 @@ local function UpdateRate()
 	return s;
 end
 
-local t = Def.ActorFrame{
-	OnCommand=function(s)
-		s:SetUpdateFunction( UpdateRate )
-	end;
-};
+local t = Def.ActorFrame{ OnCommand=function(s) s:SetUpdateFunction( UpdateRate ) end };
 local la
 for i=1,3 do
 	ch[#ch+1] = Def.Model{

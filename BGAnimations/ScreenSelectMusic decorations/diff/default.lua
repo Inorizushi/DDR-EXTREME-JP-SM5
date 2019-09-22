@@ -1,125 +1,78 @@
 local t = Def.ActorFrame{}
+local pn = ...
 
-local DiffToIndex = {
-  ["Difficulty_Beginner"] = 0,
-  ["Difficulty_Easy"] = 1,
-  ["Difficulty_Medium"] = 2,
-  ["Difficulty_Hard"] = 3,
-  ["Difficulty_Challenge"] = 4,
-  ["Difficulty_Edit"] = 5,
-}
-
-local xPosPlayerIcon = {
-    P1 = SCREEN_CENTER_X-263,
-    P2 = SCREEN_CENTER_X-73
-}
-
-for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+local xPosPlayerIcon = { [PLAYER_1] = SCREEN_CENTER_X-263,[PLAYER_2] = SCREEN_CENTER_X-73 }
 t[#t+1] = Def.ActorFrame{
   InitCommand=function(self)
-    local short = ToEnumShortString(pn)
-    self:x(xPosPlayerIcon[short]):y(SCREEN_CENTER_Y+15)
+    self:x(xPosPlayerIcon[pn]):y(SCREEN_CENTER_Y+15)
   end,
   LoadActor("_iconframe "..ToEnumShortString(pn))..{
-    OnCommand=cmd(addy,40;cropbottom,1;sleep,0.717;decelerate,0.183;addy,-40;cropbottom,0);
-    OffCommand=cmd(sleep,0.2;accelerate,0.183;addy,40;cropbottom,1);
+    OnCommand=function(s) s:addy(40):cropbottom(1):sleep(0.717):decelerate(0.183):addy(-40):cropbottom(0) end,
+    OffCommand=function(s) s:sleep(0.2):accelerate(0.183):addy(40):cropbottom(1) end,
   };
   Def.ActorFrame{
-    InitCommand=cmd(x,pn=="PlayerNumber_P2" and 15 or -15);
-	OnCommand=function(s)
-		s:addy(40):diffusealpha(0):sleep(0.717):decelerate(0.183):addy(-40):diffusealpha(1)
-	end,
-    OffCommand=cmd(sleep,0.2;accelerate,0.183;addy,40;diffusealpha,0);
+    InitCommand=function(s) s:x( pn == "PlayerNumber_P2" and 15 or -15) end,
+	OnCommand=function(s) s:addy(40):diffusealpha(0):sleep(0.717):decelerate(0.183):addy(-40):diffusealpha(1) end,
+	OffCommand=function(s) s:sleep(0.2):accelerate(0.183):addy(40):diffusealpha(0) end,
     Def.Sprite{
       Texture="_difficulty icons 1x6.png";
-	  InitCommand=cmd(pause);
+	  InitCommand=function(s) s:pause() end,
 	  BeginCommand=function(s)
 		s:diffusealpha(0):cropbottom(1):sleep(0.717):decelerate(0.183):cropbottom(0):diffusealpha(1)
 	end,
-      SetCommand=function(self)
-        local song = GAMESTATE:GetCurrentSong()
-        if song then
-          local steps = GAMESTATE:GetCurrentSteps(pn)
-          if steps then
-            self:setstate(DiffToIndex[steps:GetDifficulty()])
-            self:visible(true)
-          end
-        else
-          self:visible(false)
-        end
-      end;
-      CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-  		CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"Set");
-		  CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
-		OffCommand=function(s)
-			s:sleep(0.2):accelerate(0.183):cropbottom(1)
-		end,
+    SetCommand=function(self)
+	self:visible(false)
+		if GAMESTATE:GetCurrentSong() then
+			local steps = GAMESTATE:GetCurrentSteps(pn)
+			if steps then
+				self:setstate( GetDifficultyIconFrame(steps:GetDifficulty()) ):visible(true)
+			end
+		end
+    end;
+    CurrentSongChangedMessageCommand=function(s) s:playcommand("Set") end,
+  	CurrentStepsP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentStepsP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	OffCommand=function(s) s:sleep(0.2):accelerate(0.183):cropbottom(1) end,
     };
     LoadActor("_autogen")..{
-      InitCommand=cmd(visible,false);
-  		BeginCommand=cmd(playcommand,"Set");
-  		ShowCommand=cmd(visible,true;diffuseshift;effectcolor1,color("1,1,1,0");effectcolor2,color("1,1,1,1"));
-  		HideCommand=cmd(visible,false;stopeffect);
-      CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-  		CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"Set");
-  		CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
+		InitCommand=function(s) s:visible(false) end,
+		BeginCommand=function(s) s:playcommand("Set") end,
+		ShowCommand=function(s) s:visible(true):diffuseshift():effectcolor1( color("1,1,1,0") ):effectcolor2( Color.White ) end,
+		HideCommand=function(s) s:visible(false):stopeffect() end,
+		CurrentSongChangedMessageCommand=function(s) s:playcommand("Set") end,
+		CurrentStepsP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
+		CurrentStepsP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
   		SetCommand=function(self)
-  			local song = GAMESTATE:GetCurrentSong()
-  			if song then
+			self:playcommand("Hide")
+  			if GAMESTATE:GetCurrentSong() then
   				local steps = GAMESTATE:GetCurrentSteps(pn)
-  				if steps then
-  					if steps:IsAutogen() then self:playcommand("Show")
-  					else self:playcommand("Hide")
-  					end
-  				else
-  					self:playcommand("Hide")
+				if steps and steps:IsAutogen() then
+					self:playcommand("Show")
   				end
-  			else
-  				self:playcommand("Hide")
   			end
   		end;
     };
   };
 };
-end;
 
 --Meter Frames
+local framepos = { [PLAYER_1] = SCREEN_CENTER_X-234, [PLAYER_2] = SCREEN_CENTER_X-102 }
 t[#t+1] = Def.ActorFrame{
-	LoadActor("_frame p1")..{
+	LoadActor("_frame ".. ToEnumShortString(pn))..{
 		InitCommand=function(self)
-			if GAMESTATE:IsPlayerEnabled(PLAYER_1) ~= true or SCREENMAN:GetTopScreen() == 'ScreenSelectCourse' then
-				self:visible(false)
-			else
-				self:visible(true)
-			end
-			self:x(SCREEN_CENTER_X-234):y(SCREEN_CENTER_Y+175)
+			self:visible( (GAMESTATE:IsPlayerEnabled(pn) or SCREENMAN:GetTopScreen() ~= 'ScreenSelectCourse') and true or false )
+			:xy( framepos[pn], SCREEN_CENTER_Y+175 )
 		end,
-		OnCommand=cmd(cropbottom,1;sleep,0.533;linear,0.184;cropbottom,0);
-		OffCommand=cmd(sleep,0.183;linear,0.2;cropbottom,1);
-	};
-	LoadActor("_frame p2")..{
-		InitCommand=function(self)
-			if GAMESTATE:IsPlayerEnabled(PLAYER_2) ~= true or SCREENMAN:GetTopScreen() == 'ScreenSelectCourse' then
-				self:visible(false)
-			else
-				self:visible(true)
-			end
-			self:x(SCREEN_CENTER_X-102):y(SCREEN_CENTER_Y+175)
-		end,
-		OnCommand=cmd(cropbottom,1;sleep,0.533;linear,0.184;cropbottom,0);
-		OffCommand=cmd(sleep,0.183;linear,0.2;cropbottom,1);
+		OnCommand=function(s) s:cropbottom(1):sleep(0.533):linear(0.184):cropbottom(0) end,
+		OffCommand=function(s) s:sleep(0.183):linear(0.2):cropbottom(1) end,
 	};
 	LoadActor("splitter")..{
 		InitCommand=function(self)
-			if GAMESTATE:GetNumPlayersEnabled() == 2 then
-				self:visible(true)
-			else
-				self:visible(false)
-			end;
+			self:visible( GAMESTATE:GetNumPlayersEnabled() == 2 )
 			self:x(SCREEN_CENTER_X-170):y(SCREEN_CENTER_Y+180)
 		end;
-		OnCommand=cmd(cropbottom,1;sleep,0.533;linear,0.184;cropbottom,0);
-		OffCommand=cmd(sleep,0.183;linear,0.2;cropbottom,1);
+		OnCommand=function(s) s:cropbottom(1):sleep(0.633):linear(0.184):cropbottom(0) end,
+		OffCommand=function(s) s:sleep(0.083):linear(0.2):cropbottom(1) end,
 	};
 };
 
@@ -129,13 +82,12 @@ local function StepsDisplay(pn)
 		self:SetFromGameState(player);
 	end
 
-	local name = "StepsDisplaySelMusic";
-
 	local sd = Def.StepsDisplay {
-		InitCommand=cmd(Load,name..ToEnumShortString(pn),GAMESTATE:GetPlayerState(pn););
+		InitCommand=function(s)
+			s:Load( "StepsDisplaySelMusic"..ToEnumShortString(pn),GAMESTATE:GetPlayerState(pn) )
+		end,
 		CurrentSongChangedMessageCommand=function(self)
-			local song = GAMESTATE:GetCurrentSong();
-			if not song then
+			if not GAMESTATE:GetCurrentSong() then
 				-- hacky hack 1: set all feet to nothing!
 				self:GetChild("Ticks"):settext("0000000000");
 				-- hacky hack 2: diffuse to beginner
@@ -156,69 +108,57 @@ local function StepsDisplay(pn)
 end
 
 if ShowStandardDecoration("StepsDisplay") then
-	for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
-		-- stepsdisplay
-		local MetricsName = "StepsDisplay" .. PlayerNumberToString(pn);
-		t[#t+1] = StepsDisplay(pn) .. {
-			InitCommand=function(self)
-				self:player(pn);
-				self:name(MetricsName);
-				ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen");
-			end;
-		};
-	end
+	local MetricsName = "StepsDisplay" .. PlayerNumberToString(pn);
+	t[#t+1] = StepsDisplay(pn) .. {
+		InitCommand=function(self)
+			self:player(pn);
+			self:name(MetricsName);
+			ActorUtil.LoadAllCommandsAndSetXY(self,Var "LoadingScreen");
+		end;
+	};
 end
-
-local xPosPlayer = {
-  P1 = (SCREEN_CENTER_X-294),
-  P2 = (SCREEN_CENTER_X-40)
-}
 
 --meter
-for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+local xPosPlayer = { [PLAYER_1] = (SCREEN_CENTER_X-292),[PLAYER_2] = (SCREEN_CENTER_X-44) }
 t[#t+1] = Def.ActorFrame{
 	LoadFont("DifficultyMeter meter")..{
-		InitCommand=function(self)
-			local short = ToEnumShortString(pn)
-			self:x(xPosPlayer[short]):halign(pn=='PlayerNumber_P2' and 1 or 0)
-			:y(_screen.cy+183)
+	InitCommand=function(self)
+		self:xy(xPosPlayer[pn], _screen.cy+182):halign(pn=='PlayerNumber_P2' and 1 or 0)
+	end;
+	SetCommand=function(self)
+	local SongOrCourse, StepsOrTrail;
+		if GAMESTATE:IsCourseMode() then
+			SongOrCourse = GAMESTATE:GetCurrentCourse();
+			StepsOrTrail = GAMESTATE:GetCurrentTrail(pn);
+		else
+			SongOrCourse = GAMESTATE:GetCurrentSong();
+			StepsOrTrail = GAMESTATE:GetCurrentSteps(pn);
 		end;
-		SetCommand=function(self)
-		local SongOrCourse, StepsOrTrail;
-			if GAMESTATE:IsCourseMode() then
-				SongOrCourse = GAMESTATE:GetCurrentCourse();
-				StepsOrTrail = GAMESTATE:GetCurrentTrail(pn);
-			else
-				SongOrCourse = GAMESTATE:GetCurrentSong();
-				StepsOrTrail = GAMESTATE:GetCurrentSteps(pn);
-			end;
 
-			if SongOrCourse and StepsOrTrail then
-				local st = StepsOrTrail:GetStepsType();
-				local diff = StepsOrTrail:GetDifficulty();
-				local courseType = GAMESTATE:IsCourseMode() and SongOrCourse:GetCourseType() or nil;
-				if SongOrCourse:HasStepsTypeAndDifficulty(st,diff) then
-				local steps = SongOrCourse:GetOneSteps( st, diff );
-					self:settext(steps:GetMeter());
-					self:diffuse(CustomDifficultyToColor(ToEnumShortString(diff)));
-				else
-					self:settext("");
-				end;
-			self:visible(true)
+	self:visible(false)
+		if SongOrCourse and StepsOrTrail then
+			local st = StepsOrTrail:GetStepsType();
+			local diff = StepsOrTrail:GetDifficulty();
+			local courseType = GAMESTATE:IsCourseMode() and SongOrCourse:GetCourseType() or nil;
+			if SongOrCourse:HasStepsTypeAndDifficulty(st,diff) then
+			local steps = SongOrCourse:GetOneSteps( st, diff );
+				self:settext(steps:GetMeter());
+				self:diffuse(CustomDifficultyToColor(ToEnumShortString(diff)));
 			else
-				self:visible(false)
+				self:settext("");
 			end;
+			self:visible(true)
 		end;
-		OnCommand=cmd(diffusealpha,0;sleep,0.533;linear,0.184;diffusealpha,1);
-		OffCommand=cmd(linear,0.2;zoomy,0);
-	CurrentSongChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentStepsP1ChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentStepsP2ChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentTrailP1ChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentTrailP2ChangedMessageCommand=cmd(playcommand,"Set");
-	CurrentCourseChangedMessageCommand=cmd(playcommand,"Set");
+	end;
+	OnCommand=function(s) s:diffusealpha(0):sleep(0.533):linear(0.184):diffusealpha(1) end,
+	OffCommand=function(s) s:linear(0.2):zoomy(0) end,
+	CurrentSongChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentStepsP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentStepsP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentTrailP1ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentTrailP2ChangedMessageCommand=function(s) s:playcommand("Set") end,
+	CurrentCourseChangedMessageCommand=function(s) s:playcommand("Set") end
 	};
 };
-end
 
 return t;
