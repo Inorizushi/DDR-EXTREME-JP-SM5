@@ -28,6 +28,7 @@ if not GAMESTATE:IsCourseMode() then
 		BeginCommand=function(self,param) self:visible( not GAMESTATE:IsCourseMode() ) end;
 	}
 
+	--Sprite Based CDTitle
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
 			s:fov(10):draworder(101)
