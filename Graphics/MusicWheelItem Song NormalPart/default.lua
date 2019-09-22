@@ -86,6 +86,19 @@ local t = Def.ActorFrame{
         end;
       end;
     };
+  };
+  Def.Sprite{
+    Texture="WheelNotifyIcon icons",
+    OnCommand=function(s) s:animate(0):xy(-154,-2) end,
+    SetMessageCommand=function(s,param)
+      s:visible(false)
+      local so = GAMESTATE:GetSortOrder()
+      if so == "SortOrder_Popularity" and param.Song then
+        if SONGMAN:GetSongRank(param.Song) < 4 then
+          s:visible(true):setstate( SONGMAN:GetSongRank(param.Song) )
+        end
+      end
+    end,
   }
 };
 
