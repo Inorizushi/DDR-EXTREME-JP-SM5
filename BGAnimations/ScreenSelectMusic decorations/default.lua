@@ -32,9 +32,10 @@ if not GAMESTATE:IsCourseMode() then
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
 			s:fov(10):draworder(101)
+			:spin():effectmagnitude(0,-180,0)
 			:xy( SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83 )
 			:vanishpoint(SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83)
-			:addx(-280):sleep(0.450):linear(0.267):addx(274)
+			:addx(-280-100):sleep(0.450):linear(0.267):addx(274+100)
 			:linear(0.05):addx(-6):decelerate(0.116):addx(12):decelerate(0.067)
 			:addx(-4):decelerate(0.1):addx(4)
 		end,
@@ -55,7 +56,6 @@ if not GAMESTATE:IsCourseMode() then
 
 		Def.ActorFrame{
 			Name="BorderBack",
-			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
 			Def.Sprite{
 				Name="Spr", OnCommand=function(s) s:z(-2):glowshift()
 					:effectcolor1(color("1,1,1,1")):cullmode("CullMode_Back") end,
@@ -63,20 +63,18 @@ if not GAMESTATE:IsCourseMode() then
 		},
 		Def.ActorFrame{
 			Name="Back",
-			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
 			Def.Sprite{
 				Name="Spr", OnCommand=function(s) s:shadowlength(1):cullmode("CullMode_Back"):glowshift():effectcolor2(color("0,0,0,0.7")):effectcolor1(color("0,0,0,0")) end,
 			},
 		},
 		Def.ActorFrame{
-			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
 			Name="Front",
 			Def.Sprite{ Name="Spr", OnCommand=function(s) s:shadowlength(1):glow(Color.White):diffuse(color("0,0,0,1")):cullmode("CullMode_Front") end }
 		},
 		Def.ActorFrame{
 			Name="BorderFront",
-			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
-			Def.Sprite{ Name="Spr", OnCommand=function(s) s:z(-2):glowshift():effectoffset(0.5):effectcolor2(color("0.7,0.7,0.7,1")):effectcolor1(Color.Black):cullmode("CullMode_Front") end,
+			Def.Sprite{ Name="Spr", OnCommand=function(s) s:z(-2):glowshift():effectoffset(0.5):effectcolor2(color("0.9,0.9,0.9,1")):effectcolor1(Color.Black)
+				:cullmode("CullMode_Front"):effecttiming( 0.5,0.1,0.4,0 ) end,
 		},
 		}
 	}
