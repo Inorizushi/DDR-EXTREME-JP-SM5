@@ -111,6 +111,7 @@ t[#t+1] = Def.Actor{
 		end
 	end;
 	OffCommand=function(s)
+		SOUND:PlayAnnouncer("select group comment all music")
 		if SCREENMAN:GetTopScreen() then
 			local wheel = SCREENMAN:GetTopScreen():GetChild("MusicWheel"):GetChild("MusicWheelItem")
 			for i=1,numwh do
