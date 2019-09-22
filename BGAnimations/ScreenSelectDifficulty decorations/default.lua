@@ -179,13 +179,13 @@ t[#t+1] = Def.ActorFrame{
 				self:visible(true)
 				if curIndexP1 == 4 then
 					if oldIndexP1 == 5 or oldIndexP2 == 5 then
-						self:sleep(0.45):queuecommand("SetHeavyP1")
+						self:sleep(0.2):queuecommand("SetHeavyP1")
 					else
 						self:x(_screen.cx+228);
 					end
 				elseif curIndexP1 == 5  then
 					if oldIndexP1 == 4 or oldIndexP2 == 4 then
-						self:sleep(0.45):queuecommand("SetNonstopP1")
+						self:sleep(0.2):queuecommand("SetNonstopP1")
 					else
 						self:x(_screen.cx-76);
 					end
@@ -224,13 +224,13 @@ t[#t+1] = Def.ActorFrame{
 				self:visible(true)
 				if curIndexP2 == 4 then
 					if oldIndexP2 == 5 or oldIndexP1 == 5 then
-						self:sleep(0.45):queuecommand("SetHeavyP2")
+						self:sleep(0.2):queuecommand("SetHeavyP2")
 					else
 						self:x(_screen.cx+228);
 					end
 				elseif curIndexP2 == 5 then
 					if oldIndexP2 == 4 or oldIndexP1 == 4 then
-						self:sleep(0.45):queuecommand("SetNonstopP2")
+						self:sleep(0.2):queuecommand("SetNonstopP2")
 					else
 						self:x(_screen.cx-76);
 					end
@@ -316,7 +316,7 @@ t[#t+1] = Def.ActorFrame{
 				self:visible(false)
 			end;
 		end;
-		OnCommand=cmd(queuecommand,"Set"cropright,1;sleep,0.264;sleep,0.132;cropright,0.936;cropbottom,1;linear,0.264;cropbottom,0;cropright,0.936;linear,0.396;cropright,0);
+		OnCommand=cmd(queuecommand,"Set";cropbottom,1;cropright,0.936;sleep,0.417;linear,0.267;cropbottom,0;sleep,0.016;linear,0.35;cropright,0);
 		OffCommand=cmd(sleep,1;sleep,0.233;linear,0.333;cropright,0.936;sleep,0.016;linear,0.267;cropbottom,1);
 		MenuRightP1MessageCommand=cmd(queuecommand,"Set");
 		MenuLeftP1MessageCommand=cmd(queuecommand,"Set");

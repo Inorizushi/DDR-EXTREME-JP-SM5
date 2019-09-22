@@ -36,6 +36,8 @@ local t = Def.ActorFrame{
           else
             self:diffusealpha(0)
           end;
+        else
+          self:diffusealpha(0)
         end;
       end;
     end;
@@ -44,7 +46,7 @@ local t = Def.ActorFrame{
   Def.BitmapText{
     Font="MusicWheelItem abc";
     SetMessageCommand=function(self,params)
-      self:x(-96):halign(0)
+      self:x(-96):halign(0):maxwidth(100)
       local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then

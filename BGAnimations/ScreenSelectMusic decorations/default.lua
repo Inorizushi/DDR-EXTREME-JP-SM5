@@ -3,7 +3,6 @@ local t = LoadFallbackB();
 t[#t+1] = StandardDecorationFromFileOptional("StyleIcon","StyleIcon");
 t[#t+1] = StandardDecorationFromFile("StageDisplay","StageDisplay")
 t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/BannerHandler.lua") )();
-t[#t+1] = StandardDecorationFromFile("BannerFrame","BannerFrame")
 t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
 t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
 
@@ -29,6 +28,7 @@ if not GAMESTATE:IsCourseMode() then
 		BeginCommand=function(self,param) self:visible( not GAMESTATE:IsCourseMode() ) end;
 	}
 
+	--Sprite Based CDTitle
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
 			s:fov(10):draworder(101)
