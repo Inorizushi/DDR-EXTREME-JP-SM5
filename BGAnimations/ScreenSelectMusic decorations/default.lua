@@ -31,7 +31,7 @@ if not GAMESTATE:IsCourseMode() then
 
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
-			s:fov(25):draworder(101)
+			s:fov(10):draworder(101)
 			:xy( SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83 )
 			:vanishpoint(SCREEN_CENTER_X-84, SCREEN_CENTER_Y-83)
 			:addx(-280):sleep(0.450):linear(0.267):addx(274)
@@ -42,20 +42,43 @@ if not GAMESTATE:IsCourseMode() then
 			s:accelerate(0.316):addx(-SCREEN_WIDTH/2.28)
 		end,
 		CurrentSongChangedMessageCommand=function(s)
-			local c = {"Front","Back","BorderBack","BorderFront"}
+			local c = {"BorderBack","Front","Back","BorderFront"}
 			for v in ivalues(c) do
-				s:GetChild(v):visible(false)
+				s:GetChild(v):GetChild("Spr"):visible(false)
 				if GAMESTATE:GetCurrentSong() then
 					if GAMESTATE:GetCurrentSong():GetCDTitlePath() then
-						s:GetChild(v):visible(true):Load( GAMESTATE:GetCurrentSong():GetCDTitlePath() )
+						s:GetChild(v):GetChild("Spr"):visible(true):Load( GAMESTATE:GetCurrentSong():GetCDTitlePath() )
 					end
 				end
 			end
 		end,
-		Def.Sprite{ Name="BorderBack", OnCommand=function(s) s:spin():z(-10):xy(2,2):glow(Color.White):effectmagnitude(0,180,0):cullmode("CullMode_Back") end },
-		Def.Sprite{ Name="Back", OnCommand=function(s) s:spin():shadowlength(1):effectmagnitude(0,180,0):cullmode("CullMode_Back") end },
-		Def.Sprite{ Name="BorderFront", OnCommand=function(s) s:spin():z(-10):xy(1,1):glow(Color.White):effectmagnitude(0,180,0):cullmode("CullMode_Front") end },
-		Def.Sprite{ Name="Front", OnCommand=function(s) s:spin():shadowlength(1):diffuse(color("0.5,0.5,0.5,0.8")):effectmagnitude(0,180,0):cullmode("CullMode_Front") end }
+
+		Def.ActorFrame{
+			Name="BorderBack",
+			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
+			Def.Sprite{
+				Name="Spr", OnCommand=function(s) s:z(-2):glowshift()
+					:effectcolor1(color("1,1,1,1")):cullmode("CullMode_Back") end,
+			},
+		},
+		Def.ActorFrame{
+			Name="Back",
+			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
+			Def.Sprite{
+				Name="Spr", OnCommand=function(s) s:shadowlength(1):cullmode("CullMode_Back"):glowshift():effectcolor2(color("0,0,0,0.7")):effectcolor1(color("0,0,0,0")) end,
+			},
+		},
+		Def.ActorFrame{
+			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
+			Name="Front",
+			Def.Sprite{ Name="Spr", OnCommand=function(s) s:shadowlength(1):glow(Color.White):diffuse(color("0,0,0,1")):cullmode("CullMode_Front") end }
+		},
+		Def.ActorFrame{
+			Name="BorderFront",
+			OnCommand=function(s) s:spin():effectmagnitude(0,-180,0) end,
+			Def.Sprite{ Name="Spr", OnCommand=function(s) s:z(-2):glowshift():effectoffset(0.5):effectcolor2(color("0.7,0.7,0.7,1")):effectcolor1(Color.Black):cullmode("CullMode_Front") end,
+		},
+		}
 	}
 
 	local GRPos = {
