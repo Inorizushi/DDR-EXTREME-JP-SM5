@@ -4,13 +4,13 @@
 ItemThatWasJustUnlocked = nil
 
 codes = {
-	"JLEDKZTKOZGDJJ",
-	"UBNRXAOUJGPQQI",
-	"PVAGUPMUALPOEZ",
-	"RVNYIXOYKAWEM ",
-	"SQFRXYYJSBERAH",
-	"JHEDXF ALZSMSH",
-	"BWUVHBKKVXFXYA"
+	{"JLEDKZTKOZGDJJ",6},
+	{"UBNRXAOUJGPQQI",9},
+	{"PVAGUPMUALPOEZ",15},
+	{"RVNYIXOYKAWEM ",18},
+	{"SQFRXYYJSBERAH",24},
+	{"JHEDXF ALZSMSH",27},
+	{"BWUVHBKKVXFXYA",30}
 }
 
 function UnlockSomeStuffMaybe(text)
@@ -18,30 +18,17 @@ function UnlockSomeStuffMaybe(text)
 	local HowMany = UNLOCKMAN:GetNumUnlocks()
 
 	if HowMany > 0 then
-		if text == "JLEDKZTKOZGDJJ" then
-			for i=1,6 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-6"
-		elseif text == "UBNRXAOUJGPQQI" then
-			for i=1,9 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-9"
-		elseif text == "PVAGUPMUALPOEZ" then
-			for i=1,15 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-15"
-		elseif text == "RVNYIXOYKAWEM " then
-			for i=1,18 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-18"
-		elseif text == "SQFRXYYJSBERAH" then
-			for i=1,24 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-24"
-		elseif text == "JHEDXF ALZSMSH" then
-			for i=1,27 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-27"
-		elseif text == "BWUVHBKKVXFXYA" then
-			for i=1,35 do UNLOCKMAN:UnlockEntryID(tostring(i)) end
-			ItemThatWasJustUnlocked = "1-30"
-		else
-			ItemThatWasJustUnlocked = nil
-		end;
+		ItemThatWasJustUnlocked = nil
+		for v in ivalues(codes) do
+			-- Since each sequential code just unlocks whatever the last one had and then its own,
+			-- let's make a loop that manages the max number and the code.
+			if text == v[1] then
+				for i=1,v[2] do
+					UNLOCKMAN:UnlockEntryID(tostring(i))
+				end
+				ItemThatWasJustUnlocked = "1-"..v[2]
+			end
+		end
 	else
 		-- the lookup didn't find any locked content that matched the typed text
 		-- so set this variable to nil
