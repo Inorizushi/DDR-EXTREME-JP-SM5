@@ -26,9 +26,7 @@ if not GAMESTATE:IsCourseMode() then
 		InitCommand=function(s) s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90) end,
 		OnCommand=function(s) s:zoom(0):rotationz(-360):sleep(0.3):decelerate(0.4):rotationz(0):zoom(1) end,
 		OffCommand=function(s) s:sleep(0.4):accelerate(0.383):zoom(0):rotationz(-360) end,
-		BeginCommand=function(self,param)
-			self:visible( not GAMESTATE:IsCourseMode() )
-		end;
+		BeginCommand=function(self,param) self:visible( not GAMESTATE:IsCourseMode() ) end;
 	}
 
 	t[#t+1] = Def.ActorFrame{
