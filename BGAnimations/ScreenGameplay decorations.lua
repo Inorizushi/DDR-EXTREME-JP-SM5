@@ -89,6 +89,21 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 			:diffuse( pn == PLAYER_1 and color("0.4,0.8,1.0,1") or color("1.0,0.5,0.2,1") )
 			:shadowlength(1):addy(usingreverse and -50 or 78):linear(0.6):addy(usingreverse and 50 or -78)
 		end;
+	};
+
+	local batpos = { [PLAYER_1] = SCREEN_CENTER_X-183, [PLAYER_2] = SCREEN_CENTER_X+183 }
+	t[#t+1] = Def.RollingNumbers{
+		File=THEME:GetPathF("LifeMeterBattery","Percent text"),
+		OnCommand=function(s)
+			s:Load("RollingNumbersOni"):targetnumber( 0 )
+			:xy(batpos[pn],SCREEN_TOP+16):diffuse(PlayerColor(pn))
+			:zoom(0.7)
+			:addy(-50):linear(0.6):addy(50)
+		end,
+		JudgmentMessageCommand=function(s)
+			local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
+			s:targetnumber( pss:GetActualDancePoints() )
+		end,
 	}
 end
 

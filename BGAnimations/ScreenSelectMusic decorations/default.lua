@@ -7,19 +7,7 @@ t[#t+1] = StandardDecorationFromFileOptional("BPMDisplay","BPMDisplay")
 t[#t+1] = StandardDecorationFromFileOptional("SortDisplay","SortDisplay")
 
 if not GAMESTATE:IsCourseMode() then
-	for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-		t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/diff") )(pn);
-		t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/modicons") )(pn)..{
-			InitCommand=function(s) s:draworder(100) end,
-		};
-	end;
-
 	t[#t+1] = StandardDecorationFromFileOptional("GrooveRadar","GrooveRadar")
-
-	-- other items (balloons, etc.)
-
-	t[#t+1] = StandardDecorationFromFile( "Balloon", "Balloon" );
-
 	t[#t+1] = Def.Sprite{
 		Texture="GrooveRadar base",
 		InitCommand=function(s) s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90) end,
@@ -28,6 +16,26 @@ if not GAMESTATE:IsCourseMode() then
 		BeginCommand=function(self,param) self:visible( not GAMESTATE:IsCourseMode() ) end;
 	}
 
+	for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+		t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/diff") )(pn);
+		t[#t+1] = loadfile( THEME:GetPathB("ScreenSelectMusic","decorations/modicons") )(pn)..{
+			InitCommand=function(s) s:draworder(100) end,
+		};
+		t[#t+1] = Def.Sprite{
+			Texture=THEME:GetPathG("GrooveRadar","EditMessage"),
+			InitCommand=function(s) s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90) end,
+			OnCommand=function(s) s:diffuseshift() end,
+			["CurrentSteps".. ToEnumShortString(pn) .."ChangedMessageCommand"]=function(s)
+				if GAMESTATE:GetCurrentSteps(pn) then
+					s:visible( GAMESTATE:GetCurrentSteps(pn):GetDifficulty() == "Difficulty_Edit" )
+				end
+			end,
+		}
+	end;
+	-- other items (balloons, etc.)
+
+	t[#t+1] = StandardDecorationFromFile( "Balloon", "Balloon" );
+	
 	--Sprite Based CDTitle
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)

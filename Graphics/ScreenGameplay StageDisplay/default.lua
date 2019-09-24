@@ -1,6 +1,10 @@
 local StageDisplay = Def.ActorFrame{
-	BeginCommand=cmd(playcommand,"Set";);
-	CurrentSongChangedMessageCommand=cmd(finishtweening;playcommand,"Set";);
+	BeginCommand=function(s)
+		s:playcommand("Set")
+	end,
+	CurrentSongChangedMessageCommand=function(s)
+		s:finishtweening():playcommand("Set")
+	end,
 };
 
 local IndexToStage = {
@@ -36,7 +40,13 @@ else
 					Stage = ss:GetStage();
 					StageIndex = ss:GetStageIndex();
 				end
-				self:visible( Stage == s );
+				local function IsOni()
+					if GAMESTATE:GetCurrentCourse() then
+						return GAMESTATE:GetCurrentCourse():IsOni()
+					end
+					return false
+				end
+				self:visible( (not IsOni() and Stage == s) );
 			end;
 		};
 	end

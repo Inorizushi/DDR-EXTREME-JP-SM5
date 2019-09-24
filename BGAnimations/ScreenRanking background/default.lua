@@ -1,43 +1,26 @@
-return Def.ActorFrame{
-	LoadActor("type1.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,0.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
+local t = Def.ActorFrame{}
+
+for i=0,7 do
+	t[#t+1] = Def.Sprite{
+	Texture="type"..i+1,
+	InitCommand=function(s)
+		s:xy(SCREEN_CENTER_X+WideScale(320,520),SCREEN_TOP+45)
+	end,
+	OnCommand=function(s)
+		s:halign(0):sleep(0.5+(6*i))
+		:linear(0.233):addx(-WideScale(208,408)):decelerate(0.083)
+		:zoomx(0.94):accelerate(0.083):zoomx(1)
+		:decelerate(0.083):zoomx(1.05):accelerate(0.083)
+		:zoomx(1):sleep(4.183):decelerate(0.1):addy(-4)
+		:accelerate(0.4):addy(52)
+	end,
 	};
-	LoadActor("type2.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,6.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type3.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,12.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type4.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,18.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type5.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,24.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type6.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,30.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type7.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,36.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("type8.png")..{
-		InitCommand=cmd(xy,SCREEN_CENTER_X+320,SCREEN_TOP+45);
-		OnCommand=cmd(halign,0;sleep,42.5;linear,0.233;addx,-208;decelerate,0.083;zoomx,0.94;accelerate,0.083;zoomx,1;decelerate,0.083;zoomx,1.05;accelerate,0.083;zoomx,1;sleep,4.183;decelerate,0.1;addy,-4;accelerate,0.4;addy,52);
-	};
-	LoadActor("ranking.png")..{
+end
+
+t[#t+1] = Def.ActorFrame{
+	LoadActor("rankingwide.png")..{
 		InitCommand=cmd(Center);
 	};
-	Def.Quad{
-		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,0;xy,_screen.cx+320,_screen.cy);
-	};
-	Def.Quad{
-		InitCommand=cmd(diffuse,Color.Black;setsize,107,SCREEN_HEIGHT;halign,1;xy,_screen.cx-320,_screen.cy);
-	};
 };
+
+return t;
