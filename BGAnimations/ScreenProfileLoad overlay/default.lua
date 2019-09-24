@@ -2,16 +2,17 @@ local t = Def.ActorFrame{
 	BeginCommand=function(s)
 		if SCREENMAN:GetTopScreen():HaveProfileToLoad() then
 			SOUND:PlayAnnouncer( "ScreenProfileLoad MemoryLoad" )
-			s:queuecommand("Action"):sleep(2);
+			s:queuecommand("Action"):sleep(2):queuecommand("CardLoaded")
+		else
+			s:queuecommand("ContinueScreen")
 		end;
-		s:queuecommand("CardLoaded");
 	end,
 	CardLoadedCommand=function(s)
 		SOUND:PlayAnnouncer( "ScreenProfileLoad MemoryCorrect" )
 		s:sleep(0.5):queuecommand("ContinueScreen")
 	end,
 	ContinueScreenCommand=function()
-		SCREENMAN:GetTopScreen():Continue();
+		SCREENMAN:GetTopScreen():Continue()
 	end;
 };
 
