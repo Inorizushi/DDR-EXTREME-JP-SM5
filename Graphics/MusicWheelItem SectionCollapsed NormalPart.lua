@@ -10,7 +10,7 @@ local t = Def.ActorFrame{
         local function CheckDir(groupname)
           local dirs = {"Songs","AdditionalSongs"}
           for v in ivalues(dirs) do
-            if FILEMAN:DoesFileExist( v.."/"..group.."/card.png" ) then
+            if FILEMAN:DoesFileExist( v.."/"..groupname.."/card.png" ) then
               return v.."/"..groupname.."/card.png"
             end
           end
