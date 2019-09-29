@@ -35,8 +35,12 @@ if ShowStandardDecoration("StageNumber") then
 	end
 end
 
+local ste = {}
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')
+	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')	
+	local st = GAMESTATE:GetCurrentSteps(pn)
+	local editdata = string.format( "% 9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
+	ste[pn] = { diff=st:GetDifficulty(), ed=editdata }
     t[#t+1] = Def.Sprite{
         Texture=THEME:GetPathG("StepsDisplayGameplay","frame"),
         InitCommand=function(s)
@@ -103,6 +107,21 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 		JudgmentMessageCommand=function(s)
 			local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
 			s:targetnumber( pss:GetActualDancePoints() )
+		end,
+	}
+
+	t[#t+1] = Def.BitmapText{
+		Condition=GAMESTATE:GetCurrentSteps(pn):GetDifficulty() == "Difficulty_Edit",
+		Font="MemoryCard Info",
+		OnCommand=function(s)
+			s:xy(SCREEN_CENTER_X,SCREEN_BOTTOM-88):zoom(1.5):draworder(101):SetTextureFiltering(false)
+			local string = "["..(ste[pn].ed).."]"
+			s:settext( string )
+			if GAMESTATE:GetNumPlayersEnabled() == 2 then
+				if (ste[PLAYER_1].diff == ste[PLAYER_2].diff) and (ste[PLAYER_1].ed ~= ste[PLAYER_2].ed) then
+					s:addy( pn == PLAYER_2 and 0 or -20 )
+				end
+			end
 		end,
 	}
 end

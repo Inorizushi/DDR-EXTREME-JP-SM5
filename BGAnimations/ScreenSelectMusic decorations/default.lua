@@ -10,7 +10,10 @@ if not GAMESTATE:IsCourseMode() then
 	t[#t+1] = StandardDecorationFromFileOptional("GrooveRadar","GrooveRadar")
 	t[#t+1] = Def.Sprite{
 		Texture="GrooveRadar base",
-		InitCommand=function(s) s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90) end,
+		InitCommand=function(s)
+			s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90)
+			GAMESTATE:Env()["SelectedEdit"] = false
+		end,
 		OnCommand=function(s) s:zoom(0):rotationz(-360):sleep(0.3):decelerate(0.4):rotationz(0):zoom(1) end,
 		OffCommand=function(s) s:sleep(0.4):accelerate(0.383):zoom(0):rotationz(-360) end,
 		BeginCommand=function(self,param) self:visible( not GAMESTATE:IsCourseMode() ) end;
@@ -24,12 +27,11 @@ if not GAMESTATE:IsCourseMode() then
 		t[#t+1] = Def.Sprite{
 			Texture=THEME:GetPathG("GrooveRadar","EditMessage"),
 			InitCommand=function(s) s:xy(SCREEN_CENTER_X-168,SCREEN_CENTER_Y+90) end,
-			OnCommand=function(s) s:diffuseshift() end,
-			["CurrentSteps".. ToEnumShortString(pn) .."ChangedMessageCommand"]=function(s)
-				if GAMESTATE:GetCurrentSteps(pn) then
-					s:visible( GAMESTATE:GetCurrentSteps(pn):GetDifficulty() == "Difficulty_Edit" )
-				end
+			OnCommand=function(s) s:diffuseshift():visible(false) end,
+			["EditScrollerChangedMessageCommand"]=function(s)
+				s:visible( GAMESTATE:Env()["SelectedEdit"] )
 			end,
+			OffCommand=function(s) s:visible(false) end,
 		}
 	end;
 	-- other items (balloons, etc.)
@@ -127,6 +129,10 @@ Texture="help 1x3.png",
 local numwh = THEME:GetMetric("MusicWheel","NumWheelItems")+2
 t[#t+1] = Def.Actor{
 	OnCommand=function(s)
+		for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+			SCREENMAN:set_input_redirected(pn, false)
+		end
+		GAMESTATE:Env()["UsingEditSelector"] = false
 		if SCREENMAN:GetTopScreen() then
 			local wheel = SCREENMAN:GetTopScreen():GetChild("MusicWheel"):GetChild("MusicWheelItem")
 			for i=1,numwh do
@@ -137,7 +143,37 @@ t[#t+1] = Def.Actor{
 			end
 		end
 	end;
-	OffCommand=function(s)
+	ReturnedFromScreenMessageCommand=function(s)
+		for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+			SCREENMAN:set_input_redirected(pn, false)
+		end
+		if GAMESTATE:Env()["SelectedEdit"] then
+			s:sleep(0):queuecommand("SleepNow")
+		else
+			MESSAGEMAN:Broadcast("ShowWheel")
+		end
+	end,
+	SleepNowCommand=function(s)
+		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+	end,
+	StartSelectingStepsMessageCommand=function(s)
+		s:playcommand("Bal")
+	end;
+	CodeMessageCommand=function(s,param)
+		if PREFSMAN:GetPreference("OnlyDedicatedMenuButtons") and (param.Name == "EDE1" or param.Name == "EDE2") then
+			if GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():HasEdits( GAMESTATE:GetCurrentStyle():GetStepsType() ) then
+				GAMESTATE:Env()["UsingEditSelector"] = true
+				SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
+				SCREENMAN:AddNewScreenToTop( "ScreenSelectMusicEditSelection" )
+				MESSAGEMAN:Broadcast("HideWheel")
+			end
+		end
+	end,
+	BalCommand=function(s)
+		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+		s:playcommand("FinishedSelection")
+	end,
+	FinishedSelectionCommand=function(s)
 		SOUND:PlayAnnouncer("select group comment all music")
 		if SCREENMAN:GetTopScreen() then
 			local wheel = SCREENMAN:GetTopScreen():GetChild("MusicWheel"):GetChild("MusicWheelItem")
@@ -147,7 +183,7 @@ t[#t+1] = Def.Actor{
 				:accelerate(0.5):addx(500):sleep(1)
 			end
 		end
-	end;
+	end,
 	CurrentSongChangedMessageCommand=function(s) s:playcommand("RouletteCheck") end;
 	RouletteCheckCommand=function(s)
 		if SCREENMAN:GetTopScreen() then

@@ -9,7 +9,7 @@ local function radarSet(self,player)
 			selection = GAMESTATE:GetCurrentSteps(player);
 		end;
 	end;
-	if selection then
+	if selection and not GAMESTATE:Env()["UsingEditSelector"] then
 		self:SetFromRadarValues(player, selection:GetRadarValues(player));
 	else
 		self:SetEmpty(player);
@@ -40,6 +40,11 @@ local t = Def.ActorFrame {
 					end
 				end
 			end
+		end;
+		ReturnedFromScreenMessageCommand=function(self)
+			for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+				radarSet(self, pn);
+			end;
 		end;
 		RandomizeDataMessageCommand=function(s) s:queuecommand("RandomLoop") end,
 		StopDataMessageCommand=function(s) s:finishtweening() end,

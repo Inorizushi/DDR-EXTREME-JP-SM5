@@ -98,6 +98,9 @@ local t = Def.ActorFrame{
           s:visible(true):setstate( SONGMAN:GetSongRank(param.Song) )
         end
       end
+      if param.Song and param.Song:HasEdits( GAMESTATE:GetCurrentStyle():GetStepsType() ) then
+          s:visible(true):setstate( 4 )
+      end
     end,
   }
 };
