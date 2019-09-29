@@ -7,9 +7,17 @@ local t = Def.ActorFrame{
       local group = params.Text;
       local so = GAMESTATE:GetSortOrder();
       if group then
+        local function CheckDir(groupname)
+          local dirs = {"Songs","AdditionalSongs"}
+          for v in ivalues(dirs) do
+            if FILEMAN:DoesFileExist( v.."/"..group.."/card.png" ) then
+              return v.."/"..groupname.."/card.png"
+            end
+          end
+        end
         if so == "SortOrder_Group" then
           if has_value(SectionList, group) then
-            self:Load("Songs/"..group.."/card.png");
+            self:Load(CheckDir(group));
             self:diffusealpha(1)
             self:diffuse(color("#ff8400"))
           else
