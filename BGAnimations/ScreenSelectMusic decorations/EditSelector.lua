@@ -4,9 +4,14 @@ local DDR ={}
 function DDR.Input(self)
 	return function(event)
 		if not event.PlayerNumber then return end
+		local soundbuttons = {"MenuLeft","MenuRight"}
 		if ToEnumShortString(event.type) == "FirstPress" or ToEnumShortString(event.type) == "Repeat" then
-			self:playcommand(event.GameButton)
-			SCREENMAN:SystemMessage( event.DeviceInput.ago )
+			self:playcommand(event.button):playcommand("Offset")
+			for v in ivalues(soundbuttons) do
+				if event.button == v then
+					SOUND:PlayOnce( THEME:GetPathS("MusicWheel","change") )
+				end
+			end
 			GAMESTATE:Env()["ToOptions"] = event.DeviceInput.ago > 0.003
 		end
 		if ToEnumShortString(event.type) == "Release" then
@@ -25,6 +30,7 @@ local t = Def.ActorFrame{
 }
 
 local editdata = {}
+-- Time for construction
 local function LoadEditItems()
 	local wheelitem = Def.ActorFrame{
 		Def.ActorFrame{
@@ -42,6 +48,8 @@ local function LoadEditItems()
 	}
 
 	local song = GAMESTATE:GetCurrentSong()
+	-- Verify we have a valid difficulty, and verify that is compatible with our current type.
+	-- Otherwise, we might have problems when using SetCurrentSteps.
 	if song and song:HasEdits( GAMESTATE:GetCurrentStyle():GetStepsType() ) then
 		for v in ivalues(song:GetAllSteps()) do
 			if v:GetDifficulty() == "Difficulty_Edit" then
@@ -60,6 +68,11 @@ local function LoadEditItems()
 			},
 			Def.BitmapText{
 				Font="_2070polyester round",
+				-- Limit edit text to AC's 9 character format.
+				-- TODO: Make a PerPlayer type.
+				-- TODO:TODO: Allow step edits in profiles.
+				-- TODO:TODO:TODO: Consider a rewrite.
+				-- TODO:TODO:TODO:TODO: Make all the luas
 				Text="AC:["..string.format( "% 9s", string.sub(v.author,0,9) ).."]",
 				OnCommand=function(s)
 					s:diffuse(Color.Green):strokecolor(Color.Black):xy(-3,-3)
@@ -102,6 +115,7 @@ t[#t+1] = Def.Quad{
 	end,
 };
 
+local leftsum = 0
 t[#t+1] = Def.ActorScroller{
 	NumItemsToDraw=11,
 	children=LoadEditItems()[1],
@@ -127,7 +141,7 @@ t[#t+1] = Def.ActorScroller{
 				GAMESTATE:SetCurrentSteps( pn , editdata[cur].Steps )
 			end
 		end
-		MESSAGEMAN:Broadcast("ReturnedFromScreen")
+		MESSAGEMAN:Broadcast("ReturnedFromScreen",{LockInput=true})
 	end,
 	TransformFunction=function(s, offset, itemIndex, numItems)
 		s:x( (1-math.cos(offset/math.pi))*84.5 )
@@ -137,10 +151,24 @@ t[#t+1] = Def.ActorScroller{
 		if cur < 0 then cur = 0 end
 		if cur > #editdata then cur = #editdata end
 		s:SetDestinationItem(cur)
-		SOUND:PlayOnce( THEME:GetPathS("MusicWheel","change") )
-		GAMESTATE:Env()["SelectedEdit"] = cur > 0
+		GAMESTATE:Env()["SelectedEdit"] = (cur > 0 and leftsum < 1) 
 		MESSAGEMAN:Broadcast("EditScrollerChanged")
 	end,
+	LeftCommand=function(s)
+		leftsum = leftsum + 1
+		if leftsum == 2 then
+			SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
+			s:sleep(0):playcommand("retreat")
+		end
+	end,
+	retreatCommand=function()
+		GAMESTATE:Env()["UsingEditSelector"] = false
+		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToPrevScreen")
+		MESSAGEMAN:Broadcast("ReturnedFromScreen",{LockInput=true})
+	end,
+	RightCommand=function() leftsum = 0 end,
+	UpCommand=function() leftsum = 0 end,
+	DownCommand=function() leftsum = 0 end,
 	MenuLeftCommand=function(s) cur = cur - 1 s:playcommand("Offset") end,
 	MenuRightCommand=function(s) cur = cur + 1 s:playcommand("Offset") end,
 }

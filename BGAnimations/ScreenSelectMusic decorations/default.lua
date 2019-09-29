@@ -144,13 +144,18 @@ t[#t+1] = Def.Actor{
 		end
 	end;
 	ReturnedFromScreenMessageCommand=function(s,param)
-		for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-			SCREENMAN:set_input_redirected(pn, false)
+		if param.LockInput then
+			s:sleep(0.4):queuecommand("UnlockInput")
 		end
 		if GAMESTATE:Env()["SelectedEdit"] then
 			s:sleep(0):queuecommand("SleepNow")
 		else
 			MESSAGEMAN:Broadcast("ShowWheel")
+		end
+	end,
+	UnlockInputCommand=function(s)
+		for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
+			SCREENMAN:set_input_redirected(pn, false)
 		end
 	end,
 	SleepNowCommand=function(s)

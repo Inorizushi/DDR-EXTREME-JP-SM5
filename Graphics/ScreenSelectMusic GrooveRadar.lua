@@ -9,11 +9,12 @@ local function radarSet(self,player)
 			selection = GAMESTATE:GetCurrentSteps(player);
 		end;
 	end;
-	if selection and not GAMESTATE:Env()["UsingEditSelector"] then
+	if selection then
 		self:SetFromRadarValues(player, selection:GetRadarValues(player));
 	else
 		self:SetEmpty(player);
 	end;
+	self:finishtweening():decelerate(0.3):zoom( (GAMESTATE:Env()["UsingEditSelector"] or GAMESTATE:Env()["SelectedEdit"]) and 0 or 1 )
 end
 
 local firstRun=true
