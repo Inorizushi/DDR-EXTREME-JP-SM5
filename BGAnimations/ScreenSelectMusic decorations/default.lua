@@ -143,7 +143,7 @@ t[#t+1] = Def.Actor{
 			end
 		end
 	end;
-	ReturnedFromScreenMessageCommand=function(s)
+	ReturnedFromScreenMessageCommand=function(s,param)
 		for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 			SCREENMAN:set_input_redirected(pn, false)
 		end
@@ -155,22 +155,23 @@ t[#t+1] = Def.Actor{
 	end,
 	SleepNowCommand=function(s)
 		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
+		if GAMESTATE:Env()["ToOptions"] then
+			SCREENMAN:GetTopScreen():SetNextScreenName("ScreenPlayerOptions")
+		end
 	end,
-	StartSelectingStepsMessageCommand=function(s)
+	OffCommand=function(s)
 		s:playcommand("Bal")
 	end;
 	CodeMessageCommand=function(s,param)
 		if PREFSMAN:GetPreference("OnlyDedicatedMenuButtons") and (param.Name == "EDE1" or param.Name == "EDE2") then
 			if GAMESTATE:GetCurrentSong() and GAMESTATE:GetCurrentSong():HasEdits( GAMESTATE:GetCurrentStyle():GetStepsType() ) then
 				GAMESTATE:Env()["UsingEditSelector"] = true
-				SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
 				SCREENMAN:AddNewScreenToTop( "ScreenSelectMusicEditSelection" )
 				MESSAGEMAN:Broadcast("HideWheel")
 			end
 		end
 	end,
 	BalCommand=function(s)
-		SCREENMAN:GetTopScreen():StartTransitioningScreen("SM_GoToNextScreen")
 		s:playcommand("FinishedSelection")
 	end,
 	FinishedSelectionCommand=function(s)

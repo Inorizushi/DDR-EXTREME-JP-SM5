@@ -6,6 +6,8 @@ function DDR.Input(self)
 		if not event.PlayerNumber then return end
 		if ToEnumShortString(event.type) == "FirstPress" or ToEnumShortString(event.type) == "Repeat" then
 			self:playcommand(event.GameButton)
+			SCREENMAN:SystemMessage( event.DeviceInput.ago )
+			GAMESTATE:Env()["ToOptions"] = event.DeviceInput.ago > 0.003
 		end
 		if ToEnumShortString(event.type) == "Release" then
 			self:playcommand(event.GameButton.."Release")
@@ -104,6 +106,7 @@ t[#t+1] = Def.ActorScroller{
 	NumItemsToDraw=11,
 	children=LoadEditItems()[1],
 	OnCommand=function(s)
+		SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
 		s:SetFastCatchup(true):MaskDest()
 		:SetSecondsPerItem(0.1)
 		:SetWrap(true)
