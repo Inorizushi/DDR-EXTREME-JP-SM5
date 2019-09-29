@@ -100,10 +100,31 @@ t[#t+1] = Def.ActorFrame{
 end
 end
 
+local ste = {}
 for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+  local st = GAMESTATE:GetCurrentSteps(pn)
+  local editdata = string.format( "% 9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
+  ste[pn] = { diff=st:GetDifficulty(), ed=editdata }
   t[#t+1] = LoadActor("GradeDisplay",pn)..{
     InitCommand=function(s) s:draworder(101) end
   }
+
+  t[#t+1] = Def.BitmapText{
+		Condition=GAMESTATE:GetCurrentSteps(pn):GetDifficulty() == "Difficulty_Edit",
+		Font="MemoryCard Info",
+    OnCommand=function(s)
+			local string = "["..(ste[pn].ed).."]"
+			s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-90):draworder(101):SetTextureFiltering(false)
+			s:settext( string )
+			if GAMESTATE:GetNumPlayersEnabled() == 2 then
+				if (ste[PLAYER_1].diff == ste[PLAYER_2].diff) and (ste[PLAYER_1].ed ~= ste[PLAYER_2].ed) then
+					s:addx( pn == PLAYER_2 and 60 or -60 )
+				end
+      end
+      s:diffusealpha(0):sleep(0.4):diffusealpha(1)
+    end,
+    OffCommand=function(s) s:visible(false) end,
+	}
 end
 
 return t;
