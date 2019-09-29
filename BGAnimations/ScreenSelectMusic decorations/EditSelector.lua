@@ -34,15 +34,9 @@ local editdata = {}
 local function LoadEditItems()
 	local wheelitem = Def.ActorFrame{
 		Def.ActorFrame{
-			Def.Sprite{
-				Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer"),
-			},
-			Def.BitmapText{
-				Font="_2070polyester round",
-				Text="OFFICIAL STEP",
-				OnCommand=function(s)
-					s:diffuse(Color.Blue):strokecolor(Color.Black):xy(-3,-3)
-				end,
+			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
+			Def.BitmapText{ Font="_2070polyester round", Text="OFFICIAL STEP",
+				OnCommand=function(s) s:diffuse(Color.Blue):strokecolor(Color.Black):xy(-3,-3) end
 			},
 		}
 	}
@@ -63,35 +57,21 @@ local function LoadEditItems()
 
 	for v in ivalues(editdata) do
 		wheelitem[#wheelitem+1] = Def.ActorFrame{
-			Def.Sprite{
-				Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer"),
-			},
+			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
 			Def.BitmapText{
 				Font="_2070polyester round",
 				-- Limit edit text to AC's 9 character format.
-				-- TODO: Make a PerPlayer type.
-				-- TODO:TODO: Allow step edits in profiles.
-				-- TODO:TODO:TODO: Consider a rewrite.
-				-- TODO:TODO:TODO:TODO: Make all the luas
 				Text="AC:["..string.format( "% 9s", string.sub(v.author,0,9) ).."]",
-				OnCommand=function(s)
-					s:diffuse(Color.Green):strokecolor(Color.Black):xy(-3,-3)
-				end,
+				OnCommand=function(s) s:diffuse(Color.Green):strokecolor(Color.Black):xy(-3,-3) end
 			},
 		}
 	end
 
 	for i=1,10-#editdata do
 		wheelitem[#wheelitem+1] = Def.ActorFrame{
-			Def.Sprite{
-				Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer"),
-			},
-			Def.BitmapText{
-				Font="_2070polyester round",
-				Text="- NO DATA. -",
-				OnCommand=function(s)
-					s:strokecolor(Color.Black):diffuse(color("#777777")):xy(-3,-3)
-				end,
+			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
+			Def.BitmapText{ Font="_2070polyester round", Text="- NO DATA. -",
+				OnCommand=function(s) s:strokecolor(Color.Black):diffuse(color("#777777")):xy(-3,-3) end
 			},
 		}
 	end
@@ -103,16 +83,13 @@ local onselector = false
 
 t[#t+1] = Def.Quad{
 	OnCommand=function(s)
-		s:zoomto(SCREEN_WIDTH,74)
-		:xy(SCREEN_CENTER_X,0):vertalign(top):MaskSource()
-	end,
+		s:zoomto(SCREEN_WIDTH,74):xy(SCREEN_CENTER_X,0):vertalign(top):MaskSource()
+	end
 };
-
 t[#t+1] = Def.Quad{
 	OnCommand=function(s)
-		s:zoomto(SCREEN_WIDTH,46)
-		:xy(SCREEN_CENTER_X,SCREEN_BOTTOM):vertalign(bottom):MaskSource()
-	end,
+		s:zoomto(SCREEN_WIDTH,46):xy(SCREEN_CENTER_X,SCREEN_BOTTOM):vertalign(bottom):MaskSource()
+	end
 };
 
 local leftsum = 0
