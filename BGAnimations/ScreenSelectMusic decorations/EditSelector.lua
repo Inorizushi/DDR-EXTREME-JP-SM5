@@ -21,22 +21,11 @@ function DDR.Input(self)
 		end
 	end
 end
-
-function DDR.MuteAnnouncer()
-    if not DDR.announcer or DDR.announcer=="" then
-        DDR.announcer = ANNOUNCER:GetCurrentAnnouncer()
-    end
-    ANNOUNCER:SetCurrentAnnouncer("")
+-- Mute the announcer. But store it's name, we'll need it later.
+if not DDR.announcer or DDR.announcer=="" then
+	DDR.announcer = ANNOUNCER:GetCurrentAnnouncer()
 end
-
-function DDR.ResetAnnouncer()
-    if DDR.announcer and DDR.announcer~="" then
-        ANNOUNCER:SetCurrentAnnouncer(DDR.announcer);
-        DDR.announcer="";
-    end;
-end;
-
-DDR.MuteAnnouncer()
+ANNOUNCER:SetCurrentAnnouncer("")
 
 local t = Def.ActorFrame{
 	OnCommand=function(s)
@@ -117,7 +106,11 @@ t[#t+1] = Def.ActorScroller{
 	NumItemsToDraw=11,
 	children=LoadEditItems()[1],
 	OnCommand=function(s)
-		DDR.ResetAnnouncer()
+		-- Now that the announcer was muted from the screen, restore it.
+		if DDR.announcer and DDR.announcer~="" then
+			ANNOUNCER:SetCurrentAnnouncer(DDR.announcer);
+			DDR.announcer="";
+		end;
 		SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
 		s:SetFastCatchup(true):MaskDest()
 		:SetSecondsPerItem(0.1)
