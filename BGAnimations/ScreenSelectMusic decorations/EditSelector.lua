@@ -1,5 +1,7 @@
 
-local DDR ={}
+local DDR ={
+	announcer="",
+}
 
 function DDR.Input(self)
 	return function(event)
@@ -20,6 +22,22 @@ function DDR.Input(self)
 	end
 end
 
+function DDR.MuteAnnouncer()
+    if not DDR.announcer or DDR.announcer=="" then
+        DDR.announcer = ANNOUNCER:GetCurrentAnnouncer()
+    end
+    ANNOUNCER:SetCurrentAnnouncer("")
+end
+
+function DDR.ResetAnnouncer()
+    if DDR.announcer and DDR.announcer~="" then
+        ANNOUNCER:SetCurrentAnnouncer(DDR.announcer);
+        DDR.announcer="";
+    end;
+end;
+
+DDR.MuteAnnouncer()
+
 local t = Def.ActorFrame{
 	OnCommand=function(s)
 		SCREENMAN:GetTopScreen():AddInputCallback(DDR.Input(s))
@@ -32,6 +50,7 @@ local t = Def.ActorFrame{
 local editdata = {}
 -- Time for construction
 local function LoadEditItems()
+	-- Default. Acts as original gateway.
 	local wheelitem = Def.ActorFrame{
 		Def.ActorFrame{
 			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
@@ -67,6 +86,7 @@ local function LoadEditItems()
 		}
 	end
 
+	-- Filler items, these cover the surroundings.
 	for i=1,10-#editdata do
 		wheelitem[#wheelitem+1] = Def.ActorFrame{
 			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
@@ -97,6 +117,7 @@ t[#t+1] = Def.ActorScroller{
 	NumItemsToDraw=11,
 	children=LoadEditItems()[1],
 	OnCommand=function(s)
+		DDR.ResetAnnouncer()
 		SOUND:PlayOnce( THEME:GetPathS("ScreenSelectMusic difficulty","easier") )
 		s:SetFastCatchup(true):MaskDest()
 		:SetSecondsPerItem(0.1)
