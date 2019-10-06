@@ -1,7 +1,5 @@
 
-local DDR ={
-	announcer="",
-}
+local DDR={announcer=""}
 
 function DDR.Input(self)
 	return function(event)

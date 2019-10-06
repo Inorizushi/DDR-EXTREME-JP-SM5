@@ -35,10 +35,10 @@ t[#t+1] = Def.ActorFrame{
     LoadActor("frame "..ToEnumShortString(pn));
     Def.BitmapText{
         Font="ScreenEvaluation stage";
-        InitCommand=cmd(xy,8,-16);
+        InitCommand=function(self) self:xy(8,-16) end,
         OnCommand=function(self)
           self:settext(FindText(pss))
-        end;
+        end
       };
     Def.Sprite{
         InitCommand=function(s) s:xy(pn=='PlayerNumber_P2' and 55 or -55, -6) end,

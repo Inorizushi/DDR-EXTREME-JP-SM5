@@ -66,7 +66,8 @@ end
 t[#t+1] = ch
 
 	t[#t+1] = Def.ActorFrame{
-	LoadActor("lifeframe")..{
+	Def.Sprite{
+		Texture=THEME:GetPathG("ScreenGameplay","LifeFrame/normal"),
 		InitCommand=cmd(CenterX;y,SCREEN_TOP+29);
 		OnCommand=cmd(draworder,99);
 	};
@@ -137,176 +138,54 @@ t[#t+1] = ch
 	};
 };
 local travelDist = SCREEN_WIDTH*1.7;
-
 local LeftToRightIn = Def.ActorFrame{
-	LoadActor("../LeftToRight_green")..{
-		InitCommand=cmd(blend,Blend.Add);
-	};
-	Def.Quad{
-		InitCommand=cmd(addx,64;diffuse,color("#000000FF");halign,0;zoomto,travelDist,32);
-	};
+	Def.Sprite{ Texture="../LeftToRight_green",InitCommand=function(s) s:blend(Blend.Add) end };
+	Def.Quad{ InitCommand=function(s) s:addx(64):diffuse(Color.Black):halign(0):zoomto(travelDist,32) end };
 };
 
 local RightToLeftIn = Def.ActorFrame{
-	LoadActor("../RightToLeft_green")..{
-		InitCommand=cmd(blend,Blend.Add);
-	};
-	Def.Quad{
-		InitCommand=cmd(addx,-64;diffuse,color("#000000FF");halign,1;zoomto,travelDist,32);
-	};
+	Def.Sprite{ Texture="../RightToLeft_green",InitCommand=function(s) s:blend(Blend.Add) end };
+	Def.Quad{ InitCommand=function(s) s:addx(-64):diffuse(Color.Black):halign(1):zoomto(travelDist,32) end };
 };
 
 local LeftToRightOut = Def.ActorFrame{
-	LoadActor("../LeftToRight_green")..{
-		InitCommand=cmd(blend,Blend.Add);
-	};
-	Def.Quad{
-		InitCommand=cmd(addx,64;diffuse,color("#000000FF");halign,0;zoomto,-travelDist,32);
-	};
+	Def.Sprite{ Texture="../LeftToRight_green",InitCommand=function(s) s:blend(Blend.Add) end };
+	Def.Quad{ InitCommand=function(s) s:addx(64):diffuse(Color.Black):halign(0):zoomto(-travelDist,32) end };
 };
 
 local RightToLeftOut = Def.ActorFrame{
-	LoadActor("../RightToLeft_green")..{
-		InitCommand=cmd(blend,Blend.Add);
-	};
-	Def.Quad{
-		InitCommand=cmd(addx,-64;diffuse,color("#000000FF");halign,1;zoomto,-travelDist,32);
-	};
-};
---Stars in animation
-
---Stars in left to right
-t[#t+1] = Def.ActorFrame{
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,48);
-		OnCommand=cmd(linear,2;addx,1920);
-	};
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,112);
-		OnCommand=cmd(addx,-80;linear,2;addx,1920);
-	};
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,176);
-		OnCommand=cmd(addx,-160;linear,2;addx,1920);
-	};
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,240);
-		OnCommand=cmd(addx,-240;linear,2;addx,1920);
-	};
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,304);
-		OnCommand=cmd(addx,-320;linear,2;addx,1920);
-	};
-	LeftToRightIn..{
-		InitCommand=cmd(xy,SCREEN_LEFT-63,368);
-		OnCommand=cmd(addx,-480;linear,2;addx,1920);
-	};
+	Def.Sprite{ Texture="../RightToLeft_green",InitCommand=function(s) s:blend(Blend.Add) end };
+	Def.Quad{ InitCommand=function(s) s:addx(-64):diffuse(Color.Black):halign(1):zoomto(-travelDist,32) end };
 };
 
---Stars in left to right
-t[#t+1] = Def.ActorFrame{
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,16);
-		OnCommand=cmd(addx,560;linear,2;addx,-1920);
+local range = {0,1,2,3,2,1,0}
+local range2 = {0,1,2,3,3,2,1,0}
+for i=0,6 do
+	--Stars in animation
+	--Stars in left to right
+	t[#t+1] = LeftToRightIn..{
+		InitCommand=function(s) s:xy(SCREEN_LEFT-63,48+(64*i)) end,
+		OnCommand=function(s) s:addx(-80*i):linear(2):addx(1920) end
 	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,80);
-		OnCommand=cmd(addx,480;linear,2;addx,-1920);
+	--Stars in left to right
+	t[#t+1] = RightToLeftIn..{
+		InitCommand=function(s) s:xy(SCREEN_RIGHT+63,16+(64*i)) end,
+		OnCommand=function(s) s:addx(560-80*i):linear(2):addx(-1920) end
 	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,144);
-		OnCommand=cmd(addx,400;linear,2;addx,-1920);
+	
+	--Stars out animation
+	--stars out right to left
+	t[#t+1] = RightToLeftOut..{
+		InitCommand=function(s) s:xy(SCREEN_RIGHT+65,48+(64*i)) end,
+		OnCommand=function(s) s:addx(80*range[i+1]):sleep(22.566):linear(1.368):addx(-1280) end,
 	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,208);
-		OnCommand=cmd(addx,320;linear,2;addx,-1920);
+end
+for i=0,7 do
+	--stars out left to right
+	t[#t+1] = LeftToRightOut..{
+		InitCommand=function(s) s:xy(SCREEN_LEFT-65,16+(64*i)) end,
+		OnCommand=function(s) s:addx(-80*range2[i+1]):sleep(22.566):linear(1.368):addx(1280) end,
 	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,272);
-		OnCommand=cmd(addx,240;linear,2;addx,-1920);
-	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,336);
-		OnCommand=cmd(addx,160;linear,2;addx,-1920);
-	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,400);
-		OnCommand=cmd(addx,80;linear,2;addx,-1920);
-	};
-	RightToLeftIn..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+63,464);
-		OnCommand=cmd(addx,0;linear,2;addx,-1920);
-	};
-};
-
---Stars out animation
-
---stars out right to left
-t[#t+1] = Def.ActorFrame{
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,48);
-		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,112);
-		OnCommand=cmd(addx,80;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,176);
-		OnCommand=cmd(addx,160;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,240);
-		OnCommand=cmd(addx,240;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,304);
-		OnCommand=cmd(addx,160;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,368);
-		OnCommand=cmd(addx,80;sleep,22.566;linear,1.368;addx,-1280);
-	};
-	RightToLeftOut..{
-		InitCommand=cmd(xy,SCREEN_RIGHT+65,432);
-		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,-1280);
-	};
-};
-
---stars out left to right
-t[#t+1] = Def.ActorFrame{
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,16);
-		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,80);
-		OnCommand=cmd(addx,-80;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,144);
-		OnCommand=cmd(addx,-160;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,208);
-		OnCommand=cmd(addx,-240;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,272);
-		OnCommand=cmd(addx,-240;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,336);
-		OnCommand=cmd(addx,-160;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,400);
-		OnCommand=cmd(addx,-80;sleep,22.566;linear,1.368;addx,1280);
-	};
-	LeftToRightOut..{
-		InitCommand=cmd(xy,SCREEN_LEFT-65,464);
-		OnCommand=cmd(addx,0;sleep,22.566;linear,1.368;addx,1280);
-	};
-}
+end
 
 return t;
