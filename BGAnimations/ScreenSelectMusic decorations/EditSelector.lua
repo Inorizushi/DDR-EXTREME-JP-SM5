@@ -59,14 +59,31 @@ local function LoadEditItems()
 		end
 	end
 
+	local function DetectEditSource(author)
+		local string = ""
+		local pcolor
+
+		for pn in ivalues(PlayerNumber) do
+			if GAMESTATE:GetCurrentSong():GetGroupName() == PROFILEMAN:GetProfile(pn):GetDisplayName() then
+				string = ToEnumShortString(pn)..":["..string.format( "% 9s", string.sub(author,0,9) ).."]"
+				pcolor = PlayerColor(pn)
+			else
+				string = "AC:["..string.format( "% 9s", string.sub(author,0,9) ).."]"
+				pcolor = Color.Green
+			end
+		end
+
+		return {string,pcolor}
+	end
+
 	for v in ivalues(editdata) do
 		wheelitem[#wheelitem+1] = Def.ActorFrame{
 			Def.Sprite{ Texture=THEME:GetPathG("MusicWheelItem Song","NormalPart/backer") },
 			Def.BitmapText{
 				Font="_2070polyester round",
 				-- Limit edit text to AC's 9 character format.
-				Text="AC:["..string.format( "% 9s", string.sub(v.author,0,9) ).."]",
-				OnCommand=function(s) s:diffuse(Color.Green):strokecolor(Color.Black):xy(-3,-3) end
+				Text=DetectEditSource(v.author)[1],
+				OnCommand=function(s) s:diffuse( DetectEditSource(v.author)[2] ):strokecolor(Color.Black):xy(-3,-3) end
 			},
 		}
 	end
