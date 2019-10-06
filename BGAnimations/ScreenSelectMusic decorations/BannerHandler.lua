@@ -1,4 +1,5 @@
 local FL = true
+local audioplaying = {rou=false,ran=false}
 return Def.ActorFrame{
 	InitCommand=function(s) s:xy(_screen.cx-174,_screen.cy-91) end,
 	OnCommand=function(s)
@@ -6,10 +7,27 @@ return Def.ActorFrame{
 	end,
 	OffCommand=function(s) s:accelerate(0.316):addx(-SCREEN_WIDTH/2.28) end,
 	CurrentSongChangedMessageCommand=function(s) s:queuecommand("Set") end,
+	Def.Sound{
+		Name="RandomMusic",
+		File=THEME:GetPathS("random","music"),
+		PlayCommand=function(s)
+			if not audioplaying.ran then SOUND:StopMusic() s:play() audioplaying.ran = true end
+		end,
+		StopCommand=function(s)
+			if audioplaying.ran then s:stop() audioplaying.ran = false end
+		end,
+	},
+	Def.Sound{
+		Name="RouletteMusic",
+		File=THEME:GetPathS("roulette","music"),
+		PlayCommand=function(s)
+			if not audioplaying.rou then SOUND:StopMusic() s:play() audioplaying.rou = true end
+		end,
+		StopCommand=function(s)
+			if audioplaying.rou then s:stop() audioplaying.rou = false end
+		end,
+	},
 	Def.ActorFrame{
-		Def.Quad{
-			InitCommand=function(s) s:setsize(256,80) end,
-		},
 		--Group/Song Fading Banner
 		InitCommand=function(s) s:y(25) end,
 		Def.FadingBanner{
@@ -20,6 +38,8 @@ return Def.ActorFrame{
 				if song then
 					self:LoadFromSong(song)
 					self:scaletoclipped(256,80)
+					self:GetParent():GetParent():GetChild("RandomMusic"):playcommand("Stop")
+					self:GetParent():GetParent():GetChild("RouletteMusic"):playcommand("Stop")
 					FL = false
 				elseif not FL then
 					FL = true
@@ -45,6 +65,9 @@ return Def.ActorFrame{
 					if mw:GetSelectedType() == 'WheelItemDataType_Roulette' then
 						self:LoadRoulette()
 						self:visible(true)
+						SOUND:StopMusic()
+						self:GetParent():GetParent():GetChild("RouletteMusic"):playcommand("Play")
+						self:GetParent():GetParent():GetChild("RandomMusic"):playcommand("Stop")
 						FL = false
 					else
 						self:visible(false)
@@ -66,6 +89,9 @@ return Def.ActorFrame{
 					if mw:GetSelectedType() == 'WheelItemDataType_Random' then
 						self:LoadRandom()
 						self:visible(true)
+						SOUND:StopMusic()
+						self:GetParent():GetParent():GetChild("RandomMusic"):playcommand("Play")
+						self:GetParent():GetParent():GetChild("RouletteMusic"):playcommand("Stop")
 						FL = false
 					else
 						self:visible(false)

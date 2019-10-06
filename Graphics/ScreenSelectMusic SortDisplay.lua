@@ -10,14 +10,16 @@ local t = Def.ActorFrame {
 			end;
 		end;
 		SortOrderChangedMessageCommand=function(self)
-			self:accelerate(0.18)
-			self:cropbottom(1)
-			self:addy(30)
-			self:queuecommand("SetGraphic");
-			self:sleep(0.2)
-			self:decelerate(0.18)
-			self:cropbottom(0)
-			self:addy(-30)
+			if not GAMESTATE:Env()["UsingEditSelector"] then
+				self:accelerate(0.18)
+				:cropbottom(1)
+				:addy(30)
+				:queuecommand("SetGraphic")
+				:sleep(0.2)
+				:decelerate(0.18)
+				:cropbottom(0)
+				:addy(-30)
+			end
 		end;
 	};
 };

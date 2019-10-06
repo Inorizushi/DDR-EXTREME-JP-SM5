@@ -14,6 +14,7 @@ local function radarSet(self,player)
 	else
 		self:SetEmpty(player);
 	end;
+	self:finishtweening():decelerate(0.3):zoom( (GAMESTATE:Env()["UsingEditSelector"] or GAMESTATE:Env()["SelectedEdit"]) and 0 or 1 )
 end
 
 local firstRun=true
@@ -40,6 +41,11 @@ local t = Def.ActorFrame {
 					end
 				end
 			end
+		end;
+		ReturnedFromScreenMessageCommand=function(self)
+			for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+				radarSet(self, pn);
+			end;
 		end;
 		RandomizeDataMessageCommand=function(s) s:queuecommand("RandomLoop") end,
 		StopDataMessageCommand=function(s) s:finishtweening() end,
