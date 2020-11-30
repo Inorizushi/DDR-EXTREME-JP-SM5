@@ -58,7 +58,7 @@ if not GAMESTATE:IsCourseMode() then
 				s:GetChild(v):GetChild("Spr"):visible(false)
 				if GAMESTATE:GetCurrentSong() then
 					if GAMESTATE:GetCurrentSong():GetCDTitlePath() then
-						s:GetChild(v):GetChild("Spr"):visible(true):Load( GAMESTATE:GetCurrentSong():GetCDTitlePath() )
+						s:GetChild(v):GetChild("Spr"):visible(true):Load( GAMESTATE:GetCurrentSong():GetCDTitlePath() ):zoomto( 64,64 )
 					end
 				end
 			end

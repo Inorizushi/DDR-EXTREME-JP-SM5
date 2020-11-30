@@ -20,7 +20,7 @@ function DDR.Input(self)
 	end
 end
 -- Mute the announcer. But store it's name, we'll need it later.
-DDR.announcer = ANNOUNCER:GetCurrentAnnouncer()
+DDR.announcer = ANNOUNCER:GetCurrentAnnouncer() or ""
 ANNOUNCER:SetCurrentAnnouncer("")
 
 local t = Def.ActorFrame{
@@ -50,7 +50,7 @@ local function LoadEditItems()
 	-- Otherwise, we might have problems when using SetCurrentSteps.
 	if song and song:HasEdits( GAMESTATE:GetCurrentStyle():GetStepsType() ) then
 		for v in ivalues(song:GetAllSteps()) do
-			if v:GetDifficulty() == "Difficulty_Edit" then
+			if v:GetDifficulty() == "Difficulty_Edit" and v:GetStepsType() == GAMESTATE:GetCurrentStyle():GetStepsType() then
 				editdata[#editdata+1] = {
 					Steps=v,
 					author=(v:GetAuthorCredit() and v:GetAuthorCredit() or v:GetDescription())
