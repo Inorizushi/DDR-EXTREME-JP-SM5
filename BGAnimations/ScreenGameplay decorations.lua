@@ -40,7 +40,7 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')
 	if not GAMESTATE:IsCourseMode() then
 		local st = GAMESTATE:GetCurrentSteps(pn)
-		local editdata = string.format( "% 9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
+		local editdata = string.format( "%9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
 		ste[pn] = { diff=st:GetDifficulty(), ed=editdata }
 	end
     t[#t+1] = Def.Sprite{
