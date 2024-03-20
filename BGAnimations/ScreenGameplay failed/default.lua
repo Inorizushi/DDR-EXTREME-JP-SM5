@@ -96,7 +96,8 @@ local t = Def.ActorFrame{
 		OnCommand=cmd(zoom,3.1;diffusealpha,0;sleep,0.693;diffusealpha,0.6;sleep,0.198;linear,0.132;zoom,0.6;linear,0.033;zoom,1;sleep,0.066;diffusealpha,0);
 	};
 	LoadActor("failed.ogg")..{
-		StartTransitioningCommand=cmd(play);
+		StartTransitioningCommand=function(s) s:sleep(0.7):queuecommand("Play") end,
+		PlayCommand=function(s) s:play() end,
 	};
 };
 
