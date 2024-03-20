@@ -103,7 +103,7 @@ end
 local ste = {}
 for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
   local st = GAMESTATE:GetCurrentSteps(pn)
-  local editdata = string.format( "% 9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
+  local editdata = string.format( "%9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
   ste[pn] = { diff=st:GetDifficulty(), ed=editdata }
   t[#t+1] = LoadActor("GradeDisplay",pn)..{
     InitCommand=function(s) s:draworder(101) end
