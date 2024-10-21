@@ -4,7 +4,7 @@ return Def.ActorFrame{
 		GainFocusCommand=cmd(visible,true);
 		LoseFocusCommand=cmd(visible,false);
 	};
-	LoadActor("choice")..{
+	LoadActor(lang.."_choice")..{
 		InitCommand=cmd(draworder,99;diffusealpha,0);
 		OnCommand=cmd(draworder,60;cropleft,1;cropright,1);
 		OffCommand=cmd(cropbottom,0;cropleft,0;cropright,0;sleep,0.726;linear,0.726;cropleft,0.493;cropright,0.493;linear,0.264;cropbottom,1);

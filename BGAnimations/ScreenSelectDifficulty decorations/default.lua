@@ -5,7 +5,7 @@ local oldIndexP1 = curIndexP1
 local curIndexP2 = 1
 local oldIndexP2 = curIndexP2
 
-local cardpath = THEME:GetPathB("","ScreenSelectDifficulty decorations/Cards");
+local cardpath = THEME:GetPathB("","ScreenSelectDifficulty decorations/Cards/"..lang);
 
 t[#t+1] = Def.Actor{
 	Name="InputHandler";
@@ -128,7 +128,7 @@ t[#t+1] = Def.ActorFrame{
 		OnCommand=function(s)
 			s:y(19)
 			if i == 2 then 
-				s:x(119):halign(1):addx(240):cropright(1):sleep(0.66):linear(0.396):addx(-240):cropright(0)
+				s:x(122):halign(1):addx(240):cropright(1):sleep(0.66):linear(0.396):addx(-240):cropright(0)
 			else 
 				s:x(-119):halign(0):addx(-240):cropleft(1):sleep(0.66):linear(0.396):addx(240):cropleft(0)
 			end
@@ -389,14 +389,15 @@ t[#t+1] = Def.ActorFrame{
 	},
 };
 
-t[#t+1] = LoadActor("../help")..{
-	InitCommand=function(s) s:xy(_screen.cx-165,SCREEN_BOTTOM-33.5) end,
+t[#t+1] = LoadActor("../"..lang.."_help 1x4")..{
+	InitCommand=function(s) s:xy(_screen.cx,SCREEN_BOTTOM-33.5):setstate(1):animate(false) end,
 	OnCommand=function(s) s:draworder(199):diffuseblink():effectperiod(0.5) end,
+	OffCommand=function(s) s:sleep(0.66):diffusealpha(0) end,
 };
 
 t[#t+1] = Def.ActorFrame{
 	InitCommand=cmd(y,SCREEN_TOP+58;draworder,100);
-	LoadActor("explanation")..{
+	LoadActor(lang.."_explanation")..{
 		InitCommand=cmd(x,SCREEN_LEFT+136);
 		OnCommand=function(self)
 			self:draworder(99):diffusealpha(0):sleep(0.264):diffusealpha(1);

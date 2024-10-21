@@ -22,3 +22,23 @@ function SetPreferences()
 		PREFSMAN:SetPreference(k, v)
 	end
 end
+
+local Prefs = {
+	Language = 
+	{
+		Default = "jp",
+		Choices = {"Japanese","English"},
+		Values = {"jp","en"}
+	},
+}
+
+ThemePrefs.InitAll(Prefs)
+
+lang = ThemePrefs.Get("Language")
+function ChangeLanguage()
+	if ThemePrefs.Get("Language") == "jp" then
+		lang = "jp"
+	else
+		lang="en"
+	end
+end

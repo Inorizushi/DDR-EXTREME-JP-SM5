@@ -1,3 +1,11 @@
+Branch.Init = function()
+    if FILEMAN:DoesFileExist("/Save/DDREXJP_config/OutfoxPrefs.ini") then
+        return "ScreenWarning"
+    else
+        return "ScreenInitialize"
+    end
+end
+
 Branch.StartGame = function()
 	if SONGMAN:GetNumSongs() == 0 and SONGMAN:GetNumAdditionalSongs() == 0 then
 		-- xxx: use titlemenu and titlejoin as needed
@@ -148,7 +156,4 @@ Branch.InformationPage = function()
 	return nextScreen or "ScreenInformation"
 end
 
-function InitialScreen()
-	if GAMESTATE:Dopefish() then return "foon" end
-	return "ScreenWarning"
-end
+

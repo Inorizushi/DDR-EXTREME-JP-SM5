@@ -99,7 +99,8 @@ if not GAMESTATE:IsCourseMode() then
 
 	for i,v in ipairs(GRPos) do
 		t[#t+1] = Def.Sprite{
-			Texture=THEME:GetPathG("GrooveRadar","labels"),
+			Texture=lang.."_GrooveRadar labels",
+			--Texture=THEME:GetPathG("GrooveRadar","labels"),
 			OnCommand=function(s)
 				s:animate(0):setstate(i-1)
 				:xy(SCREEN_CENTER_X-168+v[1],SCREEN_CENTER_Y+92+v[2])
@@ -113,10 +114,14 @@ if not GAMESTATE:IsCourseMode() then
 end
 
 t[#t+1] = Def.Sprite {
-Texture="help 1x3.png",
+Texture="../"..lang.."_help 1x4.png",
 	InitCommand=function(self)
 		self:draworder(100):CenterX():y(SCREEN_BOTTOM-35)
-		self:SetAllStateDelays(4.224)
+		self:SetStateProperties({
+			{Frame= 1, Delay= 4.224},
+			{Frame= 2, Delay= 4.224},
+			{Frame= 3, Delay= 4.224},
+		})
 	end,
 	OnCommand=function(self)
 		self:shadowlength(0):addy(999):sleep(0.6):addy(-999):diffuseblink():effectperiod(1.056)

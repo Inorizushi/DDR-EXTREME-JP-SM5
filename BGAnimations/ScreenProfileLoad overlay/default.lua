@@ -17,7 +17,7 @@ local t = Def.ActorFrame{
 };
 
 t[#t+1] = Def.Sprite{
-	Texture="Warning1",
+	Texture=lang.."_Warning1",
 	InitCommand=function(s)
 		s:xy( SCREEN_CENTER_X,SCREEN_CENTER_Y-130 ):diffuse(Color.Blue)
 		s:addx( -SCREEN_WIDTH ):decelerate(0.2):addx( SCREEN_WIDTH )
@@ -28,7 +28,7 @@ t[#t+1] = Def.Sprite{
 };
 
 t[#t+1] = Def.Sprite{
-	Texture="Warning2",
+	Texture=lang.."_Warning2",
 	InitCommand=function(s)
 		s:xy( SCREEN_CENTER_X,SCREEN_CENTER_Y-70 ):diffuse( color("1,1,0.5,1") )
 		s:addx( SCREEN_WIDTH ):decelerate(0.2):addx( -SCREEN_WIDTH )
@@ -46,8 +46,8 @@ t[#t+1] = Def.ActorFrame{
 	CardLoadedCommand=function(s)
 		s:decelerate(0.2):addx( -SCREEN_WIDTH )
 	end,
-	Def.Sprite{ Texture="Warning3", InitCommand=function(s) s:xy( -140,0 ) end };
-	Def.Sprite{ Texture="Warning4", InitCommand=function(s) s:xy( 120,0 ) end };
+	Def.Sprite{ Texture=lang.."_Warning3", InitCommand=function(s) s:xy( -140,0 ) end };
+	Def.Sprite{ Texture=lang.."_Warning4", InitCommand=function(s) s:xy( 120,0 ) end };
 }
 
 t[#t+1] = Def.ActorFrame{

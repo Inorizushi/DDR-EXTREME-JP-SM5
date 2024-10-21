@@ -216,9 +216,3 @@ function has_value (tab, val)
 
     return false
 end
-
-lang = "en_"
-
-if THEME:GetCurLanguage() == "ja" then
-	lang = "jp_";
-end;
