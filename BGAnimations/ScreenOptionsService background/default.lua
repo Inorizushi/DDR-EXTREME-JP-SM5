@@ -23,8 +23,8 @@ end
 
 t[#t+1] = Def.Sprite{
 	InitCommand=function(self)
-		self:Load(THEME:GetPathB("","ScreenOptions background/"..bg))
-		self:Center()
+		self:Load(THEME:GetPathB("","ScreenOptionsService background/"..bg))
+		self:FullScreen()
 	end;
 };
 

@@ -1,8 +1,10 @@
+local screenName = Var "LoadingScreen"
+
 local t = Def.ActorFrame{}
 
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
     t[#t+1] = Def.Sprite{
-		Condition=GAMESTATE:IsPlayerEnabled(pn),
+		Condition=GAMESTATE:IsPlayerEnabled(pn) and (screenName == "ScreenPlayerOptions" or screenName == "ScreenSongOptions"),
 		Texture=THEME:GetPathB("ScreenSelectMusic decorations/diff/_difficulty","icons"),
 		InitCommand=function(s)
             s:animate(0)
