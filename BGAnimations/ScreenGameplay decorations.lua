@@ -1,6 +1,6 @@
 local t = Def.ActorFrame{};
 
-for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
+--[[for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 	local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn);
 	local ScoreMode = 'DDR SuperNOVA 2';
 
@@ -19,7 +19,7 @@ for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
 			end
 		end;
 	};
-end
+end]]
 
 t[#t+1] = StandardDecorationFromFile("LifeFrame","LifeFrame")
 t[#t+1] = StandardDecorationFromFile("ScoreFrame","ScoreFrame")
