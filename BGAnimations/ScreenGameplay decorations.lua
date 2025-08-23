@@ -74,7 +74,7 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 			local complete = ""
 			for i,a in ipairs(GAMESTATE:GetPlayerState(pn):GetPlayerOptionsArray("ModsLevel_Current")) do
 				local removed = false
-				local ToHide = {"Overhead","Vivid","NoRecover","FailOff","SuddenDeath","4Lives"}
+				local ToHide = {"Overhead","Vivid","NoRecover","FailOff","SuddenDeath","4Lives","FailImmediate","FailImmediateContinue"}
 				for _, v in pairs(ToHide) do
 					if a == v then
 						removed = true

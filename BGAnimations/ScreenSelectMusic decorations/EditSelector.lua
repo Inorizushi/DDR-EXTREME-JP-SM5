@@ -68,7 +68,7 @@ local function LoadEditItems()
 				string = ToEnumShortString(pn)..":["..string.format( "% 9s", string.sub(author,0,9) ).."]"
 				pcolor = PlayerColor(pn)
 			else
-				string = "AC:["..string.format( "% 9s", string.sub(author,0,9) ).."]"
+				string = "AC:["..string.format( "%s", string.sub(author,0,9) ).."]"
 				pcolor = Color.Green
 			end
 		end

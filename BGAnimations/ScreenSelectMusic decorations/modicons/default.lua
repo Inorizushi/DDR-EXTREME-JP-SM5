@@ -18,7 +18,7 @@ t[#t+1] = LoadActor("mod bar")..{
 t[#t+1] = LoadActor( spn.."badge")..{
 	InitCommand=function(self)
 		self:x(SCREEN_CENTER_X-320)
-		:y( pn == PLAYER_1 and  SCREEN_TOP+52 or SCREEN_TOP+64)
+		:y( yPosPlayer[pn] )
 		:halign(0)
 		if IsUsingWideScreen() then
 			self:fadeleft(0.1)
@@ -34,7 +34,7 @@ t[#t+1] = LoadActor( spn.."badge")..{
 t[#t+1] = Def.ActorFrame{
 	LoadActor( "Icons", pn ) .. {
 		InitCommand=function(s)
-			s:player(pn):xy(SCREEN_CENTER_X, pn == PLAYER_1 and  SCREEN_TOP+52.1 or 52.1+12 ):draworder(1)
+			s:player(pn):xy(SCREEN_CENTER_X, yPosPlayer[pn] ):draworder(1)
 			if GAMESTATE:IsAnExtraStage() then
 				s:diffuseblink():effectperiod(1/5):effectcolor1(Color.White):effectcolor2(color("1,1,1,0")):effectoffset(0.5)
 			end
