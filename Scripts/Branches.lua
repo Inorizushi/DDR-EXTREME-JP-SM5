@@ -128,6 +128,11 @@ Branch.Ending = function()
 		return SelectMusicOrCourse()
 	end
 
+	-- The player has failed, just go to the game over screen.
+	if STATSMAN:GetBestFinalGrade() == "Grade_Failed" then
+		return "ScreenGameOver"
+	end
+
 	-- best final grade better than AA: show the credits.
 	-- otherwise, show music scroll.
 	return STATSMAN:GetBestFinalGrade() <= 'Grade_Tier03' and "ScreenCredits" or "ScreenMusicScroll"
