@@ -13,6 +13,11 @@ local grades = {
 local t = LoadActor( "grades" ) .. {
 	InitCommand=function(self) self:pause() end,
 	SetGradeCommand=function(self, params)
+		-- The grade should only appear for the player who has a valid profile to set the data to.
+		if not PROFILEMAN:IsPersistentProfile(params.PlayerNumber) then
+			self:zoom(0)
+		end
+
 		local state = grades[params.Grade] or grades.Grade_None;
 		local offset = params.PlayerNumber == PLAYER_1 and 0 or 1
 		self:setstate(state+offset);
