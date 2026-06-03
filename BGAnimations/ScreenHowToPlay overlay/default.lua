@@ -28,39 +28,43 @@ end
 local t = Def.ActorFrame{ OnCommand=function(s) s:SetUpdateFunction( UpdateRate ) end };
 local la
 for i=1,3 do
-	ch[#ch+1] = Def.Model{
-		Meshes=Char:GetModelPath(),
-		Materials=Char:GetModelPath(),
-		Bones="../../../../Characters/"..animsets[i],
-		OnCommand=function(s)
-			s:xy(SCREEN_CENTER_X-WideScale(225,205),SCREEN_CENTER_Y+210):zoom(25):cullmode("CullMode_None")
-			:rate( i == 3 and 1 or 0 ):loop( i == 3 and true or false ):z(30)
-			:visible( i == 3 and true or false )
-		end,
-		AnimationPlayMessageCommand=function(s,param)
-			s:finishtweening()
-			if param.Announce then la = param.Announce end
-			if param.Actor and param.Actor == i then
-				s:visible(true):position(0):rate(1)
-				if param.Actor < 3 then
-					s:sleep(0.4):queuecommand("QuickPause1")
-				else
-					s:sleep(1.5):queuecommand("LastAnnounce")
+
+	-- Check if the animation is even available.
+	if FILEMAN:DoesFileExist("../../../../Characters/"..animsets[i]) then
+		ch[#ch+1] = Def.Model{
+			Meshes=Char:GetModelPath(),
+			Materials=Char:GetModelPath(),
+			Bones="../../../../Characters/"..animsets[i],
+			OnCommand=function(s)
+				s:xy(SCREEN_CENTER_X-WideScale(225,205),SCREEN_CENTER_Y+210):zoom(25):cullmode("CullMode_None")
+				:rate( i == 3 and 1 or 0 ):loop( i == 3 and true or false ):z(30)
+				:visible( i == 3 and true or false )
+			end,
+			AnimationPlayMessageCommand=function(s,param)
+				s:finishtweening()
+				if param.Announce then la = param.Announce end
+				if param.Actor and param.Actor == i then
+					s:visible(true):position(0):rate(1)
+					if param.Actor < 3 then
+						s:sleep(0.4):queuecommand("QuickPause1")
+					else
+						s:sleep(1.5):queuecommand("LastAnnounce")
+					end
+				else s:visible(false)
 				end
-			else s:visible(false)
-			end
-		end,
-		QuickPause1Command=function(s) s:rate(0):sleep(1):queuecommand("QuickResume1") end,
-		QuickResume1Command=function(s) s:rate(1):sleep(0.2):queuecommand("QuickPause2") end,
-		QuickPause2Command=function(s)
-			if la then SOUND:PlayAnnouncer(la) end
-			s:rate(0):sleep(3.4):queuecommand("QuickResume2")
-		end,
-		QuickResume2Command=function(s) s:rate(1):sleep(1.4):queuemessage("AnimationPlay",{Actor=3}) end,
-		LastAnnounceCommand=function(s)
-			if la then SOUND:PlayAnnouncer(la) end
-		end,
-	}
+			end,
+			QuickPause1Command=function(s) s:rate(0):sleep(1):queuecommand("QuickResume1") end,
+			QuickResume1Command=function(s) s:rate(1):sleep(0.2):queuecommand("QuickPause2") end,
+			QuickPause2Command=function(s)
+				if la then SOUND:PlayAnnouncer(la) end
+				s:rate(0):sleep(3.4):queuecommand("QuickResume2")
+			end,
+			QuickResume2Command=function(s) s:rate(1):sleep(1.4):queuemessage("AnimationPlay",{Actor=3}) end,
+			LastAnnounceCommand=function(s)
+				if la then SOUND:PlayAnnouncer(la) end
+			end,
+		}
+	end
 end
 
 t[#t+1] = ch
