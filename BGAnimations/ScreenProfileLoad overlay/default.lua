@@ -53,13 +53,14 @@ t[#t+1] = Def.ActorFrame{
 t[#t+1] = Def.ActorFrame{
 	InitCommand=function(s) s:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-10) end,
 	ActionCommand=function(s) s:decelerate(0.110):y(SCREEN_CENTER_Y+80):queuecommand("Bounce") end,
-	CardLoadedCommand=function(s) s:finishtweening():linear(0.110):y(SCREEN_CENTER_Y-10) end,
+	CardLoadedCommand=function(s) s:stoptweening():linear(0.2):zoom(1):linear(0.110):y(SCREEN_CENTER_Y-10) end,
 	BounceCommand=function(s)
+		s:stoptweening()
 		s:decelerate(0.3):zoom(0.7)
-		:bounceend(0.2):zoom(0.9)
+		:accelerate(0.2):zoom(0.9)
 		:decelerate(0.2):zoom(1)
-		:bounceend(0.2):zoom(0.9)
-		:decelerate(0.2):zoom(1)
+		:accelerate(0.2):zoom(0.9)
+		-- :decelerate(0.3):zoom(1)
 		:queuecommand("Bounce")
 	end,
 	Def.Sprite{
@@ -67,10 +68,15 @@ t[#t+1] = Def.ActorFrame{
 		ActionCommand=function(s) s:sleep(0.110):queuecommand("Bounce") end,
 		CardLoadedCommand=function(s) s:stoptweening():decelerate(0.1):zoom(1) end,
 		BounceCommand=function(s)
-			s:bouncebegin(0.3):zoomx(0.9):zoomy(1.1)
-			:smooth(0.15):zoom(1)
-			:bouncebegin(0.15):zoomx(0.95):zoomy(1.05)
-			:smooth(0.15):zoom(1)
+			s:stoptweening()
+			s:spring(.6):zoomx(0.8):zoomy(1.2)
+			:spring(.6):zoomx(1):zoomy(1)
+			-- :spring(0.2):zoomx(1.1):zoomy(0.9)
+			-- :accelerate(0.2):zoomx(1.1):zoomy(0.9)
+			-- :decelerate(0.2):zoomx(1.05):zoomy(1.05)
+			-- :decelerate(0.2):zoomx(1):zoomy(1)
+			-- :bouncebegin(0.15):zoomx(0.95):zoomy(1.05)
+			-- :smooth(0.15):zoom(1)
 			:queuecommand("Bounce")
 			-- :decelerate(0.2):zoom(1)
 			-- :decelerate(0.4):zoom(1)
