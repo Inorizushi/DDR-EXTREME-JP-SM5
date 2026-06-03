@@ -26,7 +26,7 @@ local t = Def.ActorFrame{
 					Timer:stop()
 				end
 				SOUND:PlayAnnouncer("ScreenProfileSaveSummary MemorySave")
-				s:sleep(0.1):queuecommand("Action"):sleep(1):queuecommand("CardSaved")
+				s:sleep(0.1):queuecommand("Action"):sleep(1):queuecommand("DoSave"):sleep(1):queuecommand("CardSaved")
         	else
             	s:queuecommand("CardSaved")
 			end
@@ -34,6 +34,9 @@ local t = Def.ActorFrame{
 			s:queuecommand("ContinueScreen")
 		end
     end,
+	DoSaveCommand=function(self)
+		GAMESTATE:SaveProfiles()
+	end,
 	CardSavedCommand=function(s)
 		local Timer = SCREENMAN:GetTopScreen():GetChild("Timer")
 		if Timer then
@@ -41,7 +44,6 @@ local t = Def.ActorFrame{
 			Timer:start()
 		end
 		SOUND:PlayAnnouncer("ScreenProfileSaveSummary MemoryCorrect")
-		GAMESTATE:SaveProfiles()
 		SCREENMAN:GetTopScreen():AddInputCallback(DDRInput(s))
 		s:sleep(20):queuecommand("ContinueScreen")
 	end,
