@@ -161,4 +161,10 @@ Branch.InformationPage = function()
 	return nextScreen or "ScreenInformation"
 end
 
+Branch.InformMemoryCard = function()
+	if PREFSMAN:GetPreference("MemoryCards") then
+		return "ScreenMemoryCard"
+	end
+	return "ScreenWarning"
+end
 
