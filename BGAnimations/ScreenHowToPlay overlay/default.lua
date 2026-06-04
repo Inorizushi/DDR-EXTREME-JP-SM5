@@ -1,7 +1,7 @@
 -- ScreenHowToPlay Overlay
 local Char = CHARMAN:GetRandomCharacter()
 
-local animsets = {"BeginnerHelper_step-up","BeginnerHelper_step-jumplr","_DDRPC_common_Rest"}
+local animsets = {"BeginnerHelper_step-up.bones.txt","BeginnerHelper_step-jumplr.bones.txt","_DDRPC_common_Rest.bones.txt"}
 local ch = Def.ActorFrame{
 	OnCommand=function(s) s:fov(90):rotationx(45) end,
 }
@@ -30,11 +30,11 @@ local la
 for i=1,3 do
 
 	-- Check if the animation is even available.
-	if FILEMAN:DoesFileExist("../../../../Characters/"..animsets[i]) then
+	if FILEMAN:DoesFileExist("/Characters/"..animsets[i]) then
 		ch[#ch+1] = Def.Model{
 			Meshes=Char:GetModelPath(),
 			Materials=Char:GetModelPath(),
-			Bones="../../../../Characters/"..animsets[i],
+			Bones="/Characters/"..animsets[i],
 			OnCommand=function(s)
 				s:xy(SCREEN_CENTER_X-WideScale(225,205),SCREEN_CENTER_Y+210):zoom(25):cullmode("CullMode_None")
 				:rate( i == 3 and 1 or 0 ):loop( i == 3 and true or false ):z(30)
