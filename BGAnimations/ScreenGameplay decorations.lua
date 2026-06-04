@@ -52,7 +52,7 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
             )
         end,
         OnCommand=function(s)
-            s:addx( pn == PLAYER_1 and -164 or 164 ):linear(0.6):addx( pn == PLAYER_1 and 164 or -164 )
+            s:addx( pn == PLAYER_1 and -164 or 164 ):linear(0.4):addx( pn == PLAYER_1 and 164 or -164 )
             s:playcommand("Set")
         end,
         SetCommand=function(s)
@@ -93,7 +93,7 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 			s:settext( complete )
 			s:draworder(99):halign( pn == PLAYER_1 and 0 or 1 )
 			:diffuse( pn == PLAYER_1 and color("0.4,0.8,1.0,1") or color("1.0,0.5,0.2,1") )
-			:shadowlength(1):addy(usingreverse and -50 or 78):linear(0.6):addy(usingreverse and 50 or -78)
+			:shadowlength(1):addy(usingreverse and -50 or 78):linear(0.4):addy(usingreverse and 50 or -78)
 		end;
 	};
 
