@@ -153,13 +153,13 @@ local RightToLeftIn = Def.ActorFrame{
 };
 
 local LeftToRightOut = Def.ActorFrame{
-	Def.Sprite{ Texture="../LeftToRight_green",InitCommand=function(s) s:blend(Blend.Add) end };
 	Def.Quad{ InitCommand=function(s) s:addx(64):diffuse(Color.Black):halign(0):zoomto(-travelDist,32) end };
+	Def.Sprite{ Texture="../LeftToRight_green",InitCommand=function(s) s:blend(Blend.Add) end };
 };
 
 local RightToLeftOut = Def.ActorFrame{
-	Def.Sprite{ Texture="../RightToLeft_green",InitCommand=function(s) s:blend(Blend.Add) end };
 	Def.Quad{ InitCommand=function(s) s:addx(-64):diffuse(Color.Black):halign(1):zoomto(-travelDist,32) end };
+	Def.Sprite{ Texture="../RightToLeft_green",InitCommand=function(s) s:blend(Blend.Add) end };
 };
 
 local range = {0,1,2,3,2,1,0}
@@ -181,14 +181,14 @@ for i=0,6 do
 	--stars out right to left
 	t[#t+1] = RightToLeftOut..{
 		InitCommand=function(s) s:xy(SCREEN_RIGHT+65,48+(64*i)) end,
-		OnCommand=function(s) s:addx(80*range[i+1]):sleep(22.566):linear(1.368):addx(-1280) end,
+		OnCommand=function(s) s:addx(80*range[i+1]):sleep(22.566):linear(1.368):addx(-SCREEN_WIDTH*1.6) end,
 	};
 end
 for i=0,7 do
 	--stars out left to right
 	t[#t+1] = LeftToRightOut..{
 		InitCommand=function(s) s:xy(SCREEN_LEFT-65,16+(64*i)) end,
-		OnCommand=function(s) s:addx(-80*range2[i+1]):sleep(22.566):linear(1.368):addx(1280) end,
+		OnCommand=function(s) s:addx(-80*range2[i+1]):sleep(22.566):linear(1.368):addx(SCREEN_WIDTH*1.6) end,
 	};
 end
 
