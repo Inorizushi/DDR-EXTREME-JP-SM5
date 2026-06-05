@@ -24,8 +24,14 @@ local function CreditsText( pn, useSmallFont )
 					self:settext("FREE PLAY")
 				end
 				if GAMESTATE:GetCoinMode() == "CoinMode_Pay" then
-					local credits = GAMESTATE:GetCoins()
-					self:settext( ("CREDIT(S): %i"):format(credits) )
+					local coins = GAMESTATE:GetCoins()
+					local needed = PREFSMAN:GetPreference("CoinsPerCredit")
+					local totalCredits = math.floor(coins / needed)
+					if( needed == 1 or (coins % needed) == 0 ) then
+						self:settext( ("CREDIT(S): %i"):format(totalCredits) )
+					else
+						self:settext( ("CREDIT(S): %i  %i/%i"):format(totalCredits, coins % needed, needed) )
+					end
 				end
 			end
 		end;

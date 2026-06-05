@@ -10,7 +10,7 @@ if memCardEnabled then
 				self:x( player == PLAYER_1 and 0 or 24 )
 				self:animate(0)
 				if PROFILEMAN:ProfileWasLoadedFromMemoryCard(player) then
-					self:setstate(plrOffset+1)
+					self:setstate(plrOffset+3)
 				end
 			end,
 			StorageDevicesChangedMessageCommand=function(self)
@@ -19,7 +19,7 @@ if memCardEnabled then
 				if memCardState == 'checking' then
 					self:setstate(plrOffset+2);
 				elseif memCardState == "ready" then
-					self:setstate(plrOffset+1);
+					self:setstate(plrOffset+3);
 				elseif memCardState == "none" then
 					self:visible(false)
 				else

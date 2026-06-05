@@ -34,6 +34,12 @@ return Def.ActorFrame{
 				self:y(40):diffuse(color("1,1,0.4,1"))
 			end;
 		};
+	},
+
+	LoadActor(THEME:GetPathG("ScreenTitleJoin","Premium")) .. {
+		InitCommand=function(self)
+			self:x(SCREEN_CENTER_X):y( SCREEN_CENTER_Y+100 )
+		end
 	}
 	
 	--[[LoadActor(THEME:GetPathG("", "USB icon"))..{

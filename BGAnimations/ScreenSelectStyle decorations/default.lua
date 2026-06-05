@@ -59,4 +59,27 @@ t[#t+1] = Def.ActorFrame{
 	}
 };
 
+t[#t+1] = Def.Sprite{
+	Condition=GAMESTATE:GetPremium() ~= "Premium_Off",
+	Texture=THEME:GetPathG("ScreenSelectStyle","JointPremium"),
+	InitCommand=cmd(x,SCREEN_CENTER_X-240;y,SCREEN_CENTER_Y+110;valign,0;draworder,200);
+	OnCommand=function(self)
+		self:diffusealpha(0):y(SCREEN_CENTER_Y-120):sleep(0.4):diffusealpha(1)
+		self:linear(0.2)
+		self:y( SCREEN_CENTER_Y+110 )
+		--
+		self:bounceend(0.1):zoomy(0.9)
+		self:bounceend(0.1):zoomy(1)
+	end,
+	--FlashCommand=cmd(diffuseshift;effectperiod,0.5;effectcolor1,1,1,1,1;effectcolor2,0.5,0.5,0.5,1);
+	OffCommand=function(self)
+		self:bounceend(0.1):zoomy(0.9)
+		:bounceend(0.1):zoomy(1)
+		--
+		self:linear(0.2)
+		self:y( SCREEN_CENTER_Y-120 )
+		:sleep(0.01):diffusealpha(0)
+	end
+};
+
 return t
