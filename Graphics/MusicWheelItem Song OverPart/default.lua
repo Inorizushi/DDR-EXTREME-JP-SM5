@@ -11,6 +11,9 @@ t[#t+1] = Def.ActorFrame{
         if indexes[index] then
           self:diffuse(Color.Black)
           self:diffusealpha(alphas[index] or 0.5)
+          if SCREENMAN:GetTopScreen():GetMusicWheel():IsLocked() and index ~= 6 then
+            self:diffusealpha(0.75)
+          end
         else
           self:diffusealpha(0)
         end;

@@ -56,6 +56,8 @@ if ShowStandardDecoration("DifficultyIcon") then
 	end
 end
 
+t[#t+1] = StandardDecorationFromFileOptional("TryExtraStage","TryExtraStage")
+
 t[#t+1] = Def.ActorFrame {
 	Condition=GAMESTATE:HasEarnedExtraStage() and GAMESTATE:IsExtraStage() and not GAMESTATE:IsExtraStage2();
 	InitCommand=cmd(draworder,105);

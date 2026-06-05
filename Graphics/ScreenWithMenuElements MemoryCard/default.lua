@@ -4,7 +4,7 @@ local memCardEnabled = PREFSMAN:GetPreference("MemoryCards");
 if memCardEnabled then
 	function memcardActor(player)
 		local plrOffset = player == PLAYER_1 and 0 or 5
-		return LoadActor(THEME:GetPathG("MemoryCard", "Icons"))..{
+		return LoadActor("Icons")..{
 			OnCommand=function(self)
 				self:visible(ToEnumShortString(MEMCARDMAN:GetCardState(player)) == 'ready')
 				self:x( player == PLAYER_1 and 0 or 24 )
