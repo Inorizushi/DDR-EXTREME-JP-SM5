@@ -1,5 +1,5 @@
 local pref = PREFSMAN:GetPreference("Premium")
-local premiumItem
+local premiumItem = ""
 if pref == 'Premium_DoubleFor1Credit' then premiumItem = "doubles"
 elseif pref == 'Premium_2PlayersFor1Credit' then premiumItem = "joint"
 end

@@ -133,9 +133,18 @@ Branch.Ending = function()
 		return "ScreenGameOver"
 	end
 
-	-- best final grade better than AA: show the credits.
-	-- otherwise, show music scroll.
-	return STATSMAN:GetBestFinalGrade() <= 'Grade_Tier03' and "ScreenCredits" or "ScreenMusicScroll"
+	--[[
+		The credits require a few conditions.
+		- It can only be played if the player has completed a 2nd Extra Stage
+		- The player achieved a AA or higher in general.
+
+		Otherwise, we do MusicScroll instead.
+	]]
+	if GAMESTATE:IsExtraStage2() and STATSMAN:GetBestFinalGrade() <= 'Grade_Tier03' then
+		return "ScreenCredits"
+	end
+	
+	return "ScreenMusicScroll"
 end
 
 -- broken too;

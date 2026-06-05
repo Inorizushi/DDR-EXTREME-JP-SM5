@@ -37,7 +37,7 @@ end
 
 local ste = {}
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-	local usingreverse = GAMESTATE:PlayerIsUsingModifier(pn,'reverse')
+	local usingreverse = GAMESTATE:GetPlayerState(pn):GetPlayerOptions("ModsLevel_Preferred"):Reverse() > 0
 	if not GAMESTATE:IsCourseMode() then
 		local st = GAMESTATE:GetCurrentSteps(pn)
 		local editdata = string.format( "%9s", string.sub(st:GetAuthorCredit() and st:GetAuthorCredit() or st:GetDescription(), 0, 9) )
@@ -90,7 +90,7 @@ for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
 				complete = complete .. a .. " "
 			end
 
-			s:settext( complete )
+			s:settext( complete ):maxwidth(180)
 			s:draworder(99):halign( pn == PLAYER_1 and 0 or 1 )
 			:diffuse( pn == PLAYER_1 and color("0.4,0.8,1.0,1") or color("1.0,0.5,0.2,1") )
 			:shadowlength(1):addy(usingreverse and -50 or 78):linear(0.4):addy(usingreverse and 50 or -78)

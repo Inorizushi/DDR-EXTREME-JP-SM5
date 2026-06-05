@@ -9,7 +9,7 @@ local function CreditsText( pn, useSmallFont )
 				self:SetTextureFiltering(not useSmallFont)
 			end
 			self:zoom( useSmallFont and 2 or 1)
-			:addy( useSmallFont and -4 or 0 )
+			:addy( useSmallFont and -8 or 0 )
 
 			self:playcommand("UpdateVisible")
 		end;
